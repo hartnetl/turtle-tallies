@@ -55,12 +55,21 @@ def collect_raw_data():
     print(f"The data you provided here is '{user_data}'")
     print()
 
-    input("Is this correct? (Y/N) ")
-    print("this validation step will be added later")
-
     # Convert data to csv formatting to go into the spreadsheet
     data_to_csv = user_data.split(",")
+
+    check = input("Is this correct? (Y/N) ")
+    user_verifiy_input(check)
+
     user_data_validation(data_to_csv)
+
+
+def user_verifiy_input(letter):
+    if letter == "Y":
+        pass
+    else:
+        print("Try again\n")
+        collect_raw_data()
 
 
 def user_data_validation(userDataList):
@@ -75,8 +84,10 @@ def user_data_validation(userDataList):
         if userDataList[0] == "help" or userDataList[0] == "Help" or userDataList[0] == "HELP":
             help()
             collect_raw_data()
-    except(RuntimeError):
-        print("Something went wrong")
+        elif len(userDataList) != 6:
+            raise ValueError(f"You must fill in all 6 fields, you only entered {len(userDataList)}")
+    except ValueError as e:
+        print(f"Something went wrong: {e}, try again \n")
 
 
 collect_raw_data()
