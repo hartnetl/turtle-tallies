@@ -1,6 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-import timg
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
