@@ -46,26 +46,26 @@ def collect_raw_data():
     """
     User inputs the collected raw data and it is added to the raw data worksheet.
     """
+    # Prompt the user to input the data, or ask for help on how to format it
     print("Enter latest nesting data")
     print("Type 'help' if you need information on the correct format\n")
-    print("Note, this ^ functionality will be added later")
 
     user_data = input("Enter the data here: ")
 
-    print(f"The data you provided here is '{user_data}'")
-    print()
+    # Return the input data by the user for them to double check it is correct
+    print(f"The data you provided here is '{user_data}'\n")
 
-    # Convert data to csv formatting to go into the spreadsheet
-    data_to_csv = user_data.split(",")
-
+    # Call a function to continue if they say yes(Y), or restart if they say no (N)
     check = input("Is this correct? (Y/N) ")
     user_verifiy_input(check)
 
+    # Convert data to csv formatting to go into the spreadsheet
+    data_to_csv = user_data.split(",")
     user_data_validation(data_to_csv)
 
 
 def user_verifiy_input(letter):
-    if letter == "Y":
+    if letter == "Y" or letter == "y":
         pass
     else:
         print("Try again\n")
