@@ -107,13 +107,13 @@ def collect_raw_data():
     print("Enter latest nesting data")
     print("Type 'help' if you need information on the correct format\n")
 
-    user_data = input("Enter the data here: ")
+    user_data = input("Enter the data here:\n ")
 
     # Return the input data by the user for them to double check it is correct
     print(f"The data you provided here is '{user_data}'\n")
 
     # Call a function to continue if they say yes(Y), or restart if they say no (N)
-    check = input("Is this correct? (Y/N) ")
+    check = input("Is this correct? (Y/N) \n")
     user_verifiy_input(check)
 
     # Convert data to csv formatting to go into the spreadsheet
