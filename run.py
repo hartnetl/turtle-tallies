@@ -56,9 +56,12 @@ def help():
     print("HELP")
     print('Headings:')
     print("DATE, SPECIES, ID, LOCATION, NEST(Y/N), DATA LOGGER (Y/N)")
-    print("For 'DATE' enter the date the turtle or nest was observed in format day/month/year")
-    print("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' for Loggerhead Turtle")
-    print("For 'ID' enter the id code on the turtle's flipper tag, which is CY followed by 4 digits")
+    print("For 'DATE' enter the date the turtle or nest was observed in format \n
+        day/month/year")
+    print("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' for \n
+    Loggerhead Turtle")
+    print("For 'ID' enter the id code on the turtle's flipper tag, which is \n
+     CY followed by 4 digits")
     print("For 'LOCATION' enter B1 or B2 for the beach that you observed the turtle or nest")
     print("For 'NEST' type 'Y' if a nest was successfully laid, or 'N' if the nest and egg laying was not completed")
     print("For 'DATA LOGGER' type 'Y' if a data logger was placed in the nest, and 'N' if it wasn't. Type NA if no nest was laid.")
