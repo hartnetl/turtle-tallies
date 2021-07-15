@@ -21,10 +21,16 @@ new_logger = SHEET.worksheet('log_21')
 logger_20 = SHEET.worksheet('log_20')
 data_stock = SHEET.worksheet('admin')
 
+
 # Help message for formatting the correct input
 def help():
+    """
+    Provide help info for users if needed
+    """
+    print("HELP")
     print('Headings:')
-    print("SPECIES, ID, LOCATION, NEST(Y/N), DATA LOGGER (Y/N)")
+    print("DATE, SPECIES, ID, LOCATION, NEST(Y/N), DATA LOGGER (Y/N)")
+    print("For 'DATE' enter the date the turtle or nest was observed in format day/month/year")
     print("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' for Loggerhead Turtle")
     print("For 'ID' enter the id code on the turtle's flipper tag, which is CY followed by 4 digits")
     print("For 'LOCATION' enter B1 or B2 for the beach that you observed the turtle or nest")
@@ -32,8 +38,8 @@ def help():
     print("For 'DATA LOGGER' type 'Y' if a data logger was placed in the nest, and 'N' if it wasn't. Type NA if no nest was laid.")
     print()
     print('Examples:')
-    print("LOG, CY0000, B1, Y, Y")
-    print("GREEN, CY0101, B2, N, NA")
+    print("01/06/2021, LOG, CY0000, B1, Y, Y")
+    print("01/06/2021, GREEN, CY0101, B2, N, NA\n")
 
 
 def collect_raw_data():
@@ -42,13 +48,35 @@ def collect_raw_data():
     """
     print("Enter latest nesting data")
     print("Type 'help' if you need information on the correct format\n")
-    
+    print("Note, this ^ functionality will be added later")
+
     user_data = input("Enter the data here: ")
-    print()
-    print(f"The data you provided here is {user_data}")
+
+    print(f"The data you provided here is '{user_data}'")
     print()
 
     input("Is this correct? (Y/N) ")
-    print("this worked")
+    print("this validation step will be added later")
+
+    # Convert data to csv formatting to go into the spreadsheet
+    data_to_csv = user_data.split(",")
+    user_data_validation(data_to_csv)
+
+
+def user_data_validation(userDataList):
+    """
+    First checks if user called for help. Returns the help function if they did. 
+    Checks data is in correct format, as per the help guide:
+    There must be 6 values entered.
+    Date in day/month/year,  species is "LOG" or "Green", ID is string of letters and numbers,
+    Location is B1 or B2, Nest is Y or N, Data logger is Y or N
+    """
+    try:
+        if userDataList[0] == "help" or userDataList[0] == "Help" or userDataList[0] == "HELP":
+            help()
+            collect_raw_data()
+    except(RuntimeError):
+        print("Something went wrong")
+
 
 collect_raw_data()
