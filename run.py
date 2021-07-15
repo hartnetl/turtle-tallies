@@ -119,4 +119,4 @@ def user_data_validation(userDataList):
 
 
 welcome()
-# collect_raw_data()
+collect_raw_data()
