@@ -19,7 +19,7 @@ new_green = SHEET.worksheet('green_21')
 green_20 = SHEET.worksheet('green_20')
 new_logger = SHEET.worksheet('log_21')
 logger_20 = SHEET.worksheet('log_20')
-data_stock = SHEET.worksheet('admin')
+info = SHEET.worksheet('admin')
 
 # data = raw_data.get_all_values()
 # print(data)
@@ -153,10 +153,10 @@ def user_data_validation(userDataList):
         collect_raw_data()
     finally:
         print("Validation complete")
-        send_data_to_worksheet(userDataList)
+        send_data_to_worksheets(userDataList)
 
 
-def send_data_to_worksheet(data):
+def send_data_to_worksheets(data):
     """
     After validation, the data input by the user is added to the raw data worksheet.
     """
@@ -164,7 +164,31 @@ def send_data_to_worksheet(data):
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
     print("Raw datasheet update complete!\n")
+   
+    if upper_data[1] == "LOG":
+        new_logger.append_row(upper_data)
+        print("Data also sent to log_21 worksheet")
+    elif upper_data[1] == "GREEN":
+        new_green.append_row(upper_data)
+        print("Data also sent to green_21 worksheet")
 
 
+def calculate_total_nests():
+    """
+    Counts the number of nests laid in raw data sheet
+    """
+    nest_col = raw_data.col_values(5)
+    total = 0
+    for item in nest_col:
+        if item == "Y":
+            total += 1
+    return total
+
+
+total = calculate_total_nests()
+
+
+
+calculate_total_nests()
 # welcome()
-collect_raw_data()
+# collect_raw_data()
