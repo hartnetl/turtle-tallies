@@ -188,7 +188,7 @@ def calculate_total_nests():
 
 def append_total_nests(total):
     """
-    Updates the total nest value in admin worksheet
+    Updates the total nest value in admin worksheet and returns total to user
     """
     info.update('B2', total)
     updated = info.acell('B2').value
@@ -196,10 +196,29 @@ def append_total_nests(total):
     print(f"{updated} nests have been laid this season so far!")
 
 
+def calculate_data_logger_stock():
+    """
+    Updates number of data loggers left
+    """
+    data_logs = raw_data.col_values(6)
+    logs = info.acell('A2').value
+    total = int(logs)
+    for item in data_logs:
+        if item == "Y":
+            total -= 1
+    print("Calculating data loggers left")
+
+    info.update("A2", total)
+    print("Updating data log stock value")
+    updated = info.acell('A2').value
+    print(f"You have {updated} data loggers left")
+
+
 # welcome()
-collect_raw_data()
+# collect_raw_data()
 # calculate_total_nests()
-total = calculate_total_nests()
-append_total_nests(total)
+# total = calculate_total_nests()
+# append_total_nests(total)
+calculate_data_logger_stock()
 
 # 01/06/2021,LOG,CY1234,b1,y,y
