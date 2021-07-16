@@ -164,7 +164,7 @@ def send_data_to_worksheets(data):
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
     print("Raw datasheet update complete!\n")
-   
+
     if upper_data[1] == "LOG":
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
@@ -200,10 +200,34 @@ def append_total_nests(total):
 
 def calculate_green_and_logger_nests():
     """
-    Calculates and returns how many nests have been laid by logger 
+    Calculates and returns how many nests have been laid by loggerhead
     and green turtles this season so far
     """
-    
+    # Calculate greens first
+    green_nest = new_green.col_values(4)
+    green_total = 0
+    print("Calculating green nests")
+    for item in green_nest:
+        if item == "Y":
+            green_total += 1
+
+    print("Adding to admin sheet")
+    info.update('C2', green_total)
+    green = info.acell('C2').value
+    print(f"There have been {green} Green Sea Turtle nests laid so far this season")
+
+    # Now the loggerheads
+    logger_nest = new_logger.col_values(4)
+    logger_total = 0
+    print("Calculating logger nests")
+    for items in logger_nest:
+        if items == "Y":
+            logger_total += 1
+
+    print("Adding to admin sheet")
+    info.update('D2', logger_total)
+    logger = info.acell('D2').value
+    print(f"There have been {logger} Loggerhead Turtle nests laid so far this season")
 
 
 def calculate_data_logger_stock():
@@ -239,9 +263,10 @@ collect_raw_data()
 total = calculate_total_nests()
 append_total_nests(total)
 calculate_data_logger_stock()
+calculate_green_and_logger_nests()
 # calculate_difference()
 
-# 01/06/2021,LOG,CY1234,b1,y,y
+# 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
 # new_green = SHEET.worksheet('green_21')
 # green_20 = SHEET.worksheet('green_20')
