@@ -182,13 +182,24 @@ def calculate_total_nests():
     for item in nest_col:
         if item == "Y":
             total += 1
+    print("Calculating total nests")
     return total
 
 
-total = calculate_total_nests()
+def append_total_nests(total):
+    """
+    Updates the total nest value in admin worksheet
+    """
+    info.update('B2', total)
+    updated = info.acell('B2').value
+    print("Updating total in admin worksheet")
+    print(f"{updated} nests have been laid this season so far!")
 
 
-
-calculate_total_nests()
 # welcome()
-# collect_raw_data()
+collect_raw_data()
+# calculate_total_nests()
+total = calculate_total_nests()
+append_total_nests(total)
+
+# 01/06/2021,LOG,CY1234,b1,y,y
