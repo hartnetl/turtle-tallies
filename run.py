@@ -100,10 +100,12 @@ def user_verifiy_input(letter):
 
 def user_data_validation(userDataList):
     """
-    First checks if user called for help. Returns the help function if they did.
+    First checks if user called for help. Returns the help function if they
+    did.
     Checks data is in correct format, as per the help guide:
     There must be 6 values entered.
-    Date in day/month/year,  species is "LOG" or "Green", ID is string of letters and numbers,
+    Date in day/month/year,  species is "LOG" or "Green", ID is string of
+    letters and numbers,
     Location is B1 or B2, Nest is Y or N, Data logger is Y or N
     """
     try:
@@ -114,8 +116,18 @@ def user_data_validation(userDataList):
             raise ValueError(
                 f"You must fill in all 6 fields, you only entered {len(userDataList)}"
             )
+        elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
+            raise NameError(
+                f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
+            )        
     except ValueError as e:
-        print(f"Something went wrong: {e}, try again \n")
+        print(f"Something went wrong: {e}, try again")
+        collect_raw_data()
+    except NameError as e:
+        print(f"You entered the wrong values: {e}, try again")
+        collect_raw_data()
+    finally:
+        pass
 
 
 # welcome()
