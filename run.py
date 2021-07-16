@@ -21,6 +21,9 @@ new_logger = SHEET.worksheet('log_21')
 logger_20 = SHEET.worksheet('log_20')
 data_stock = SHEET.worksheet('admin')
 
+# data = raw_data.get_all_values()
+# print(data)
+
 
 def welcome():
     print("""
@@ -70,7 +73,7 @@ def help():
 
 def collect_raw_data():
     """
-    User inputs the collected raw data and it is added to the raw data worksheet.
+    User inputs the collected raw data.
     """
     # Prompt the user to input the data, or ask for help on how to format it
     print("Enter latest nesting data")
@@ -91,6 +94,11 @@ def collect_raw_data():
 
 
 def user_verifiy_input(letter):
+    """
+    This checks if the user is sure they have entered the correct data.
+    If yes, the program continues.
+    If no, it asks for the data to be entered again.
+    """
     if letter == "Y" or letter == "y":
         pass
     else:
@@ -116,6 +124,7 @@ def user_data_validation(userDataList):
             raise ValueError(
                 f"You must fill in all 6 fields, you only entered {len(userDataList)}"
             )
+        # Data validation needed here
         elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
             raise NameError(
                 f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
@@ -143,7 +152,18 @@ def user_data_validation(userDataList):
         print(f"You entered the wrong values: {e}, try again")
         collect_raw_data()
     finally:
-        pass
+        print("Validation complete")
+        send_data_to_worksheet(userDataList)
+
+
+def send_data_to_worksheet(data):
+    """
+    After validation, the data input by the user is added to the raw data worksheet.
+    """
+    print("Updating the worksheet...\n")
+    upper_data = [item.upper() for item in data]
+    raw_data.append_row(upper_data)
+    print("Raw datasheet update complete!\n")
 
 
 # welcome()
