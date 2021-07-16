@@ -119,7 +119,23 @@ def user_data_validation(userDataList):
         elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
             raise NameError(
                 f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
-            )        
+            )
+        elif len(userDataList[2]) != 6:
+            raise ValueError(
+                f"The ID should be CY followed by 4 digits, you entered {userDataList[2]}. Try again"
+            )
+        elif userDataList[3].upper() != "B1" and userDataList[3].upper() != "B2":
+            raise NameError(
+                f"You must enter 'B1' or 'B2', you entered {userDataList[3]}"
+            )
+        elif userDataList[4].upper() != "Y" and userDataList[4].upper() != "N":
+            raise NameError(
+                f"You must enter 'Y' or 'N' for nest, you entered {userDataList[4]}"
+            )
+        elif userDataList[5].upper() != "Y" and userDataList[5].upper() != "N":
+            raise NameError(
+                f"You must enter 'Y' or 'N' for nest, you entered {userDataList[5]}"
+            )
     except ValueError as e:
         print(f"Something went wrong: {e}, try again")
         collect_raw_data()
