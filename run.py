@@ -166,9 +166,11 @@ def send_data_to_worksheets(data):
     print("Raw datasheet update complete!\n")
    
     if upper_data[1] == "LOG":
+        upper_data.remove('LOG')
         new_logger.append_row(upper_data)
         print("Data also sent to log_21 worksheet")
     elif upper_data[1] == "GREEN":
+        upper_data.remove('GREEN')
         new_green.append_row(upper_data)
         print("Data also sent to green_21 worksheet")
 
@@ -196,6 +198,14 @@ def append_total_nests(total):
     print(f"{updated} nests have been laid this season so far!")
 
 
+def calculate_green_and_logger_nests():
+    """
+    Calculates and returns how many nests have been laid by logger 
+    and green turtles this season so far
+    """
+    
+
+
 def calculate_data_logger_stock():
     """
     Updates number of data loggers left
@@ -214,11 +224,27 @@ def calculate_data_logger_stock():
     print(f"You have {updated} data loggers left")
 
 
+# def calculate_difference():
+#     """
+#     Calculate and return the number of green and
+#     logger turtle nests laid compared to last year
+#     """
+#     print("Calculating difference in nest numbers compared to last year")
+#     last_green = int(green_20.acell('F2').value
+#     this_green = int(info.acell(''))
+
+
 # welcome()
-# collect_raw_data()
-# calculate_total_nests()
-# total = calculate_total_nests()
-# append_total_nests(total)
+collect_raw_data()
+total = calculate_total_nests()
+append_total_nests(total)
 calculate_data_logger_stock()
+# calculate_difference()
 
 # 01/06/2021,LOG,CY1234,b1,y,y
+# raw_data = SHEET.worksheet('raw_data')
+# new_green = SHEET.worksheet('green_21')
+# green_20 = SHEET.worksheet('green_20')
+# new_logger = SHEET.worksheet('log_21')
+# logger_20 = SHEET.worksheet('log_20')
+# info = SHEET.worksheet('admin')
