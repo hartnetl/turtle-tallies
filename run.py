@@ -59,10 +59,16 @@ def type_print(str):
     """
     Prints text out letter by letter instead of all at once
     """
-    for letter in str + '\n':
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(.8)
+#     for letter in str + '\n':
+#         sys.stdout.write(letter)
+#         # sys.stdout.flush()
+#         time.sleep(.8)
+    for char in str:
+        print(char, end='') 
+        sys.stdout.flush() 
+        time.sleep(0.2)
+
+
 
 
 def fast_print(str):
@@ -89,7 +95,7 @@ def help():
     type_print("For 'LOCATION' enter B1 or B2 for the beach that you observed the turtle or nest")
     type_print("For 'NEST' type 'Y' if a nest was successfully laid, or 'N' if the nest and egg laying was not completed")
     type_print("For 'DATA LOGGER' type 'Y' if a data logger was placed in the nest, and 'N' if it wasn't. Type NA if no nest was laid.")
-    type_print()
+    type_print(" ")
     type_print('Examples:')
     type_print("01/06/2021, LOG, CY0000, B1, Y, Y")
     type_print("01/06/2021, GREEN, CY0101, B2, N, NA\n")
@@ -311,18 +317,13 @@ def calculate_difference():
         type_print("The same amount of nests were laid last year")
 
 
-welcome()
+# welcome()
 collect_raw_data()
 # total = calculate_total_nests()
 # append_total_nests(total)
 # calculate_data_logger_stock()
 # calculate_green_and_logger_nests()
 # calculate_difference()
-
-
-
-
-
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
