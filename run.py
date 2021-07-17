@@ -1,6 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
-import sys,time
+import sys
+import time
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -48,7 +49,7 @@ def welcome():
     fast_print("""
                ╔╦╗╦ ╦╦═╗╔╦╗╦  ╔═╗  ╔╦╗╔═╗╦  ╦  ╦╔═╗╔═╗
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
-                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝
+                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝.
     """)
 
 
@@ -61,7 +62,7 @@ def type_print(str):
     for letter in str + '\n':
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(.06)
+        time.sleep(.1)
 
 
 def fast_print(str):
@@ -72,7 +73,7 @@ def fast_print(str):
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(.01)
-        
+
 
 # Help message for formatting the correct input
 def help():
