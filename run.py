@@ -212,8 +212,8 @@ def calculate_green_and_logger_nests():
             green_total += 1
 
     print("Adding to admin sheet")
-    info.update('C2', green_total)
-    green = info.acell('C2').value
+    info.update('D2', green_total)
+    green = info.acell('D2').value
     print(f"There have been {green} Green Sea Turtle nests laid so far this season")
 
     # Now the loggerheads
@@ -225,8 +225,8 @@ def calculate_green_and_logger_nests():
             logger_total += 1
 
     print("Adding to admin sheet")
-    info.update('D2', logger_total)
-    logger = info.acell('D2').value
+    info.update('E2', logger_total)
+    logger = info.acell('E2').value
     print(f"There have been {logger} Loggerhead Turtle nests laid so far this season")
 
 
@@ -248,23 +248,52 @@ def calculate_data_logger_stock():
     print(f"You have {updated} data loggers left")
 
 
-# def calculate_difference():
-#     """
-#     Calculate and return the number of green and
-#     logger turtle nests laid compared to last year
-#     """
-#     print("Calculating difference in nest numbers compared to last year")
-#     last_green = int(green_20.acell('F2').value
-#     this_green = int(info.acell(''))
+def calculate_difference():
+    """
+    Calculate and return the number of green and
+    logger turtle nests laid compared to last year
+    """
+    print("Calculating difference in total nest numbers compared to last year")
+    last_total = int(info.acell('C2').value)
+    this_total = int(info.acell('B2').value)
+    total_diff = last_total - this_total
+    if total_diff > 0:
+        print(f"There were {total_diff} more nests laid in total last year")
+    elif total_diff < 0:
+        print(f"There were {total_diff} less nests laid in total last year")
+    elif total_diff == 0:
+        print("The same amount of nests were laid last year")
+
+    print("Calculating difference in green turtle nest numbers compared to last year")
+    last_green = int(green_20.acell('F2').value)
+    this_green = int(info.acell('D2').value)
+    green_diff = last_green - this_green
+    if green_diff > 0:
+        print(f"There were {green_diff} more green nests laid last year")
+    elif green_diff < 0:
+        print(f"There were {green_diff} less green nests laid last year")
+    elif green_diff == 0:
+        print("The same amount of nests were laid last year")
+
+    print("Calculating difference in loggerhead turtle nest numbers compared to last year")
+    last_loggerhead = int(logger_20.acell('F3').value)
+    this_loggerhead = int(info.acell('E2').value)
+    loggerhead_diff = last_loggerhead - this_loggerhead
+    if loggerhead_diff > 0:
+        print(f"There were {loggerhead_diff} more loggerhead nests laid last year")
+    elif loggerhead_diff < 0:
+        print(f"There were {loggerhead_diff} less loggerhead nests laid last year")
+    elif loggerhead_diff == 0:
+        print("The same amount of nests were laid last year")  
 
 
 # welcome()
-collect_raw_data()
-total = calculate_total_nests()
-append_total_nests(total)
-calculate_data_logger_stock()
-calculate_green_and_logger_nests()
-# calculate_difference()
+# collect_raw_data()
+# total = calculate_total_nests()
+# append_total_nests(total)
+# calculate_data_logger_stock()
+# calculate_green_and_logger_nests()
+calculate_difference()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
