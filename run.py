@@ -177,10 +177,10 @@ def user_data_validation(userDataList):
                 f"You must enter 'Y' or 'N' for nest, you entered {userDataList[5]}"
             )
     except ValueError as e:
-        print(f"Something went wrong: {e}, try again")
+        print_red(f"Something went wrong: {e}, try again")
         collect_raw_data()
     except NameError as e:
-        print(f"You entered the wrong values: {e}, try again")
+        print_red(f"You entered the wrong values: {e}, try again")
         collect_raw_data()
     finally:
         print("Validation complete")
