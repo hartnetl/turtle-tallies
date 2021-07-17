@@ -49,7 +49,7 @@ def welcome():
     fast_print("""
                ╔╦╗╦ ╦╦═╗╔╦╗╦  ╔═╗  ╔╦╗╔═╗╦  ╦  ╦╔═╗╔═╗
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
-                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝.
+                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝..
     """)
 
 
@@ -62,7 +62,7 @@ def type_print(str):
     for letter in str + '\n':
         sys.stdout.write(letter)
         sys.stdout.flush()
-        time.sleep(1)
+        time.sleep(.8)
 
 
 def fast_print(str):
