@@ -58,20 +58,16 @@ def welcome():
 
 # Credit for help with this function
 # https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
-# def type_print(str):
-#     """
-#     Prints text out letter by letter instead of all at once
-#     """
-# #     for letter in str + '\n':
-# #         sys.stdout.write(letter)
-# #         # sys.stdout.flush()
-# #         time.sleep(.8)
-#     for char in str:
-#         print(char, end='') 
-#         sys.stdout.flush() 
-#         time.sleep(0.2)
-
-
+def type_print(str):
+    """
+    Prints text out letter by letter instead of all at once
+    """
+    for letter in str + '\n':
+        sys.stdout.write(letter)
+        sys.stdout.flush()
+        time.sleep(.1)
+  
+  
 def fast_print(str):
     """
     Prints text out quickly letter by letter instead of all at once
@@ -107,13 +103,13 @@ def collect_raw_data():
     User inputs the collected raw data.
     """
     # Prompt the user to input the data, or ask for help on how to format it
-    print("Enter latest nesting data")
-    print("Type 'help' if you need information on the correct format\n")
+    type_print("Enter latest nesting data")
+    type_print("Type 'help' if you need information on the correct format\n")
 
     user_data = input("Enter the data here: \n ")
 
     # Return the input data by the user for them to double check it is correct
-    print(f"The data you provided here is '{user_data}'\n")
+    type_print(f"The data you provided here is '{user_data}'\n")
 
     # Call a function to continue if they say yes(Y), or restart if they say no (N)
     check = input("Is this correct? (Y/N) \n")
@@ -152,22 +148,22 @@ def user_data_validation(userDataList):
             help()
             collect_raw_data()
         elif len(userDataList) != 6:
-            raise ValueError(
+            raise ValueError(type_print(
                 f"You must fill in all 6 fields, you only entered {len(userDataList)}"
-            )
+            ))
         # Data validation needed here
         elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
-            raise NameError(
+            raise NameError(type_print(
                 f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
-            )
+            ))
         elif len(userDataList[2]) != 6:
-            raise ValueError(
+            raise ValueError(type_print(
                 f"The ID should be CY followed by 4 digits, you entered {userDataList[2]}. Try again"
-            )
+            ))
         elif userDataList[3].upper() != "B1" and userDataList[3].upper() != "B2":
-            raise NameError(
+            raise NameError(type_print(
                 f"You must enter 'B1' or 'B2', you entered {userDataList[3]}"
-            )
+            ))
         elif userDataList[4].upper() != "Y" and userDataList[4].upper() != "N":
             raise NameError(
                 f"You must enter 'Y' or 'N' for nest, you entered {userDataList[4]}"
