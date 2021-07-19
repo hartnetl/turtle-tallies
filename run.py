@@ -314,7 +314,7 @@ def calculate_difference():
         print("The same amount of nests were laid last year")
 
 
-# welcome()
+welcome()
 collect_raw_data()
 total = calculate_total_nests()
 append_total_nests(total)
