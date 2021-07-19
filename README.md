@@ -42,6 +42,19 @@ The focus of this study is to calculate the abundance of nests on two beaches in
 
 ## Bugs
 
+- For user_verify_input, 'y' isn't registered as 'Y' and it restarts the function
+    - Fix: Add an or statement. Change this later to lower method if possible
+-Data entered into worksheets wasn't changed to uppercase
+    - Add the upper() method before appending
+- When data was added to species specific worksheets, the species data was also being transferred when there wasn't a column for it 
+    - Add remove method to function before appending
+- Type_print works great in terminal, but not deployed version
+    - NOT FIXED
+- Input validation can't have spaces
+    - NOT FIXED
+- Colour doesn't work properly for inputs
+    - NOT FIXED
+
 ***
 
 ## Credits

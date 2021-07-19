@@ -66,8 +66,8 @@ def type_print(str):
         sys.stdout.write(letter)
         sys.stdout.flush()
         time.sleep(.1)
-  
-  
+
+
 def fast_print(str):
     """
     Prints text out quickly letter by letter instead of all at once
@@ -317,10 +317,10 @@ def calculate_difference():
 # welcome()
 collect_raw_data()
 total = calculate_total_nests()
-# append_total_nests(total)
-# calculate_data_logger_stock()
-# calculate_green_and_logger_nests()
-# calculate_difference()
+append_total_nests(total)
+calculate_data_logger_stock()
+calculate_green_and_logger_nests()
+calculate_difference()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
