@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 import sys
 import time
-from termcolor import colored, cprint
+from termcolor import cprint
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -31,7 +31,7 @@ print_blue = lambda x: cprint(x, 'blue')
 
 
 def welcome():
-    fast_print("""
+    print("""
                                                     ,'
                                                   ,;
                                                 .'/
@@ -49,7 +49,7 @@ def welcome():
                         `.^'
     """)
 
-    fast_print("""
+    print("""
                ╔╦╗╦ ╦╦═╗╔╦╗╦  ╔═╗  ╔╦╗╔═╗╦  ╦  ╦╔═╗╔═╗
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
                 ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝..
@@ -58,24 +58,24 @@ def welcome():
 
 # Credit for help with this function
 # https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
-def type_print(str):
-    """
-    Prints text out letter by letter instead of all at once
-    """
-    for letter in str + '\n':
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(.1)
+# def type_print(str):
+#     """
+#     Prints text out letter by letter instead of all at once
+#     """
+#     for letter in str + '\n':
+#         sys.stdout.write(letter)
+#         sys.stdout.flush()
+#         time.sleep(.1)
 
 
-def fast_print(str):
-    """
-    Prints text out quickly letter by letter instead of all at once
-    """
-    for letter in str + '\n':
-        sys.stdout.write(letter)
-        sys.stdout.flush()
-        time.sleep(.01)
+# def fast_print(str):
+#     """
+#     Prints text out quickly letter by letter instead of all at once
+#     """
+#     for letter in str + '\n':
+#         sys.stdout.write(letter)
+#         sys.stdout.flush()
+#         time.sleep(.01)
 
 
 # Help message for formatting the correct input
@@ -103,13 +103,36 @@ def collect_raw_data():
     User inputs the collected raw data.
     """
     # Prompt the user to input the data, or ask for help on how to format it
-    type_print("Enter latest nesting data")
-    type_print("Type 'help' if you need information on the correct format\n")
+    print("Enter latest nesting data in the format date, species, ID, location, nest, data logger")
+    print("Note: Do not include any spaces")
+    print("Example: 1/2/21,LOG,CY1234,B1,Y,N\n")
+    print("Do you need more information on how to")
 
-    user_data = input("Enter the data here: \n ")
+    date, species,  id, beach, nest, data logger
+
+    while True:
+        
+        date = input("Enter the date (eg: 1/6/2021): \n ")
+        species = input("Enter the species ('LOG' or 'GREEN': \n ")
+        turtle_id = input("Enter the ID (eg: CY1234): \n ")
+        beach_id = input("Enter the beach ID ('B1' or 'B2'): \n ")
+        nest_laid = input("Was a nest laid? (Y/N): \n ")
+        logger_used = input("Was a data logger placed in the nest (Y/N): \n ")
+
+        sales_data = data_str.split(",")
+
+        if validate_data(sales_data):
+            print("Data is valid!")
+            break
+
+    return sales_data
+
+    
+
+    
 
     # Return the input data by the user for them to double check it is correct
-    type_print(f"The data you provided here is '{user_data}'\n")
+    print(f"The data you provided here is '{user_data}'\n")
 
     # Call a function to continue if they say yes(Y), or restart if they say no (N)
     check = input("Is this correct? (Y/N) \n")
@@ -117,8 +140,21 @@ def collect_raw_data():
 
     # Convert data to csv formatting to go into the spreadsheet
     data_to_csv = user_data.split(",")
-    user_data_validation(data_to_csv)
+    return data_to_csv
+    # user_data_validation(data_to_csv)
 
+
+
+
+    
+    
+
+
+
+
+
+
+def verify_species(species)
 
 def user_verifiy_input(letter):
     """
@@ -144,26 +180,26 @@ def user_data_validation(userDataList):
     Location is B1 or B2, Nest is Y or N, Data logger is Y or N
     """
     try:
-        if userDataList[0] == "help" or userDataList[0] == "Help" or userDataList[0] == "HELP":
+        if userDataList[0].lower() == "help":
             help()
             collect_raw_data()
         elif len(userDataList) != 6:
-            raise ValueError(type_print(
+            raise ValueError(
                 f"You must fill in all 6 fields, you only entered {len(userDataList)}"
-            ))
-        # Data validation needed here
+            )
+        # Date validation needed here
         elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
-            raise NameError(type_print(
+            raise NameError(
                 f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
-            ))
+            )
         elif len(userDataList[2]) != 6:
-            raise ValueError(type_print(
+            raise ValueError(
                 f"The ID should be CY followed by 4 digits, you entered {userDataList[2]}. Try again"
-            ))
+            )
         elif userDataList[3].upper() != "B1" and userDataList[3].upper() != "B2":
-            raise NameError(type_print(
+            raise NameError(
                 f"You must enter 'B1' or 'B2', you entered {userDataList[3]}"
-            ))
+            )
         elif userDataList[4].upper() != "Y" and userDataList[4].upper() != "N":
             raise NameError(
                 f"You must enter 'Y' or 'N' for nest, you entered {userDataList[4]}"
@@ -313,14 +349,19 @@ def calculate_difference():
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
 
+def main():
+    # welcome()
+    raw_data = collect_raw_data()
+    print(raw_data)
+    user_data_validation(raw_data)
 
-welcome()
-collect_raw_data()
-total = calculate_total_nests()
-append_total_nests(total)
-calculate_data_logger_stock()
-calculate_green_and_logger_nests()
-calculate_difference()
+    # total = calculate_total_nests()
+    # append_total_nests(total)
+    # calculate_data_logger_stock()
+    # calculate_green_and_logger_nests()
+    # calculate_difference()
+
+# main()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
