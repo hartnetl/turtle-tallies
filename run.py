@@ -19,6 +19,7 @@ SHEET = GSPREAD_CLIENT.open('turtle_tallies')
 
 # Naming each worksheet in the document
 raw_data = SHEET.worksheet('raw_data_21')
+raw_20 = SHEET.worksheet('raw_data_20')
 new_green = SHEET.worksheet('green_21')
 green_20 = SHEET.worksheet('green_20')
 new_logger = SHEET.worksheet('log_21')
@@ -524,6 +525,58 @@ to last year \n")
     return loggerhead_diff
 
 
+def tally_weeks():
+    print("sorting weekly data")
+    this_raw_w1 = int(raw_data.acell('H2').value)
+    this_raw_w2 = int(raw_data.acell('H3').value)
+    this_raw_w3 = int(raw_data.acell('H4').value)
+    this_raw_wF = int(raw_data.acell('H5').value)
+    this_raw_col = raw_data.col_values(1)
+    print(this_raw_col)
+
+    this_green_w1 = int(new_green.acell('G2').value)
+    this_green_w2 = int(new_green.acell('G3').value)
+    this_green_w3 = int(new_green.acell('G4').value)
+    this_green_wF = int(new_green.acell('G5').value)
+    this_green_col = new_green.col_values(1)
+
+    this_loggerhead_w1 = int(new_logger.acell('G2').value)
+    this_loggerhead_w2 = int(new_logger.acell('G3').value)
+    this_loggerhead_w3 = int(new_logger.acell('G4').value)
+    this_loggerhead_wF = int(new_logger.acell('G5').value)
+    this_loggerhead_col = new_logger.col_values(1)
+
+    last_raw_w1 = int(raw_20.acell('H2').value)
+    last_raw_w2 = int(raw_20.acell('H3').value)
+    last_raw_w3 = int(raw_20.acell('H4').value)
+    last_raw_wF = int(raw_20.acell('H5').value)
+    last_raw_col = raw_20.col_values(1)
+
+    last_green_w1 = int(green_20.acell('H2').value)
+    last_green_w2 = int(green_20.acell('H3').value)
+    last_green_w3 = int(green_20.acell('H4').value)
+    last_green_wF = int(green_20.acell('H5').value)
+    last_green_col = green_20.col_values(1)
+
+    last_loggerhead_w1 = int(logger_20.acell('H2').value)
+    last_loggerhead_w2 = int(logger_20.acell('H3').value)
+    last_loggerhead_w3 = int(logger_20.acell('H4').value)
+    last_loggerhead_wF = int(logger_20.acell('H5').value)
+    last_loggerhead_col = logger_20.col_values(1)
+
+    # for x in this_raw_col:
+    #     print("Counting weekly data")
+    #     if x == "WEEK 1":
+    #         this_raw_w1 += 1
+    #         raw_data.update('H2', this_raw_w1)
+    #     elif x == "WEEK 2":
+    #         this_raw_w2 += 1
+    #         raw_data.update('H3', this_raw_w2)
+    #     else: 
+    #         break
+
+tally_weeks()
+
 def compare_weeks(week):
     total_week_1 = 1
     last_total_week_1 = 2.1
@@ -666,7 +719,7 @@ def main(user_data):
     calculate_data_logger_stock()
     calculate_green_and_logger_nests()
     calculate_nest_differences()
-    
+
     # compare_weeks(week)
 
 
