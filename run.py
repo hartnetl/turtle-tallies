@@ -400,11 +400,11 @@ def send_data_to_worksheets(data):
     raw_data.append_row(upper_data)
     print("Raw datasheet update complete!\n")
 
-    if upper_data[1] == "LOG":
+    if upper_data[2] == "LOG":
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
         print("Loggerhead data also sent to log_21 worksheet")
-    elif upper_data[1] == "GREEN":
+    elif upper_data[2] == "GREEN":
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
         print("Green data also sent to green_21 worksheet")
@@ -414,7 +414,7 @@ def calculate_total_nests():
     """
     Counts the number of nests laid in raw data sheet
     """
-    nest_col = raw_data.col_values(5)
+    nest_col = raw_data.col_values(6)
     total = 0
     for item in nest_col:
         if item == "Y":
@@ -427,7 +427,7 @@ def calculate_nest_attempts():
     """
     Calculates the number of nests attempted, successful or not
     """
-    nest_col = raw_data.col_values(5)
+    nest_col = raw_data.col_values(6)
     attempts = 0
     for item in nest_col:
         if item == "Y" or item == "N":
@@ -456,7 +456,7 @@ def calculate_green_and_logger_nests():
     and green turtles this season so far
     """
     # Calculate greens first
-    green_nest = new_green.col_values(4)
+    green_nest = new_green.col_values(5)
     green_total = 0
     print("Calculating green nests")
     for item in green_nest:
@@ -470,7 +470,7 @@ def calculate_green_and_logger_nests():
 this season")
 
     # Now the loggerheads
-    logger_nest = new_logger.col_values(4)
+    logger_nest = new_logger.col_values(5)
     logger_total = 0
     print("Calculating logger nests")
     for items in logger_nest:
@@ -488,7 +488,7 @@ def calculate_data_logger_stock():
     """
     Updates number of data loggers left and returns value to user
     """
-    data_logs = raw_data.col_values(6)[-1]
+    data_logs = raw_data.col_values(7)[-1]
     logs = info.acell('A2').value
     total = int(logs)
     if data_logs == "Y":
@@ -524,23 +524,25 @@ to last year")
     green_diff = last_green - this_green
     info.update('F2', green_diff)
     if green_diff > 0:
-        print(f"There were {green_diff} more green nests laid last year")
+        print(f"There was {green_diff} more green nests laid last year")
     elif green_diff < 0:
-        print(f"There were {green_diff} less green nests laid last year")
+        green_diff_ = - (green_diff)
+        print(f"There was {green_diff_} less green nests laid last year")
     elif green_diff == 0:
         print("The same amount of nests were laid last year")
 
     print("Calculating difference in loggerhead turtle nest numbers compared \
 to last year")
-    last_loggerhead = int(logger_20.acell('G3').value)
+    last_loggerhead = int(logger_20.acell('G2').value)
     this_loggerhead = int(info.acell('E2').value)
     loggerhead_diff = last_loggerhead - this_loggerhead
     info.update('G2', loggerhead_diff)
     if loggerhead_diff > 0:
-        print(f"There were {loggerhead_diff} more loggerhead nests laid \
+        print(f"There was {loggerhead_diff} more loggerhead nests laid \
 last year")
     elif loggerhead_diff < 0:
-        print(f"There were {loggerhead_diff} less loggerhead nests laid \
+        loggerhead_diff_ = - (loggerhead_diff)
+        print(f"There was {loggerhead_diff_} less loggerhead nests laid \
  last year")
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
@@ -590,9 +592,9 @@ def main(user_data):
 
 
 # welcome_title()
-# welcome_msg()
-# main(user_data)
-# summary()
+welcome_msg()
+main(user_data)
+summary()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
