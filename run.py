@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 import sys
 import time
 from termcolor import cprint
+from datetime import datetime
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -164,9 +165,48 @@ def get_date():
     """
     Ask user for the date and append it to user_data
     """
-    print("Collecting date data")
-    date = input("Enter the date (format: 1/6/21): \n ")
-    user_data.append(date)
+    while True:
+        print("Collecting date data")
+        user_date = input("Enter the date (format: 01/06/21): \n ")
+    
+        if validate_date(user_date):
+            print("date was entered correctly")
+            user_data.append(user_date)
+            break
+
+def validate_date(user_date):
+    """
+    Validates that the date input is day/month/year.
+    Throws an error if it is not and user will be asked to enter it again.
+    """
+    try:
+        date_obj = datetime.strptime(user_date, '%d%m%y').date()
+        if date_obj.day > 30:
+            raise ValueError(
+                f"There are only 30 days in June, you entered {date_obj.day}")
+        elif date_obj.month != "06":
+            raise ValueError(
+                f"The month should be '06', you entered {date_obj.month}")
+        elif date_obj.year != 21:
+            raise ValueError(
+                f"The year should be '21', you entered {date_obj.year}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
+
+# get_date()
+
+
+my_date = "21-03-1994"
+date_obj = datetime.strptime(my_date, "%d-%m-%y").date()
+print(date_obj)
+
+# my attempts
+# date_obj = datetime.datetime.strptime(my_date, "%d/%m/%y")
+# date_obj = datetime.strptime(my_date, "%d/%m/%y")
+# date_obj = datetime.datetime.strptime(my_date, "%d%m%y")
+# date_obj = datetime.strptime(my_date, "%d%m%y")
 
 
 def get_species():
@@ -543,9 +583,9 @@ def main(user_data):
 
 
 # welcome_title()
-welcome_msg()
-main(user_data)
-summary()
+# welcome_msg()
+# main(user_data)
+# summary()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
