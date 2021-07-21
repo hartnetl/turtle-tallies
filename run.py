@@ -229,10 +229,33 @@ def validate_nest(nest):
     return True
 
 
+def get_data_logger_info():
+    while True: 
+        print("Collecting data logger data")
+        data = input("Was a data logger placed in the nest (Y/N)?: \n ")
+
+        if validate_data(data):
+            print("Data logger data was entered correctly!")
+            user_data.append(data)
+            break
+
+
+def validate_data(data):
+    try:
+        if data.upper() != "Y" and data.upper() != "N":
+            raise ValueError(
+                F"Enter 'Y' or 'N', you entered {data}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
+
+
 # get_species()
 # get_turtle_id()
 # get_beach_id()
-get_nest_info()
+# get_nest_info()
+get_data_logger_info()
 
 # print(user_data)
 
