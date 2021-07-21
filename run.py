@@ -1,7 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
-import sys
-import time
+# import sys
+# import time
 from termcolor import cprint
 from datetime import datetime
 
@@ -168,7 +168,7 @@ def get_date():
     while True:
         print("Collecting date data")
         user_date = input("Enter the date (format: 01/06/21): \n ")
-    
+  
         if validate_date(user_date):
             print("date was entered correctly")
             user_data.append(user_date)
@@ -180,33 +180,17 @@ def validate_date(user_date):
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
-        date_obj = datetime.strptime(user_date, '%d%m%y').date()
-        if date_obj.day > 30:
+        date_obj = datetime.strptime(user_date, "%d/%m/%y")
+        if date_obj.month != 6:
             raise ValueError(
-                f"There are only 30 days in June, you entered {date_obj.day}")
-        elif date_obj.month != "06":
+                f"The month should be '06', you entered '{date_obj.month}'")
+        elif date_obj.year != 2021:
             raise ValueError(
-                f"The month should be '06', you entered {date_obj.month}")
-        elif date_obj.year != 21:
-            raise ValueError(
-                f"The year should be '21', you entered {date_obj.year}")
+                f"The year should be '2021', you entered '{date_obj.year}'")
     except ValueError as e:
         print(f"Invalid entry: {e}, try again")
         return False
     return True
-
-# get_date()
-
-
-my_date = "21-03-1994"
-date_obj = datetime.strptime(my_date, "%d-%m-%y").date()
-print(date_obj)
-
-# my attempts
-# date_obj = datetime.datetime.strptime(my_date, "%d/%m/%y")
-# date_obj = datetime.strptime(my_date, "%d/%m/%y")
-# date_obj = datetime.datetime.strptime(my_date, "%d%m%y")
-# date_obj = datetime.strptime(my_date, "%d%m%y")
 
 
 def get_species():
