@@ -314,15 +314,29 @@ def calculate_total_nests():
     print("Calculating total nests")
     return total
 
+def calculate_nest_attempts():
+    """ 
+    Calculates the number of nests attempted, successful or not
+    """
+    nest_col = raw_data.col_values(5)
+    attempts = 0
+    for item in nest_col:
+        if item == "Y" or item =="N":
+            attempts += 1
+    print("Returning total attempts")
+    return attempts
 
-def append_total_nests(total):
+
+def append_total_nests(total, attempts):
     """
     Updates the total nest value in admin worksheet and returns total to user
     """
     info.update('B2', total)
     updated = info.acell('B2').value
     print("Updating total in admin worksheet")
-    print(f"{updated} nests have been laid this season so far!")
+    print(
+        f"{attempts} attempts have been made to lay a nest this season,\
+    {updated} nests were successfully laid.")
 
 
 def calculate_green_and_logger_nests():
@@ -359,14 +373,13 @@ def calculate_green_and_logger_nests():
 
 def calculate_data_logger_stock():
     """
-    Updates number of data loggers left
+    Updates number of data loggers left and returns value to user
     """
-    data_logs = raw_data.col_values(6)
+    data_logs = raw_data.col_values(6)[-1]
     logs = info.acell('A2').value
     total = int(logs)
-    for item in data_logs:
-        if item == "Y":
-            total -= 1
+    if data_logs == "Y":
+        total -= 1
     print("Calculating data loggers left")
 
     info.update("A2", total)
@@ -433,11 +446,12 @@ def collect_data():
 
 def main(user_data):
     send_data_to_worksheets(user_data)
-    # total = calculate_total_nests()
-    # append_total_nests(total)
-    # calculate_data_logger_stock()
-    # calculate_green_and_logger_nests()
-    # calculate_difference()
+    total = calculate_total_nests()
+    attempts = calculate_nest_attempts()
+    append_total_nests(total, attempts)
+    calculate_data_logger_stock()
+    calculate_green_and_logger_nests()
+    calculate_difference()
 
 
 collect_data()
