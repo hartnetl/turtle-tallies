@@ -57,7 +57,7 @@ def welcome_title():
     """)
 
     user = input("Enter name: \n")
-    print(
+    print_blue(
         f"Welcome {user}, if this is your first time entering data \
 please ensure you have read the readme in the spreadsheet for detailed \
 info. \n")
@@ -80,13 +80,13 @@ def welcome_msg():
             keep_going = input("Would you like to enter data? (Y/N)\n")
             if validate_keep_going(keep_going):
                 if keep_going.upper() == "Y":
-                    print("You'd like to enter some data!\n")
+                    print_green("You'd like to enter some data!\n")
                     collect_data()
                     break
                 elif keep_going.upper() == "N":
-                    print("You don't need to enter more data\n")
-                    print("Goodbye! \n")
-                    print("Press the button on top to start again")
+                    print_blue("You don't need to enter more data\n")
+                    print_blue("Goodbye! \n")
+                    print_red("Press the button on top to start again")
                     exit()
 
     elif start.upper() == "ENTER":
@@ -94,7 +94,7 @@ def welcome_msg():
         collect_data()
 
     else:
-        print("You did not enter 'VIEW' or 'ENTER', try again")
+        print_red("You did not enter 'VIEW' or 'ENTER', try again \n")
         welcome_msg()
 
 
@@ -104,7 +104,7 @@ def validate_keep_going(keep_going):
             raise ValueError(
                 f"You must answer 'Y' or 'N', you answered {keep_going}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -204,7 +204,7 @@ def validate_date(user_date):
             raise ValueError(
                 f"The year should be '2021', you entered '{date_obj.year}'")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -235,7 +235,7 @@ def validate_species(species):
             raise ValueError(
                 F"Species should be 'GREEN' or 'LOG', you entered {species}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -274,7 +274,7 @@ def validate_turtle(turtle):
             raise ValueError(
                 f"ID should end in 4 digits, you entered {turtle[-4:]}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -305,7 +305,7 @@ def validate_beach(beach):
             raise ValueError(
                 F"Beach ID should be 'B1' or 'B2', you entered {beach}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -336,7 +336,7 @@ def validate_nest(nest):
             raise ValueError(
                 F"Enter 'Y' or 'N', you entered {nest}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -369,7 +369,7 @@ def validate_data(data):
             raise ValueError(
                 f"Enter 'Y', 'N' or 'NA', you entered {data}")
     except ValueError as e:
-        print(f"Invalid entry: {e}, try again")
+        print_red(f"Invalid entry: {e}, try again")
         return False
     return True
 
@@ -398,23 +398,23 @@ def send_data_to_worksheets(data):
     # print("Updating the worksheets\n")
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
-    print("Raw datasheet update complete!\n")
+    print_blue("Raw datasheet update complete!\n")
 
     if upper_data[2] == "LOG":
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
-        print("Loggerhead data also sent to log_21 worksheet \n")
+        print_blue("Loggerhead data also sent to log_21 worksheet \n")
     elif upper_data[2] == "GREEN":
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
-        print("Green data also sent to green_21 worksheet \n")
+        print_blue("Green data also sent to green_21 worksheet \n")
 
 
 def calculate_total_nests():
     """
     Counts the number of nests laid in raw data sheet
     """
-    print("Calculating total nests \n")
+    print_blue("Calculating total nests \n")
     nest_col = raw_data.col_values(6)
     total = 0
     for item in nest_col:
@@ -427,7 +427,7 @@ def calculate_nest_attempts():
     """
     Calculates the number of nests attempted, successful or not
     """
-    print("Calculating nest attempts \n")
+    print_blue("Calculating nest attempts \n")
     nest_col = raw_data.col_values(6)
     attempts = 0
     for item in nest_col:
@@ -444,7 +444,7 @@ def append_total_nests(total, attempts):
     """
     info.update('B2', total)
     updated = info.acell('B2').value
-    print("Updating total nests laid in admin worksheet \n")
+    print_blue("Updating total nests laid in admin worksheet \n")
 
 
 def calculate_green_and_logger_nests():
@@ -455,28 +455,28 @@ def calculate_green_and_logger_nests():
     # Calculate greens first
     green_nest = new_green.col_values(5)
     green_total = 0
-    print("Calculating green nests \n")
+    print_blue("Calculating green nests \n")
     for item in green_nest:
         if item == "Y":
             green_total += 1
 
     # print("Adding to admin sheet")
     info.update('D2', green_total)
-    green = info.acell('D2').value
+    # green = info.acell('D2').value
 #     print(f"There have been {green} Green Sea Turtle nests laid so far \
 # this season")
 
     # Now the loggerheads
     logger_nest = new_logger.col_values(5)
     logger_total = 0
-    print("Calculating logger nests \n")
+    print_blue("Calculating logger nests \n")
     for items in logger_nest:
         if items == "Y":
             logger_total += 1
 
     # print("Adding to admin sheet")
     info.update('E2', logger_total)
-    logger = info.acell('E2').value
+    # logger = info.acell('E2').value
 #     print(f"There have been {logger} Loggerhead Turtle nests laid so far \
 # this season")
 
@@ -490,11 +490,11 @@ def calculate_data_logger_stock():
     total = int(logs)
     if data_logs == "Y":
         total -= 1
-    print("Calculating data loggers left \n")
+    print_blue("Calculating data loggers left \n")
 
     info.update("A2", total)
-    print("Updating data log stock value")
-    updated = info.acell('A2').value
+    print_blue("Updating data log stock value  \n")
+    # updated = info.acell('A2').value
     # print(f"You have {updated} data loggers left \n")
 
 
@@ -502,20 +502,20 @@ def calculate_nest_differences():
     """
     Calculate and return the number of nests laid compared to last year
     """
-    print("Calculating difference in total nest numbers compared to last year \n")
+    print_blue("Calculating difference in total nest numbers compared to last year \n")
     last_total = int(info.acell('C2').value)
     this_total = int(info.acell('B2').value)
     total_diff = last_total - this_total
     info.update('I2', total_diff)
     
-    print("Calculating difference in green turtle nest numbers compared \
+    print_blue("Calculating difference in green turtle nest numbers compared \
 to last year \n")
     last_green = int(green_20.acell('G2').value)
     this_green = int(info.acell('D2').value)
     green_diff = last_green - this_green
     info.update('F2', green_diff)
-   
-    print("Calculating difference in loggerhead turtle nest numbers compared \
+
+    print_blue("Calculating difference in loggerhead turtle nest numbers compared \
 to last year \n")
     last_loggerhead = int(logger_20.acell('G2').value)
     this_loggerhead = int(info.acell('E2').value)
@@ -524,11 +524,81 @@ to last year \n")
     return loggerhead_diff
 
 
+def compare_weeks(week):
+    total_week_1 = 1
+    last_total_week_1 = 2.1
+    green_week_1 = 1.1
+    last_green_week_1 = 3
+    loggerhead_week_1 = 2   
+    last_loggerhead_week_1 = 3.1
+
+    total_week_2 = 1
+    last_total_week_2 = 2.1
+    green_week_2 = 1.1
+    last_green_week_2 = 3
+    loggerhead_week_2 = 2
+    last_loggerhead_week_2 = 3.1
+
+    total_week_3 = 1
+    last_total_week_3 = 2.1
+    green_week_3 = 1.1
+    last_green_week_3 = 3
+    loggerhead_week_3 = 2
+    last_loggerhead_week_3 = 3.1
+
+    total_week_final = 1
+    last_total_week_final = 2.1
+    green_week_final = 1.1
+    last_green_week_final = 3
+    loggerhead_week_final = 2
+    last_loggerhead_week_final = 3.1
+
+    if week == '1':
+        print(
+            f"In the first week of the season {total_week_1} nests have been \
+laid, in comparison to {last_total_week_1} last year.  \
+{green_week_1} of these were laid by green, while  \
+{last_green_week_1} were laid by Greens this time last year.  \
+Loggerheads laid {loggerhead_week_1} nests in the first week \
+and {last_loggerhead_week_1} were laid by them during this same \
+period last year.")
+
+    elif week == '2':
+        print(
+            f"In the second week of the season {total_week_2} nests have been \
+laid, in comparison to {last_total_week_2} last year. \
+{green_week_2} of these were laid by green, while \
+{last_green_week_2} were laid by Greens this time last year. \
+Loggerheads laid {loggerhead_week_2} nests in the first week, and \
+{last_loggerhead_week_2} were laid by them during this same \
+period last year.")
+
+    elif week == '3':
+        print(
+            f"In the third week of the season {total_week_3} nests have been \
+laid, in comparison to {last_total_week_3} last year. \
+{green_week_3} of these were laid by green, while \
+{last_green_week_3} were laid by Greens this time last year. \
+Loggerheads laid {loggerhead_week_3} nests in the first week, and \
+{last_loggerhead_week_3} were laid by them during this same \
+period last year.")
+
+    elif week.lower() == 'last':
+        print(
+             f"In the final week of the season {total_week_final} nests have \
+been laid, in comparison to {last_total_week_final} last year. \
+{green_week_final} of these were laid by green, while \
+{last_green_week_final} were laid by Greens this time last year. \
+Loggerheads laid {loggerhead_week_final} nests in the first week, and \
+{last_loggerhead_week_final} were laid by them during this same \
+period last year.")
+
+
 def summary():
     """
     A summary of the calculations made by the program
     """
-    print("Here is the summary of your data for this season \n")
+    print_green("Here is the summary of your data for this season \n")
     attempts = info.acell('H2').value
     total_laid = info.acell('B2').value
     green = info.acell('D2').value
@@ -538,7 +608,7 @@ def summary():
     green_diff = int(info.acell('F2').value)
     loggerhead_diff = int(info.acell('G2').value)
 
-    print(
+    print_green(
         f"Total nests attempted: {attempts} \n"
         f"Total nests laid: {total_laid} \n"
         f"Nests laid by green turtles: {green}\n"
@@ -546,29 +616,29 @@ def summary():
         f"Data loggers left: {loggers} \n ")
 
     if total_diff > 0:
-        print(f"There were {total_diff} more nests laid in total last year \n")
+        print_green(f"There were {total_diff} more nests laid in total last year \n")
     elif total_diff < 0:
-        print(f"There were {total_diff} less nests laid in total last year \n")
+        print_green(f"There were {total_diff} less nests laid in total last year \n")
     elif total_diff == 0:
-        print("The same amount of nests were laid last year \n")
+        print_green("The same amount of nests were laid last year \n")
 
     if green_diff > 0:
-        print(f"There was {green_diff} more green nests laid last year \n")
+        print_green(f"There was {green_diff} more green nests laid last year \n")
     elif green_diff < 0:
         green_diff_ = - (green_diff)
-        print(f"There was {green_diff_} less green nests laid last year \n")
+        print_green(f"There was {green_diff_} less green nests laid last year \n")
     elif green_diff == 0:
-        print("The same amount of nests were laid last year \n")
+        print_green("The same amount of nests were laid last year \n")
 
     if loggerhead_diff > 0:
-        print(f"There was {loggerhead_diff} more loggerhead nests laid \
+        print_green(f"There was {loggerhead_diff} more loggerhead nests laid \
 last year \n")
     elif loggerhead_diff < 0:
         loggerhead_diff_ = - (loggerhead_diff)
-        print(f"There was {loggerhead_diff_} less loggerhead nests laid \
+        print_green(f"There was {loggerhead_diff_} less loggerhead nests laid \
  last year \n")
     elif loggerhead_diff == 0:
-        print("The same amount of nests were laid last year \n")
+        print_green("The same amount of nests were laid last year \n")
 
 
 def collect_data():
@@ -579,7 +649,7 @@ def collect_data():
     get_nest_info()
     get_data_logger_info()
 
-    print(f"The data you have entered is {user_data}")
+    print_blue(f"The data you have entered is {user_data}")
     check = input("Is this correct? (Y/N): \n")
     user_verifiy_input(check)
     # print("Returning data")
@@ -588,7 +658,7 @@ def collect_data():
 
 def main(user_data):
     print()
-    print("Sending data to worksheets \n")
+    print_blue("Sending data to worksheets \n")
     send_data_to_worksheets(user_data)
     total = calculate_total_nests()
     attempts = calculate_nest_attempts()
@@ -596,12 +666,14 @@ def main(user_data):
     calculate_data_logger_stock()
     calculate_green_and_logger_nests()
     calculate_nest_differences()
+    
+    # compare_weeks(week)
 
 
-welcome_title()
-welcome_msg()
-main(user_data)
-summary()
+# welcome_title()
+# welcome_msg()
+# main(user_data)
+# summary()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
