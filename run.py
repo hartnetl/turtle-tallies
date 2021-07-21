@@ -56,35 +56,43 @@ def welcome_title():
     """)
 
     user = input("Enter name: \n")
-    print(f"Welcome {user}")
+    print(
+        f"Welcome {user}, if this is your first time entering data \
+please ensure you have read the readme in the spreadsheet for detailed \
+info. \n")
 
 
 def welcome_msg():
-    print("If this is your first time entering data, please ensure you have \
-read the readme in the spreadsheet for detailed info. \n ")
+    """
+    Ask user if they would like to view or enter data.
+    If they would like to enter data the program is run.
+    If they want to view, a summary of data is shown and they're asked again
+    if they would like to enter data.
+    If yes, the program continues to run. If no, the program terminates.
+    """
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
 
     if start.upper() == "VIEW":
         summary()
-        print()
 
         while True:
             keep_going = input("Would you like to enter data? (Y/N)\n")
             if validate_keep_going(keep_going):
                 if keep_going.upper() == "Y":
-                    print("You'd like to enter some data!")
+                    print("You'd like to enter some data!\n")
                     collect_data()
                     break
                 elif keep_going.upper() == "N":
-                    print("You don't need to enter more data")
+                    print("You don't need to enter more data\n")
                     print("Goodbye! \n")
                     print("Press the button on top to start again")
                     exit()
 
-    elif start.upper == "ENTER":
+    elif start.upper() == "ENTER":
+        print()
         collect_data()
 
-    else: 
+    else:
         print("You did not enter 'VIEW' or 'ENTER', try again")
         welcome_msg()
 
@@ -130,12 +138,18 @@ def help():
     print_green("HELP")
     print_green('Headings:')
     print_green("DATE, SPECIES, ID, LOCATION, NEST(Y/N), DATA LOGGER (Y/N)")
-    print_green("For 'DATE' enter the date the turtle or nest was observed in format day/month/year")
-    print_green("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' for Loggerhead Turtle")
-    print_green("For 'ID' enter the id code on the turtle's flipper tag, which is CY followed by 4 digits")
-    print_green("For 'LOCATION' enter B1 or B2 for the beach that you observed the turtle or nest")
-    print_green("For 'NEST' type 'Y' if a nest was successfully laid, or 'N' if the nest and egg laying was not completed")
-    print_green("For 'DATA LOGGER' type 'Y' if a data logger was placed in the nest, and 'N' if it wasn't. Type NA if no nest was laid.")
+    print_green("For 'DATE' enter the date the turtle or nest was observed in \
+format day/month/year")
+    print_green("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' \
+for Loggerhead Turtle")
+    print_green("For 'ID' enter the id code on the turtle's flipper tag, which \
+is CY followed by 4 digits")
+    print_green("For 'LOCATION' enter B1 or B2 for the beach that you observed \
+the turtle or nest")
+    print_green("For 'NEST' type 'Y' if a nest was successfully laid, or 'N' \
+if the nest and egg laying was not completed")
+    print_green("For 'DATA LOGGER' type 'Y' if a data logger was placed in the \
+nest, and 'N' if it wasn't. Type NA if no nest was laid.")
     print(" ")
     print_green('Examples:')
     print_green("01/06/2021, LOG, CY0000, B1, Y, Y")
@@ -161,7 +175,7 @@ def get_species():
     The while loop will ask for the data until it is correctly entered.
     If it is validated it is added to user_data.
     """
-    while True: 
+    while True:
         print("Collecting species data")
         species = input("Enter the species ('LOG' or 'GREEN'): \n ")
 
@@ -192,7 +206,7 @@ def get_turtle_id():
     The while loop will ask for the data until it is correctly entered.
     If it is validated it is added to user_data.
     """
-    while True: 
+    while True:
         print("Collecting turtle ID data")
         turtle = input("Enter the turtle ID (CY followed by 4 digits): \n ")
 
@@ -211,7 +225,8 @@ def validate_turtle(turtle):
         # Come back and make this better, or remove letters
         if len(turtle) != 6:
             raise ValueError(
-                F"Turtle ID should be CY followed by 4 digits, you entered {turtle}")
+                F"Turtle ID should be CY followed by 4 digits, you entered \
+            {turtle}")
     except ValueError as e:
         print(f"Invalid entry: {e}, try again")
         return False
@@ -255,7 +270,7 @@ def get_nest_info():
     The while loop will ask for the data until it is correctly entered.
     If it is validated it is added to user_data.
     """
-    while True: 
+    while True:
         print("Collecting nest data")
         nest = input("Was a nest laid (Y/N)?: \n ")
 
@@ -282,11 +297,12 @@ def validate_nest(nest):
 
 def get_data_logger_info():
     """
-    Asks user if a data logger was placed in the nest and sends input to validate input.
+    Asks user if a data logger was placed in the nest and sends input to
+    validate input.
     The while loop will ask for the data until it is correctly entered.
     If it is validated it is added to user_data.
     """
-    while True: 
+    while True:
         print("Collecting data logger data")
         data = input("Was a data logger placed in the nest (Y/N)?: \n ")
 
@@ -329,7 +345,8 @@ def user_verifiy_input(letter):
 
 def send_data_to_worksheets(data):
     """
-    After validation, the data input by the user is added to the raw data worksheet.
+    After validation, the data input by the user is added to the raw data
+    worksheet.
     """
     print("Updating the worksheet...\n")
     upper_data = [item.upper() for item in data]
@@ -360,7 +377,7 @@ def calculate_total_nests():
 
 
 def calculate_nest_attempts():
-    """ 
+    """
     Calculates the number of nests attempted, successful or not
     """
     nest_col = raw_data.col_values(5)
@@ -402,7 +419,8 @@ def calculate_green_and_logger_nests():
     print("Adding to admin sheet")
     info.update('D2', green_total)
     green = info.acell('D2').value
-    print(f"There have been {green} Green Sea Turtle nests laid so far this season")
+    print(f"There have been {green} Green Sea Turtle nests laid so far \
+this season")
 
     # Now the loggerheads
     logger_nest = new_logger.col_values(4)
@@ -415,7 +433,8 @@ def calculate_green_and_logger_nests():
     print("Adding to admin sheet")
     info.update('E2', logger_total)
     logger = info.acell('E2').value
-    print(f"There have been {logger} Loggerhead Turtle nests laid so far this season")
+    print(f"There have been {logger} Loggerhead Turtle nests laid so far \
+this season")
 
 
 def calculate_data_logger_stock():
@@ -451,7 +470,8 @@ def calculate_difference():
     elif total_diff == 0:
         print("The same amount of nests were laid last year")
 
-    print("Calculating difference in green turtle nest numbers compared to last year")
+    print("Calculating difference in green turtle nest numbers compared \
+to last year")
     last_green = int(green_20.acell('F2').value)
     this_green = int(info.acell('D2').value)
     green_diff = last_green - this_green
@@ -463,15 +483,18 @@ def calculate_difference():
     elif green_diff == 0:
         print("The same amount of nests were laid last year")
 
-    print("Calculating difference in loggerhead turtle nest numbers compared to last year")
+    print("Calculating difference in loggerhead turtle nest numbers compared \
+to last year")
     last_loggerhead = int(logger_20.acell('F3').value)
     this_loggerhead = int(info.acell('E2').value)
     loggerhead_diff = last_loggerhead - this_loggerhead
     info.update('G2', loggerhead_diff)
     if loggerhead_diff > 0:
-        print(f"There were {loggerhead_diff} more loggerhead nests laid last year")
+        print(f"There were {loggerhead_diff} more loggerhead nests laid \
+last year")
     elif loggerhead_diff < 0:
-        print(f"There were {loggerhead_diff} less loggerhead nests laid last year")
+        print(f"There were {loggerhead_diff} less loggerhead nests laid \
+ last year")
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
 
@@ -521,7 +544,6 @@ def main(user_data):
 
 # welcome_title()
 welcome_msg()
-# collect_data()
 main(user_data)
 summary()
 
