@@ -598,7 +598,7 @@ def main(user_data):
     calculate_nest_differences()
 
 
-# welcome_title()
+welcome_title()
 welcome_msg()
 main(user_data)
 summary()
