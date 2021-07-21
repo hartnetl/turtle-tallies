@@ -97,7 +97,6 @@ def help():
     print_green("01/06/2021, LOG, CY0000, B1, Y, Y")
     print_green("01/06/2021, GREEN, CY0101, B2, N, NA\n")
 
-
 def collect_raw_data():
     """
     User inputs the collected raw data.
@@ -108,12 +107,12 @@ def collect_raw_data():
     print("Example: 1/2/21,LOG,CY1234,B1,Y,N\n")
     print("Do you need more information on how to")
 
-    date, species,  id, beach, nest, data logger
+    # date, species,  id, beach, nest, data logger
 
     while True:
         
         date = input("Enter the date (eg: 1/6/2021): \n ")
-        species = input("Enter the species ('LOG' or 'GREEN': \n ")
+       
         turtle_id = input("Enter the ID (eg: CY1234): \n ")
         beach_id = input("Enter the beach ID ('B1' or 'B2'): \n ")
         nest_laid = input("Was a nest laid? (Y/N): \n ")
@@ -127,10 +126,6 @@ def collect_raw_data():
 
     return sales_data
 
-    
-
-    
-
     # Return the input data by the user for them to double check it is correct
     print(f"The data you provided here is '{user_data}'\n")
 
@@ -143,18 +138,59 @@ def collect_raw_data():
     return data_to_csv
     # user_data_validation(data_to_csv)
 
+user_data = []
+
+
+def get_species():
+    while True: 
+        print("Collecting species data")
+        species = input("Enter the species ('LOG' or 'GREEN': \n ")
+
+        if validate_species(species):
+            print("Species was entered correctly!")
+            user_data.append(species)
+            break
+
+
+def validate_species(species):
+    try:
+        if species.upper() != "LOG" and species.upper() != "GREEN":
+            raise ValueError(
+                F"Species should be 'GREEN' or 'LOG', you entered {species}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
+
+
+def get_beach_id():
+    while True: 
+        print("Collecting beach ID data")
+        beach = input("Enter the beach ID ('B1' or 'B2': \n ")
+
+        if validate_beach(beach):
+            print("Beach ID was entered correctly!")
+            user_data.append(beach)
+            break
+
+
+def validate_beach(beach):
+    try:
+        if beach.upper() != "B1" and beach.upper() != "B2":
+            raise ValueError(
+                F"Beach ID should be 'B1' or 'B2', you entered {beach}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
 
 
 
-    
-    
+get_species()
+get_beach_id()
 
+print(user_data)
 
-
-
-
-
-def verify_species(species)
 
 def user_verifiy_input(letter):
     """
@@ -349,7 +385,7 @@ def calculate_difference():
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
 
-def main():
+# def main():
     # welcome()
     raw_data = collect_raw_data()
     print(raw_data)
