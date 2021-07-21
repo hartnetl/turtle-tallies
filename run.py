@@ -97,54 +97,29 @@ def help():
     print_green("01/06/2021, LOG, CY0000, B1, Y, Y")
     print_green("01/06/2021, GREEN, CY0101, B2, N, NA\n")
 
-def collect_raw_data():
-    """
-    User inputs the collected raw data.
-    """
-    # Prompt the user to input the data, or ask for help on how to format it
-    print("Enter latest nesting data in the format date, species, ID, location, nest, data logger")
-    print("Note: Do not include any spaces")
-    print("Example: 1/2/21,LOG,CY1234,B1,Y,N\n")
-    print("Do you need more information on how to")
 
-    # date, species,  id, beach, nest, data logger
-
-    while True:
-        
-        date = input("Enter the date (eg: 1/6/2021): \n ")
-       
-        turtle_id = input("Enter the ID (eg: CY1234): \n ")
-        beach_id = input("Enter the beach ID ('B1' or 'B2'): \n ")
-        nest_laid = input("Was a nest laid? (Y/N): \n ")
-        logger_used = input("Was a data logger placed in the nest (Y/N): \n ")
-
-        sales_data = data_str.split(",")
-
-        if validate_data(sales_data):
-            print("Data is valid!")
-            break
-
-    return sales_data
-
-    # Return the input data by the user for them to double check it is correct
-    print(f"The data you provided here is '{user_data}'\n")
-
-    # Call a function to continue if they say yes(Y), or restart if they say no (N)
-    check = input("Is this correct? (Y/N) \n")
-    user_verifiy_input(check)
-
-    # Convert data to csv formatting to go into the spreadsheet
-    data_to_csv = user_data.split(",")
-    return data_to_csv
-    # user_data_validation(data_to_csv)
-
+# Functions below to collect and validate information from user
 user_data = []
 
 
+def get_date():
+    """
+    Ask user for the date and append it to user_data
+    """
+    print("Collecting date data")
+    date = input("Enter the date (format: 1/6/21): \n ")
+    user_data.append(date)
+
+
 def get_species():
+    """
+    Asks user for the species of turtle and sends input to validate input.
+    The while loop will ask for the data until it is correctly entered.
+    If it is validated it is added to user_data.
+    """
     while True: 
         print("Collecting species data")
-        species = input("Enter the species ('LOG' or 'GREEN': \n ")
+        species = input("Enter the species ('LOG' or 'GREEN'): \n ")
 
         if validate_species(species):
             print("Species was entered correctly!")
@@ -153,6 +128,10 @@ def get_species():
 
 
 def validate_species(species):
+    """
+    Validates that the species input is "LOG" or "GREEN".
+    Throws an error if it is not and user will be asked to enter it again.
+    """
     try:
         if species.upper() != "LOG" and species.upper() != "GREEN":
             raise ValueError(
@@ -162,7 +141,13 @@ def validate_species(species):
         return False
     return True
 
+
 def get_turtle_id():
+    """
+    Asks user for the turtle ID  and sends input to validate input.
+    The while loop will ask for the data until it is correctly entered.
+    If it is validated it is added to user_data.
+    """
     while True: 
         print("Collecting turtle ID data")
         turtle = input("Enter the turtle ID (CY followed by 4 digits): \n ")
@@ -174,6 +159,10 @@ def get_turtle_id():
 
 
 def validate_turtle(turtle):
+    """
+    Validates that the ID input is 6 characters long.
+    Throws an error if it is not and user will be asked to enter it again.
+    """
     try:
         # Come back and make this better, or remove letters
         if len(turtle) != 6:
@@ -186,9 +175,14 @@ def validate_turtle(turtle):
 
 
 def get_beach_id():
-    while True: 
+    """
+    Asks user for the beach ID and sends input to validate input.
+    The while loop will ask for the data until it is correctly entered.
+    If it is validated it is added to user_data.
+    """
+    while True:
         print("Collecting beach ID data")
-        beach = input("Enter the beach ID ('B1' or 'B2': \n ")
+        beach = input("Enter the beach ID ('B1' or 'B2'): \n ")
 
         if validate_beach(beach):
             print("Beach ID was entered correctly!")
@@ -197,6 +191,10 @@ def get_beach_id():
 
 
 def validate_beach(beach):
+    """
+    Validates that the beach ID input is B1 or B2.
+    Throws an error if it is not and user will be asked to enter it again.
+    """
     try:
         if beach.upper() != "B1" and beach.upper() != "B2":
             raise ValueError(
@@ -208,6 +206,11 @@ def validate_beach(beach):
 
 
 def get_nest_info():
+    """
+    Asks user if a nest was laid and sends input to validate input.
+    The while loop will ask for the data until it is correctly entered.
+    If it is validated it is added to user_data.
+    """
     while True: 
         print("Collecting nest data")
         nest = input("Was a nest laid (Y/N)?: \n ")
@@ -219,6 +222,10 @@ def get_nest_info():
 
 
 def validate_nest(nest):
+    """
+    Validates that the input is Y or N.
+    Throws an error if it is not and user will be asked to enter it again.
+    """
     try:
         if nest.upper() != "Y" and nest.upper() != "N":
             raise ValueError(
@@ -230,6 +237,11 @@ def validate_nest(nest):
 
 
 def get_data_logger_info():
+    """
+    Asks user if a data logger was placed in the nest and sends input to validate input.
+    The while loop will ask for the data until it is correctly entered.
+    If it is validated it is added to user_data.
+    """
     while True: 
         print("Collecting data logger data")
         data = input("Was a data logger placed in the nest (Y/N)?: \n ")
@@ -241,8 +253,12 @@ def get_data_logger_info():
 
 
 def validate_data(data):
+    """
+    Validates that the input is Y or N.
+    Throws an error if it is not and user will be asked to enter it again.
+    """
     try:
-        if data.upper() != "Y" and data.upper() != "N":
+        if data.upper() != "Y" and data.upper() != "N" and data.upper() != "NA":
             raise ValueError(
                 F"Enter 'Y' or 'N', you entered {data}")
     except ValueError as e:
@@ -251,76 +267,20 @@ def validate_data(data):
     return True
 
 
-# get_species()
-# get_turtle_id()
-# get_beach_id()
-# get_nest_info()
-get_data_logger_info()
-
-# print(user_data)
-
-
 def user_verifiy_input(letter):
     """
     This checks if the user is sure they have entered the correct data.
     If yes, the program continues.
-    If no, it asks for the data to be entered again.
+    If no, it asks for all the data to be entered again.
     """
-    if letter == "Y" or letter == "y":
+    if letter.upper() == "Y":
         pass
     else:
         print_red("Try again\n")
-        collect_raw_data()
+        collect_data()
 
 
-def user_data_validation(userDataList):
-    """
-    First checks if user called for help. Returns the help function if they
-    did.
-    Checks data is in correct format, as per the help guide:
-    There must be 6 values entered.
-    Date in day/month/year,  species is "LOG" or "Green", ID is string of
-    letters and numbers,
-    Location is B1 or B2, Nest is Y or N, Data logger is Y or N
-    """
-    try:
-        if userDataList[0].lower() == "help":
-            help()
-            collect_raw_data()
-        elif len(userDataList) != 6:
-            raise ValueError(
-                f"You must fill in all 6 fields, you only entered {len(userDataList)}"
-            )
-        # Date validation needed here
-        elif userDataList[1].upper() != "LOG" and userDataList[1].upper() != "GREEN":
-            raise NameError(
-                f"You must enter 'LOG' or 'GREEN', you entered {userDataList[1]}"
-            )
-        elif len(userDataList[2]) != 6:
-            raise ValueError(
-                f"The ID should be CY followed by 4 digits, you entered {userDataList[2]}. Try again"
-            )
-        elif userDataList[3].upper() != "B1" and userDataList[3].upper() != "B2":
-            raise NameError(
-                f"You must enter 'B1' or 'B2', you entered {userDataList[3]}"
-            )
-        elif userDataList[4].upper() != "Y" and userDataList[4].upper() != "N":
-            raise NameError(
-                f"You must enter 'Y' or 'N' for nest, you entered {userDataList[4]}"
-            )
-        elif userDataList[5].upper() != "Y" and userDataList[5].upper() != "N":
-            raise NameError(
-                f"You must enter 'Y' or 'N' for nest, you entered {userDataList[5]}"
-            )
-    except ValueError as e:
-        print_red(f"Something went wrong: {e}, try again")
-        collect_raw_data()
-    except NameError as e:
-        print_red(f"You entered the wrong values: {e}, try again")
-        collect_raw_data()
-    finally:
-        print("Validation complete")
-        send_data_to_worksheets(userDataList)
+# == End of collecting data ==
 
 
 def send_data_to_worksheets(data):
@@ -335,11 +295,11 @@ def send_data_to_worksheets(data):
     if upper_data[1] == "LOG":
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
-        print("Data also sent to log_21 worksheet")
+        print("Loggerhead data also sent to log_21 worksheet")
     elif upper_data[1] == "GREEN":
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
-        print("Data also sent to green_21 worksheet")
+        print("Green data also sent to green_21 worksheet")
 
 
 def calculate_total_nests():
@@ -453,19 +413,35 @@ def calculate_difference():
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
 
-# def main():
-    # welcome()
-    raw_data = collect_raw_data()
-    print(raw_data)
-    user_data_validation(raw_data)
 
+# welcome()
+
+def collect_data():
+    get_date()
+    get_species()
+    get_turtle_id()
+    get_beach_id()
+    get_nest_info()
+    get_data_logger_info()
+
+    print(f"The data you have entered is {user_data}")
+    check = input("Is this correct? (Y/N): \n")
+    user_verifiy_input(check)
+    print("Returning data")
+    return user_data
+
+
+def main(user_data):
+    send_data_to_worksheets(user_data)
     # total = calculate_total_nests()
     # append_total_nests(total)
     # calculate_data_logger_stock()
     # calculate_green_and_logger_nests()
     # calculate_difference()
 
-# main()
+
+collect_data()
+main(user_data)
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
