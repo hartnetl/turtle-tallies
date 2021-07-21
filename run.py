@@ -30,7 +30,7 @@ print_green = lambda x: cprint(x, 'green')
 print_blue = lambda x: cprint(x, 'blue')
 
 
-def welcome():
+def welcome_title():
     print("""
                                                     ,'
                                                   ,;
@@ -54,6 +54,50 @@ def welcome():
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
                 ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝..
     """)
+
+    user = input("Enter name: \n")
+    print(f"Welcome {user}")
+
+
+def welcome_msg():
+    print("If this is your first time entering data, please ensure you have \
+read the readme in the spreadsheet for detailed info. \n ")
+    start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
+
+    if start.upper() == "VIEW":
+        summary()
+        print()
+
+        while True:
+            keep_going = input("Would you like to enter data? (Y/N)\n")
+            if validate_keep_going(keep_going):
+                if keep_going.upper() == "Y":
+                    print("You'd like to enter some data!")
+                    collect_data()
+                    break
+                elif keep_going.upper() == "N":
+                    print("You don't need to enter more data")
+                    print("Goodbye! \n")
+                    print("Press the button on top to start again")
+                    exit()
+
+    elif start.upper == "ENTER":
+        collect_data()
+
+    else: 
+        print("You did not enter 'VIEW' or 'ENTER', try again")
+        welcome_msg()
+
+
+def validate_keep_going(keep_going):
+    try:
+        if keep_going.upper() != "Y" and keep_going.upper() != "N":
+            raise ValueError(
+                f"You must answer 'Y' or 'N', you answered {keep_going}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
 
 
 # Credit for help with this function
@@ -260,7 +304,7 @@ def validate_data(data):
     try:
         if data.upper() != "Y" and data.upper() != "N" and data.upper() != "NA":
             raise ValueError(
-                F"Enter 'Y' or 'N', you entered {data}")
+                f"Enter 'Y' or 'N', you entered {data}")
     except ValueError as e:
         print(f"Invalid entry: {e}, try again")
         return False
@@ -450,8 +494,6 @@ def summary():
         f"Data loggers left: {loggers} \n ")
 
 
-# welcome()
-
 def collect_data():
     get_date()
     get_species()
@@ -477,7 +519,9 @@ def main(user_data):
     calculate_difference()
 
 
-collect_data()
+# welcome_title()
+welcome_msg()
+# collect_data()
 main(user_data)
 summary()
 
