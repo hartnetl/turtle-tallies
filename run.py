@@ -575,7 +575,7 @@ def tally_weeks():
     #     else: 
     #         break
 
-tally_weeks()
+# tally_weeks()
 
 def compare_weeks(week):
     total_week_1 = 1
@@ -723,10 +723,10 @@ def main(user_data):
     # compare_weeks(week)
 
 
-# welcome_title()
-# welcome_msg()
-# main(user_data)
-# summary()
+welcome_title()
+welcome_msg()
+main(user_data)
+summary()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
