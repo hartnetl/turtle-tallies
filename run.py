@@ -314,6 +314,7 @@ def calculate_total_nests():
     print("Calculating total nests")
     return total
 
+
 def calculate_nest_attempts():
     """ 
     Calculates the number of nests attempted, successful or not
@@ -321,8 +322,10 @@ def calculate_nest_attempts():
     nest_col = raw_data.col_values(5)
     attempts = 0
     for item in nest_col:
-        if item == "Y" or item =="N":
+        if item == "Y" or item == "N":
             attempts += 1
+    print("Updating admin worksheet")
+    info.update('H2', attempts)
     print("Returning total attempts")
     return attempts
 
@@ -408,6 +411,7 @@ def calculate_difference():
     last_green = int(green_20.acell('F2').value)
     this_green = int(info.acell('D2').value)
     green_diff = last_green - this_green
+    info.update('F2', green_diff)
     if green_diff > 0:
         print(f"There were {green_diff} more green nests laid last year")
     elif green_diff < 0:
@@ -419,12 +423,31 @@ def calculate_difference():
     last_loggerhead = int(logger_20.acell('F3').value)
     this_loggerhead = int(info.acell('E2').value)
     loggerhead_diff = last_loggerhead - this_loggerhead
+    info.update('G2', loggerhead_diff)
     if loggerhead_diff > 0:
         print(f"There were {loggerhead_diff} more loggerhead nests laid last year")
     elif loggerhead_diff < 0:
         print(f"There were {loggerhead_diff} less loggerhead nests laid last year")
     elif loggerhead_diff == 0:
         print("The same amount of nests were laid last year")
+
+
+def summary():
+    """
+    A summary of the calculations made by the program
+    """
+    print("Here is the summary of your data for this season \n")
+    attempts = info.acell('H2').value
+    total_laid = info.acell('B2').value
+    green = info.acell('D2').value
+    loggerhead = info.acell('E2').value
+    loggers = info.acell('A2').value
+    print(
+        f"Total nests attempted: {attempts} \n"
+        f"Total nests laid: {total_laid} \n"
+        f"Nests laid by green turtles: {green}\n"
+        f"Nests laid by loggerhead turtles: {loggerhead} \n"
+        f"Data loggers left: {loggers} \n ")
 
 
 # welcome()
@@ -456,6 +479,7 @@ def main(user_data):
 
 collect_data()
 main(user_data)
+summary()
 
 # 01/06/2021,GREEN,CY1234,b1,y,y
 # raw_data = SHEET.worksheet('raw_data')
