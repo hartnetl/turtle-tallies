@@ -162,6 +162,28 @@ def validate_species(species):
         return False
     return True
 
+def get_turtle_id():
+    while True: 
+        print("Collecting turtle ID data")
+        turtle = input("Enter the turtle ID (CY followed by 4 digits): \n ")
+
+        if validate_turtle(turtle):
+            print("Turtle ID was entered correctly!")
+            user_data.append(turtle)
+            break
+
+
+def validate_turtle(turtle):
+    try:
+        # Come back and make this better, or remove letters
+        if len(turtle) != 6:
+            raise ValueError(
+                F"Turtle ID should be CY followed by 4 digits, you entered {turtle}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
+
 
 def get_beach_id():
     while True: 
@@ -185,11 +207,34 @@ def validate_beach(beach):
     return True
 
 
+def get_nest_info():
+    while True: 
+        print("Collecting nest data")
+        nest = input("Was a nest laid (Y/N)?: \n ")
 
-get_species()
-get_beach_id()
+        if validate_nest(nest):
+            print("Nest data was entered correctly!")
+            user_data.append(nest)
+            break
 
-print(user_data)
+
+def validate_nest(nest):
+    try:
+        if nest.upper() != "Y" and nest.upper() != "N":
+            raise ValueError(
+                F"Enter 'Y' or 'N', you entered {nest}")
+    except ValueError as e:
+        print(f"Invalid entry: {e}, try again")
+        return False
+    return True
+
+
+# get_species()
+# get_turtle_id()
+# get_beach_id()
+get_nest_info()
+
+# print(user_data)
 
 
 def user_verifiy_input(letter):
