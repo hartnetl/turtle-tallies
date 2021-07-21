@@ -18,7 +18,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('turtle_tallies')
 
 # Naming each worksheet in the document
-raw_data = SHEET.worksheet('raw_data')
+raw_data = SHEET.worksheet('raw_data_21')
 new_green = SHEET.worksheet('green_21')
 green_20 = SHEET.worksheet('green_20')
 new_logger = SHEET.worksheet('log_21')
@@ -168,11 +168,27 @@ def get_date():
     while True:
         print("Collecting date data")
         user_date = input("Enter the date (format: 01/06/21): \n ")
-  
+
         if validate_date(user_date):
             print("date was entered correctly")
-            user_data.append(user_date)
-            break
+            date_obj = datetime.strptime(user_date, "%d/%m/%y")
+            if date_obj.day <= 7:
+                user_data.append("Week 1")
+                user_data.append(user_date)
+                break
+            elif date_obj.day <= 14:
+                user_data.append("Week 2")
+                user_data.append(user_date)
+                break
+            elif date_obj.day <= 21:
+                user_data.append("Week 3")
+                user_data.append(user_date)
+                break
+            elif date_obj.day <= 30:
+                user_data.append("Final Week")
+                user_data.append(user_date)
+                break
+
 
 def validate_date(user_date):
     """
@@ -247,10 +263,16 @@ def validate_turtle(turtle):
     """
     try:
         # Come back and make this better, or remove letters
-        if len(turtle) != 6:
+        if turtle[:2].upper() != "CY":
             raise ValueError(
                 F"Turtle ID should be CY followed by 4 digits, you entered \
-            {turtle}")
+{turtle}")
+        elif len(turtle) != 6:
+            raise ValueError(
+                f"ID should be 6 characters, you entered {len(turtle)}")
+        elif not int(turtle[-4:].isdigit()):
+            raise ValueError(
+                f"ID should end in 4 digits, you entered {turtle[-4:]}")
     except ValueError as e:
         print(f"Invalid entry: {e}, try again")
         return False
@@ -342,9 +364,10 @@ def validate_data(data):
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
-        if data.upper() != "Y" and data.upper() != "N" and data.upper() != "NA":
+        if data.upper() != "Y" and data.upper() != "N" and data.upper() != \
+    "NA":
             raise ValueError(
-                f"Enter 'Y' or 'N', you entered {data}")
+                f"Enter 'Y', 'N' or 'NA', you entered {data}")
     except ValueError as e:
         print(f"Invalid entry: {e}, try again")
         return False
@@ -496,7 +519,7 @@ def calculate_difference():
 
     print("Calculating difference in green turtle nest numbers compared \
 to last year")
-    last_green = int(green_20.acell('F2').value)
+    last_green = int(green_20.acell('G2').value)
     this_green = int(info.acell('D2').value)
     green_diff = last_green - this_green
     info.update('F2', green_diff)
@@ -509,7 +532,7 @@ to last year")
 
     print("Calculating difference in loggerhead turtle nest numbers compared \
 to last year")
-    last_loggerhead = int(logger_20.acell('F3').value)
+    last_loggerhead = int(logger_20.acell('G3').value)
     this_loggerhead = int(info.acell('E2').value)
     loggerhead_diff = last_loggerhead - this_loggerhead
     info.update('G2', loggerhead_diff)
