@@ -757,9 +757,7 @@ def main(user_data):
     calculate_data_logger_stock()
     calculate_green_and_logger_nests()
     calculate_nest_differences()
-
-    # compare_weeks(week)
-
+    
 
 welcome_title()
 welcome_msg()

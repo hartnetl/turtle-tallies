@@ -21,7 +21,13 @@ It allows users to input collected data and calculations are carried out on the 
 
 ### Project Background
 
+
+
 ### Data required
+
+Each worker / volunteer will be given a standardised form to record data. This data is then entered into the program to be stored in a google sheet document and analyses performed. 
+
+
 
 ### Calculations
 
