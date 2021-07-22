@@ -54,7 +54,7 @@ def welcome_title():
     print("""
                ╔╦╗╦ ╦╦═╗╔╦╗╦  ╔═╗  ╔╦╗╔═╗╦  ╦  ╦╔═╗╔═╗
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
-                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝..
+                ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝
     """)
 
     user = input("Enter name: \n")
@@ -712,10 +712,10 @@ def main(user_data):
     # compare_weeks(week)
 
 
-# welcome_title()
-# welcome_msg()
-# main(user_data)
-# summary()
+welcome_title()
+welcome_msg()
+main(user_data)
+summary()
 final()
 
 
