@@ -399,7 +399,6 @@ def send_data_to_worksheets(data):
     # print("Updating the worksheets\n")
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
-    print_blue("Raw datasheet update complete!\n")
 
     print("updating week tally for raw data sheet")
 
@@ -424,14 +423,63 @@ def send_data_to_worksheets(data):
         raw_wF += 1
         raw_data.update('H5', raw_wF)
 
+    print_blue("Raw datasheet update complete!\n")
+
     if upper_data[2] == "LOG":
+        print("Sending data to Loggerhead worksheet")
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
-        print_blue("Loggerhead data also sent to log_21 worksheet \n")
+        print_blue("Loggerhead data sent to log_21 worksheet \n") 
+        print("Calculating new tally")
+
+        if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
+            log_w1 = int(new_logger.acell('G2').value)
+            print("adding 1 to week 1 nest tally")
+            log_w1 += 1
+            new_logger.update('G2', log_w1)
+        elif upper_data[0] == "WEEK2" and upper_data[5] == "Y":
+            log_w2 = int(new_logger.acell('G3').value)
+            print("adding 1 to week 2 nest tally")
+            log_w2 += 1
+            new_logger.update('G3', log_w2)
+        elif upper_data[0] == "WEEK3" and upper_data[5] == "Y":
+            log_w3 = int(new_logger.acell('G4').value)
+            print("adding 1 to week 3 nest tally")
+            log_w3 += 1
+            new_logger.update('G4', log_w3)
+        elif upper_data[0] == "FINALWEEK" and upper_data[5] == "Y":
+            log_wF = int(new_logger.acell('G5').value)
+            print("adding 1 to final week nest tally")
+            log_wF += 1
+            new_logger.update('G5', log_wF)  
+
     elif upper_data[2] == "GREEN":
+        print("Sending data to Green worksheet")
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
         print_blue("Green data also sent to green_21 worksheet \n")
+        print("Calculating new tally")
+
+        if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
+            green_w1 = int(new_green.acell('G2').value)
+            print("adding 1 to week 1 nest tally")
+            green_w1 += 1
+            new_green.update('G2', green_w1)
+        elif upper_data[0] == "WEEK2" and upper_data[5] == "Y":
+            green_w2 = int(new_green.acell('G3').value)
+            print("adding 1 to week 2 nest tally")
+            green_w2 += 1
+            new_green.update('G3', green_w2)
+        elif upper_data[0] == "WEEK3" and upper_data[5] == "Y":
+            green_w3 = int(new_green.acell('G4').value)
+            print("adding 1 to week 3 nest tally")
+            green_w3 += 1
+            new_green.update('G4', green_w3)
+        elif upper_data[0] == "FINALWEEK" and upper_data[5] == "Y":
+            green_wF = int(new_green.acell('G5').value)
+            print("adding 1 to final week nest tally")
+            green_wF += 1
+            new_green.update('G5', green_wF)        
 
 
 def calculate_total_nests():
@@ -642,20 +690,21 @@ def summary():
 
     if total_diff > 0:
         print_green(f"There were {total_diff} more nests laid in total \
-        last year \n")
+last year \n")
     elif total_diff < 0:
-        print_green(f"There were {total_diff} less nests laid in total \
-            last year \n")
+        total_diff_ = - (total_diff)
+        print_green(f"There were {total_diff_} less nests laid in total \
+last year \n")
     elif total_diff == 0:
         print_green("The same amount of nests were laid last year \n")
 
     if green_diff > 0:
         print_green(f"There was {green_diff} more green nests laid last \
-            year \n")
+year \n")
     elif green_diff < 0:
         green_diff_ = - (green_diff)
         print_green(f"There was {green_diff_} less green nests laid last \
-             year \n")
+year \n")
     elif green_diff == 0:
         print_green("The same amount of nests were laid last year \n")
 
@@ -665,14 +714,14 @@ last year \n")
     elif loggerhead_diff < 0:
         loggerhead_diff_ = - (loggerhead_diff)
         print_green(f"There was {loggerhead_diff_} less loggerhead nests laid \
- last year \n")
+last year \n")
     elif loggerhead_diff == 0:
         print_green("The same amount of nests were laid last year \n")
 
 
 def final():
     final_compare = input("Would you like to see a comparison of weekly nest \
-        abundance? (Y/N) \n")
+abundance? (Y/N) \n")
     if final_compare.upper() == "N":
         print_blue("You're all done. Goodbye!")
         print_red("Press the button on top to restart the program.")
