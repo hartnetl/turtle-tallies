@@ -729,7 +729,7 @@ week.upper() != 'LAST' and week.upper() != "QUIT":
     return True
 
 
-compare_q()
+# compare_q()
 
 
 def more_input():
@@ -771,8 +771,8 @@ def main(user_data):
     more_input()
 
 
-# welcome_title()
-# welcome_msg()
-# main(user_data)
-# summary()
-# compare_q()
+welcome_title()
+welcome_msg()
+main(user_data)
+summary()
+compare_q()
