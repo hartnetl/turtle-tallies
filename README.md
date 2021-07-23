@@ -65,6 +65,12 @@ Each worker / volunteer will be given a standardised form to record data. This d
 - Comparison of weekly total, Green and Loggerhead nests between this year and last year
     - The project is broken into 4 'weeks'. Weeks 1 - 3 are standard weeks. The final 'week' is longer and covers the 22nd of June to the end of the month
 
+### Future features / calculations
+
+- Change data logger calculation message to order more when data loggers are less than 20 and it's not in the final 4 days.
+- Save the users name so there is a record of who input the data 
+- Add calculations to compare data between beaches
+- Make turtle IDs searchable to bring up information on each
 
 ## Technologies Used
 

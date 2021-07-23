@@ -526,6 +526,12 @@ def calculate_data_logger_stock():
 
     print_blue("Updating data log stock value  \n")
     info.update("A2", total)
+    log_count = int(info.acell('A2').value)
+    if log_count < 20:
+        print_red(f"You have {log_count} data loggers left. Order more.")
+
+
+
 
 
 def calculate_nest_differences():
