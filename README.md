@@ -92,6 +92,24 @@ Each worker / volunteer will be given a standardised form to record data. This d
 - Colour doesn't work properly for inputs
     - NOT FIXED
 
+### Terminal problems
+
+The following problems are displayed in the terminal:
+
+- mkaufman.htmlhint extension is not found in Open VSX
+- kevinglasson.cornflakes-linter extension is not found in Open VSX
+    - These are both issues with the .gitpod.yml file provided with the CI template and can be ignored  
+
+<br>
+
+- do not assign a lambda expression, use a def
+    - When assigning coloured text an error is thrown over the use of lambda. These are ignored because assigning colours using lambda prevents longer repetitive code. See [here](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b)
+
+<br>
+
+- invalid escape sequence '\ '
+- Anomalous backslash in string: '\_'. String constant might be missing an r prefix.
+    - These are both referring to the starting turtle image. The characters have no intended function other than to create and image and so these issues can be ignored. 
 
 ## Credits
 

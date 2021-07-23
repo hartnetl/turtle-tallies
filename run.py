@@ -489,7 +489,7 @@ def calculate_green_and_logger_nests():
     Calculates and returns how many nests have been laid by loggerhead
     and green turtles this season so far
     """
-    # Calculate number of Green turtle nests 
+    # Calculate number of Green turtle nests
     green_nest = new_green.col_values(5)
     green_total = 0
     print_blue("Calculating green nests \n")
@@ -523,7 +523,7 @@ def calculate_data_logger_stock():
     total = int(logs)
     if data_logs == "Y":
         total -= 1
-    
+
     print_blue("Updating data log stock value  \n")
     info.update("A2", total)
 
@@ -700,6 +700,18 @@ abundance? (Y/N) \n")
         print_red("You entered an invalid character. Please enter 'y' or \
 'n'\n")
         final()
+
+
+def more_input():
+    more = input("Do you have more data to enter? (Y/N) \n ")
+    if more.upper == "Y":
+        collect_data()
+    elif more.upper == "N":
+        pass
+    else:
+        print_red("You have entered an invalid response. Please enter 'Y' or \
+'N' \n")
+        more_input()
 
 
 def collect_data():
