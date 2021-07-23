@@ -738,6 +738,7 @@ def main(user_data):
     calculate_data_logger_stock()
     calculate_green_and_logger_nests()
     calculate_nest_differences()
+    more_input()
 
 
 welcome_title()
