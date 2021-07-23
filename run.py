@@ -132,32 +132,6 @@ def validate_keep_going(keep_going):
 #         time.sleep(.01)
 
 
-# Help message for formatting the correct input
-# def help():
-#     """
-#     Provide help info for users if needed
-#     """
-#     print_green("HELP")
-#     print_green('Headings:')
-#     print_green("DATE, SPECIES, ID, LOCATION, NEST(Y/N), DATA LOGGER (Y/N)")
-#     print_green("For 'DATE' enter the date the turtle or nest was observed in \
-# format day/month/year")
-#     print_green("For 'SPECIES', enter 'GREEN' for Green Sea Turtle or 'LOG' \
-# for Loggerhead Turtle")
-#     print_green("For 'ID' enter the id code on the turtle's flipper tag, which \
-# is CY followed by 4 digits")
-#     print_green("For 'LOCATION' enter B1 or B2 for the beach that you observed \
-# the turtle or nest")
-#     print_green("For 'NEST' type 'Y' if a nest was successfully laid, or 'N' \
-# if the nest and egg laying was not completed")
-#     print_green("For 'DATA LOGGER' type 'Y' if a data logger was placed in the \
-# nest, and 'N' if it wasn't. Type NA if no nest was laid.")
-#     print(" ")
-#     print_green('Examples:')
-#     print_green("01/06/2021, LOG, CY0000, B1, Y, Y")
-#     print_green("01/06/2021, GREEN, CY0101, B2, N, NA\n")
-
-
 # Functions below to collect and validate information from user
 user_data = []
 
@@ -429,7 +403,7 @@ def send_data_to_worksheets(data):
         print("Sending data to Loggerhead worksheet")
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
-        print_blue("Loggerhead data sent to log_21 worksheet \n") 
+        print_blue("Loggerhead data sent to log_21 worksheet \n")
         print("Calculating new tally")
 
         if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
@@ -451,7 +425,7 @@ def send_data_to_worksheets(data):
             log_wF = int(new_logger.acell('G5').value)
             print("adding 1 to final week nest tally")
             log_wF += 1
-            new_logger.update('G5', log_wF)  
+            new_logger.update('G5', log_wF)
 
     elif upper_data[2] == "GREEN":
         print("Sending data to Green worksheet")
@@ -479,7 +453,7 @@ def send_data_to_worksheets(data):
             green_wF = int(new_green.acell('G5').value)
             print("adding 1 to final week nest tally")
             green_wF += 1
-            new_green.update('G5', green_wF)        
+            new_green.update('G5', green_wF)
 
 
 def calculate_total_nests():
@@ -728,8 +702,16 @@ abundance? (Y/N) \n")
         exit()
     elif final_compare.upper() == "Y":
         week = input("Choose your week to compare: 1 , 2, 3, or last \n")
-        print(f"You have chosen: {week}")
+        print_blue(f"You have chosen: {week}")
         compare_weeks(week)
+        repeat = input("Would you like to compare another week?")
+        if repeat.upper() == "Y":
+            week = input("Choose your week to compare: 1 , 2, 3, or last \n")
+            print_blue(f"You have chosen: {week}")
+            compare_weeks(week)
+        elif repeat.upper == "N":
+            print_blue("You're all done. Goodbye!")
+            print_red("Click the top button to restart the program")
 
 
 def collect_data():
@@ -757,7 +739,7 @@ def main(user_data):
     calculate_data_logger_stock()
     calculate_green_and_logger_nests()
     calculate_nest_differences()
-    
+
 
 welcome_title()
 welcome_msg()
