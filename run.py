@@ -366,7 +366,7 @@ def send_data_to_worksheets(data):
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
 
-    print_blue("updating weekly tally for raw data sheet \n")
+    print_blue("Updating weekly tally for raw data sheet \n")
 
     if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
         raw_w1 = int(raw_data.acell('H2').value)
@@ -389,7 +389,7 @@ def send_data_to_worksheets(data):
         raw_wF += 1
         raw_data.update('H5', raw_wF)
 
-    print_blue("Raw datasheet update complete!\n")
+    print_blue("Raw datasheet update complete\n")
 
     if upper_data[2] == "LOG":
         print_blue("Sending data to Loggerhead worksheet \n")
@@ -498,10 +498,10 @@ def calculate_green_and_logger_nests():
             green_total += 1
 
     # Append total to info worksheet
-    print_blue("Adding green nest total to admin sheet")
+    print_blue("Adding green nest total to admin sheet \n")
     info.update('D2', green_total)
-    
-    # Calculate number of Loggerhead turtle nests 
+
+    # Calculate number of Loggerhead turtle nests
     logger_nest = new_logger.col_values(5)
     logger_total = 0
     print_blue("Calculating logger nests \n")
@@ -509,7 +509,7 @@ def calculate_green_and_logger_nests():
         if items == "Y":
             logger_total += 1
 
-    print_blue("Adding Loggerhead total nests to admin sheet")
+    print_blue("Adding Loggerhead total nests to admin sheet \n")
     info.update('E2', logger_total)
 
 
@@ -655,24 +655,26 @@ last year \n")
         print_green("The same amount of nests were laid last year \n")
 
     if green_diff > 0:
-        print_green(f"There was {green_diff} more green nests laid last \
+        print_green(f"There was {green_diff} more Green nests laid last \
 year \n")
     elif green_diff < 0:
         green_diff_ = - (green_diff)
-        print_green(f"There was {green_diff_} less green nests laid last \
+        print_green(f"There was {green_diff_} less Green nests laid last \
 year \n")
     elif green_diff == 0:
-        print_green("The same amount of nests were laid last year \n")
+        print_green("The same amount of nests were laid by Green turtles last \
+year \n")
 
     if loggerhead_diff > 0:
-        print_green(f"There was {loggerhead_diff} more loggerhead nests laid \
+        print_green(f"There was {loggerhead_diff} more Loggerhead nests laid \
 last year \n")
     elif loggerhead_diff < 0:
         loggerhead_diff_ = - (loggerhead_diff)
-        print_green(f"There was {loggerhead_diff_} less loggerhead nests laid \
+        print_green(f"There was {loggerhead_diff_} less Loggerhead nests laid \
 last year \n")
     elif loggerhead_diff == 0:
-        print_green("The same amount of nests were laid last year \n")
+        print_green("The same amount of nests were laid by Loggerheads last \
+year \n")
 
 
 def final():
@@ -692,8 +694,12 @@ abundance? (Y/N) \n")
             print_blue(f"You have chosen: {week}")
             compare_weeks(week)
         elif repeat.upper == "N":
-            print_blue("You're all done. Goodbye!")
+            print_blue("You're all done \n")
             print_red("Click the top button to restart the program")
+    else:
+        print_red("You entered an invalid character. Please enter 'y' or \
+'n'\n")
+        final()
 
 
 def collect_data():
