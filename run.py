@@ -692,31 +692,37 @@ abundance? (Y/N) \n")
         exit()
     elif final_compare.upper() == "Y":
         compare()
+    else: 
+        print_red(f"You entered {final_compare}, please enter Y or N \n")
+        compare_q()
 
 
 def compare():
     while True:
-        week = input("Choose your week to compare: 1 , 2, 3, or last \n")
+        week = input("Choose your week to compare: 1 , 2, 3, or last. Type \
+'quit' to exit \n")
         if validate_week(week):
             print_blue(f"You have chosen: {week}")
             compare_weeks(week)
-            repeat = input("Would you like to compare another week?")
-                if validate_keep_going(repeat):
-                    if repeat.upper() == "Y":
-                        compare()
-                    elif repeat.upper == "N":
-                        print_blue("You're all done \n")
-                        print_red("Click the top button to restart the program")
-#     else:
-#         print_red("You entered an invalid character. Please enter 'y' or \
-# 'n'\n")
+            repeat = input("Would you like to compare another week?  \n")
+            if validate_keep_going(repeat):
+                if repeat.upper() == "Y":
+                    compare()
+                elif repeat.upper == "N":
+                    print_blue("You're all done \n")
+                    print_red("Click the top button to restart the program")
 
 
 def validate_week(week):
     try:
-        if week != '1' and week != '2' and week != '3' and week.upper() != 'LAST':
+        if week != '1' and week != '2' and week != '3' and  \
+week.upper() != 'LAST' and week.upper() != "QUIT":
             raise ValueError(
-        f"You must enter 1, 2, 3, or last. You entered {week}")
+                f"You must enter 1, 2, 3, or last. You entered {week}")
+        elif week.upper() == "QUIT":
+            print_blue("You chose to exit the program. Now closing.")
+            print_red("Press the top button to run the program again.")
+            exit()
     except ValueError as e:
         print_red(f"Invalid response: {e}, try again")
         return False
