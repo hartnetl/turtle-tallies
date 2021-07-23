@@ -1,7 +1,5 @@
 import gspread
 from google.oauth2.service_account import Credentials
-# import sys
-# import time
 from termcolor import cprint
 from datetime import datetime
 
@@ -27,12 +25,18 @@ logger_20 = SHEET.worksheet('log_20')
 info = SHEET.worksheet('admin')
 
 # define text colours
+# Help for this and justification for using lambda here
+# https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
 print_red = lambda x: cprint(x, 'red')
 print_green = lambda x: cprint(x, 'green')
 print_blue = lambda x: cprint(x, 'blue')
 
 
 def welcome_title():
+    """
+    Prints image and title for user.
+    Asks user for their name and returns welconme message with their name.
+    """
     print_green("""
                                                     ,'
                                                   ,;
@@ -68,8 +72,8 @@ def welcome_msg():
     """
     Ask user if they would like to view or enter data.
     If they would like to enter data the program is run.
-    If they want to view, a summary of data is shown and they're asked again
-    if they would like to enter data.
+    If they want to view data, a summary of data is shown and they're asked 
+    again if they would like to enter data.
     If yes, the program continues to run. If no, the program terminates.
     """
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
@@ -100,6 +104,13 @@ def welcome_msg():
 
 
 def validate_keep_going(keep_going):
+    """
+    validates that user has entered Y or N when asked if they would like to 
+    enter data.
+    If Y or no the program continues accordingly. 
+    If another value is entered an error is thrown and the user must enter a
+    value again.
+    """
     try:
         if keep_going.upper() != "Y" and keep_going.upper() != "N":
             raise ValueError(
@@ -108,28 +119,6 @@ def validate_keep_going(keep_going):
         print_red(f"Invalid entry: {e}, try again \n")
         return False
     return True
-
-
-# Credit for help with this function
-# https://stackoverflow.com/questions/4099422/printing-slowly-simulate-typing
-# def type_print(str):
-#     """
-#     Prints text out letter by letter instead of all at once
-#     """
-#     for letter in str + '\n':
-#         sys.stdout.write(letter)
-#         sys.stdout.flush()
-#         time.sleep(.1)
-
-
-# def fast_print(str):
-#     """
-#     Prints text out quickly letter by letter instead of all at once
-#     """
-#     for letter in str + '\n':
-#         sys.stdout.write(letter)
-#         sys.stdout.flush()
-#         time.sleep(.01)
 
 
 # Functions below to collect and validate information from user
@@ -531,9 +520,6 @@ def calculate_data_logger_stock():
         print_red(f"You have {log_count} data loggers left. Order more.")
 
 
-
-
-
 def calculate_nest_differences():
     """
     Calculate and return the number of nests laid compared to last year
@@ -692,7 +678,7 @@ abundance? (Y/N) \n")
         exit()
     elif final_compare.upper() == "Y":
         compare()
-    else: 
+    else:
         print_red(f"You entered {final_compare}, please enter Y or N \n")
         compare_q()
 
@@ -716,7 +702,7 @@ def compare():
 def validate_week(week):
     try:
         if week != '1' and week != '2' and week != '3' and  \
-week.upper() != 'LAST' and week.upper() != "QUIT":
+         week.upper() != 'LAST' and week.upper() != "QUIT":
             raise ValueError(
                 f"You must enter 1, 2, 3, or last. You entered {week}")
         elif week.upper() == "QUIT":
@@ -727,9 +713,6 @@ week.upper() != 'LAST' and week.upper() != "QUIT":
         print_red(f"Invalid response: {e}, try again")
         return False
     return True
-
-
-# compare_q()
 
 
 def more_input():
