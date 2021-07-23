@@ -60,7 +60,7 @@ def welcome_title():
     user = input("Enter name: \n")
     print_blue(
         f"Welcome {user}, if this is your first time entering data \
-please ensure you have read the readme in the spreadsheet for detailed \
+please ensure you have \n read the readme in the spreadsheet for detailed \
 info. \n")
 
 
@@ -357,9 +357,13 @@ def user_verifiy_input(letter):
     """
     if letter.upper() == "Y":
         pass
-    else:
-        print_red("Try again\n")
+    elif letter.upper() == "N":
+        print_red("Please enter the information again \n")
         collect_data()
+    else:
+        print_red("You must enter 'Y' or 'N' \n")
+        letter = input("Is the information you input correct? Y/N")
+        user_verifiy_input(letter)
 
 
 # == End of collecting data ==

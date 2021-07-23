@@ -36,10 +36,18 @@ Temperature data loggers record the temperature of the nest over the period it i
 
 Each worker / volunteer will be given a standardised form to record data. This data is then entered into the program to be stored in a google sheet document and analyses performed. 
 
-Front  
+<details>
+<summary>Front</summary>
+
 ![worksheet](static/readme/volunteer_sheet_1.png)
-Back  
+
+</details>
+<details>
+<summary>Back</summary>
+
 ![information](static/readme/volunteer_sheet_2.png)
+
+</details>
 
 
 ### Calculations
@@ -114,7 +122,3 @@ This program is deployed using [Heroku](https://dashboard.heroku.com/login).
 ### Forking Repository
 
 ### Cloning Repository
-
-## Acknowledgements
-
-***
