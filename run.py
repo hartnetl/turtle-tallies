@@ -683,7 +683,7 @@ last year \n")
 year \n")
 
 
-def final():
+def compare_q():
     final_compare = input("Would you like to see a comparison of weekly nest \
 abundance? (Y/N) \n")
     if final_compare.upper() == "N":
@@ -691,28 +691,46 @@ abundance? (Y/N) \n")
         print_red("Press the button on top to restart the program.")
         exit()
     elif final_compare.upper() == "Y":
+        compare()
+
+
+def compare():
+    while True:
         week = input("Choose your week to compare: 1 , 2, 3, or last \n")
-        print_blue(f"You have chosen: {week}")
-        compare_weeks(week)
-        repeat = input("Would you like to compare another week?")
-        if repeat.upper() == "Y":
-            week = input("Choose your week to compare: 1 , 2, 3, or last \n")
+        if validate_week(week):
             print_blue(f"You have chosen: {week}")
             compare_weeks(week)
-        elif repeat.upper == "N":
-            print_blue("You're all done \n")
-            print_red("Click the top button to restart the program")
-    else:
-        print_red("You entered an invalid character. Please enter 'y' or \
-'n'\n")
-        final()
+            repeat = input("Would you like to compare another week?")
+                if validate_keep_going(repeat):
+                    if repeat.upper() == "Y":
+                        compare()
+                    elif repeat.upper == "N":
+                        print_blue("You're all done \n")
+                        print_red("Click the top button to restart the program")
+#     else:
+#         print_red("You entered an invalid character. Please enter 'y' or \
+# 'n'\n")
+
+
+def validate_week(week):
+    try:
+        if week != '1' and week != '2' and week != '3' and week.upper() != 'LAST':
+            raise ValueError(
+        f"You must enter 1, 2, 3, or last. You entered {week}")
+    except ValueError as e:
+        print_red(f"Invalid response: {e}, try again")
+        return False
+    return True
+
+
+compare_q()
 
 
 def more_input():
     more = input("Do you have more data to enter? (Y/N) \n ")
-    if more.upper == "Y":
+    if more.upper() == "Y":
         collect_data()
-    elif more.upper == "N":
+    elif more.upper() == "N":
         pass
     else:
         print_red("You have entered an invalid response. Please enter 'Y' or \
@@ -747,8 +765,8 @@ def main(user_data):
     more_input()
 
 
-welcome_title()
-welcome_msg()
-main(user_data)
-summary()
-final()
+# welcome_title()
+# welcome_msg()
+# main(user_data)
+# summary()
+# compare_q()
