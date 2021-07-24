@@ -37,6 +37,8 @@ def welcome_title():
     Prints image and title for user.
     Asks user for their name and returns welconme message with their name.
     """
+    # http://www.ascii-art.de/ascii/t/turtle.txt
+    # Credit for image
     print_green("""
                                                     ,'
                                                   ,;
@@ -55,28 +57,46 @@ def welcome_title():
                         `.^'
     """)
 
+    # https://patorjk.com/software/taag/#p=display&v=0&f=Calvin%20S&t=TURTLE%20TALLIES
+    # Credit for text art
     print("""
                ╔╦╗╦ ╦╦═╗╔╦╗╦  ╔═╗  ╔╦╗╔═╗╦  ╦  ╦╔═╗╔═╗
                 ║ ║ ║╠╦╝ ║ ║  ║╣    ║ ╠═╣║  ║  ║║╣ ╚═╗
                 ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝
     """)
 
-    print("For ease of viewing it's recommended to zoom your browser window")
-    print("For Windows press CTRL and +")
-    print("For Mac press Option, Command and =")
-    user = input("Enter name: \n")
-    print_blue(
-        f"Welcome {user}, if this is your first time entering data \
+    print("For ease of viewing it's recommended to zoom in on your browser \
+window")
+    print("For Windows press CTRL and '+'")
+    print("For Mac press Option, Command and '=' \n")
+
+    while True:
+        user = input("Enter name: \n")
+        if validate_user(user):
+            print_blue(
+                f"Welcome {user}, if this is your first time entering data \
 please ensure you have \nread the readme in the spreadsheet for detailed \
 info. \n")
+
+
+def validate_user(user):
+    try:
+        if user.isalnum() is not True:
+            raise ValueError
+    except ValueError:
+        print_red("You must enter a username conaining only letters and \
+numbers to continue")
+        return False
+    return True
 
 
 def welcome_msg():
     """
     Ask user if they would like to view or enter data.
     If they would like to enter data the program is run.
-    If they want to view data, a summary of data is shown and they're asked
-    again if they would like to enter data.
+    If they want to view data, a summary of data is shown, with the option for
+    more detailed information and they're asked again if they would like to 
+    enter data.
     If yes, the program continues to run. If no, the program terminates.
     """
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
@@ -736,6 +756,9 @@ def more_input():
 
 
 def clear_data():
+    """
+    Empties the user_data list when more data is needed for entry
+    """
     user_data.clear()
 
 
@@ -747,10 +770,9 @@ def collect_data():
     get_nest_info()
     get_data_logger_info()
 
-#     slice_object = slice(1, 6, 2)
-# print(py_string[slice_object]
     slicey = slice(1, len(user_data), 1)
     print_blue(f"The data you have entered is {user_data[slicey]}")
+    print(user_data)
     check = input("Is this correct? (Y/N): \n")
     user_verifiy_input(check)
     return user_data
