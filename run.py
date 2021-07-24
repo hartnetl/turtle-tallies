@@ -61,6 +61,9 @@ def welcome_title():
                 ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝
     """)
 
+    print("For ease of viewing it's recommended to zoom your browser window")
+    print("For Windows press CTRL and +")
+    print("For Mac press Option, Command and =")
     user = input("Enter name: \n")
     print_blue(
         f"Welcome {user}, if this is your first time entering data \
@@ -72,7 +75,7 @@ def welcome_msg():
     """
     Ask user if they would like to view or enter data.
     If they would like to enter data the program is run.
-    If they want to view data, a summary of data is shown and they're asked 
+    If they want to view data, a summary of data is shown and they're asked
     again if they would like to enter data.
     If yes, the program continues to run. If no, the program terminates.
     """
@@ -80,6 +83,7 @@ def welcome_msg():
 
     if start.upper() == "VIEW":
         summary()
+        compare_q()
 
         while True:
             keep_going = input("Would you like to enter data? (Y/N)\n")
@@ -105,9 +109,9 @@ def welcome_msg():
 
 def validate_keep_going(keep_going):
     """
-    validates that user has entered Y or N when asked if they would like to 
+    validates that user has entered Y or N when asked if they would like to
     enter data.
-    If Y or no the program continues accordingly. 
+    If Y or no the program continues accordingly.
     If another value is entered an error is thrown and the user must enter a
     value again.
     """
@@ -673,9 +677,10 @@ def compare_q():
     final_compare = input("Would you like to see a comparison of weekly nest \
 abundance? (Y/N) \n")
     if final_compare.upper() == "N":
-        print_blue("You're all done. Goodbye! \n")
-        print_red("Press the button on top to restart the program.")
-        exit()
+        print_blue("You selected no. \n")
+        # print_red("Press the button on top to restart the program.")
+        # exit()
+        pass
     elif final_compare.upper() == "Y":
         compare()
     else:
@@ -688,15 +693,14 @@ def compare():
         week = input("Choose your week to compare: 1 , 2, 3, or last. Type \
 'quit' to exit \n")
         if validate_week(week):
-            print_blue(f"You have chosen: {week}")
-            compare_weeks(week)
-            repeat = input("Would you like to compare another week?  \n")
-            if validate_keep_going(repeat):
-                if repeat.upper() == "Y":
-                    compare()
-                elif repeat.upper == "N":
-                    print_blue("You're all done \n")
-                    print_red("Click the top button to restart the program")
+            if week.upper() == "QUIT":
+                print_blue("Quitting")
+                break
+            else:
+                print_blue(f"You have chosen: {week}")
+                compare_weeks(week)
+                compare()
+            break
 
 
 def validate_week(week):
@@ -705,10 +709,10 @@ def validate_week(week):
          week.upper() != 'LAST' and week.upper() != "QUIT":
             raise ValueError(
                 f"You must enter 1, 2, 3, or last. You entered {week}")
-        elif week.upper() == "QUIT":
-            print_blue("You chose to exit the program. Now closing.")
-            print_red("Press the top button to run the program again.")
-            exit()
+        # elif week.upper() == "QUIT":
+        #     print_blue("You chose to quit.")
+            # print_red("Press the top button to run the program again.")
+            # exit()
     except ValueError as e:
         print_red(f"Invalid response: {e}, try again")
         return False
@@ -754,8 +758,9 @@ def main(user_data):
     more_input()
 
 
-welcome_title()
+# welcome_title()
 welcome_msg()
 main(user_data)
 summary()
 compare_q()
+print("The program has finished. Press the top button to restart.")
