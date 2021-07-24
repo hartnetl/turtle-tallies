@@ -139,6 +139,7 @@ def get_date():
         if validate_date(user_date):
             date_obj = datetime.strptime(user_date, "%d/%m/%y")
             if date_obj.day <= 7:
+                
                 user_data.append("WEEK1")
                 user_data.append(user_date)
                 break
@@ -552,7 +553,7 @@ to last year \n")
 
 
 def compare_weeks(week):
-    print_blue("Preparing weekly comparisons")
+    print_blue("Preparing weekly comparisons...")
     total_week_1 = int(raw_data.acell('H2').value)
     last_total_week_1 = int(raw_20.acell('H2').value)
     green_week_1 = int(new_green.acell('G2').value)
@@ -724,6 +725,7 @@ def validate_week(week):
 def more_input():
     more = input("Do you have more data to enter? (Y/N) \n ")
     if more.upper() == "Y":
+        clear_data()
         collect_data()
     elif more.upper() == "N":
         pass
@@ -731,6 +733,10 @@ def more_input():
         print_red("You have entered an invalid response. Please enter 'Y' or \
 'N' \n")
         more_input()
+
+
+def clear_data():
+    user_data.clear()
 
 
 def collect_data():
@@ -741,7 +747,10 @@ def collect_data():
     get_nest_info()
     get_data_logger_info()
 
-    print_blue(f"The data you have entered is {user_data}")
+#     slice_object = slice(1, 6, 2)
+# print(py_string[slice_object]
+    slicey = slice(1, len(user_data), 1)
+    print_blue(f"The data you have entered is {user_data[slicey]}")
     check = input("Is this correct? (Y/N): \n")
     user_verifiy_input(check)
     return user_data
