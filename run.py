@@ -134,7 +134,7 @@ def get_date():
     Ask user for the date and append it to user_data
     """
     while True:
-        user_date = input("Enter the date (format: 01/06/21): \n ")
+        user_date = input("Enter the date (format: dd/mm/yy): \n ")
 
         if validate_date(user_date):
             date_obj = datetime.strptime(user_date, "%d/%m/%y")
@@ -168,9 +168,9 @@ def validate_date(user_date):
                 f"The month should be '06', you entered '{date_obj.month}'")
         elif date_obj.year != 2021:
             raise ValueError(
-                f"The year should be '2021', you entered '{date_obj.year}'")
+                f"The year should be '21', you entered '{date_obj.year}'")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_red(f"Invalid entry: {e}. Enter data as dd/mm/yy. \n")
         return False
     return True
 
@@ -640,6 +640,8 @@ def summary():
         f"Nests laid by loggerhead turtles: {loggerhead} \n"
         f"Data loggers left: {loggers} \n ")
 
+    print_green("Here is a comparison of yearly nest data.")
+
     if total_diff > 0:
         print_green(f"There were {total_diff} more nests laid in total \
 last year \n")
@@ -758,7 +760,7 @@ def main(user_data):
     more_input()
 
 
-# welcome_title()
+welcome_title()
 welcome_msg()
 main(user_data)
 summary()
