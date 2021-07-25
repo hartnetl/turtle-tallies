@@ -1,7 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from termcolor import cprint
-import datetime
+from datetime import datetime
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -158,7 +158,7 @@ def get_date():
         user_date = input("Enter the date (format: dd/mm/yy): \n ")
 
         if validate_date(user_date):
-            date_obj = datetime.datetime.strptime(user_date, "%d/%m/%y")
+            date_obj = datetime.strptime(user_date, "%d/%m/%y")
             if date_obj.day <= 7:
                 
                 user_data.append("WEEK1")
@@ -187,13 +187,16 @@ def validate_date(user_date):
         date_obj = datetime.strptime(user_date, "%d/%m/%y")
         if date_obj.month != 6:
             raise ValueError(
-                f"The month should be '06', you entered '{date_obj.month}'")
+                f"The month should be entered '06', you entered \
+'{date_obj.month}'")
         elif date_obj.year != 2021:
             raise ValueError(
-                f"The year should be '21', you entered '{date_obj.year}'")
+                f"The year should be entered as'21', you entered \
+'{date_obj.year}'")
     except ValueError as e:
         print_red(f"Invalid entry: {e}. Enter data as dd/mm/yy. \n")
         return False
+
     return True
 
 
@@ -381,26 +384,26 @@ def send_data_to_worksheets(data):
     upper_data = [item.upper() for item in data]
     raw_data.append_row(upper_data)
 
-    print_blue("Updating weekly tally for raw data sheet \n")
+    print_blue("Updating weekly total nest tally for raw data sheet \n")
 
     if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
         raw_w1 = int(raw_data.acell('H2').value)
-        print_blue("adding 1 to week 1 nest tally \n")
+        print_blue("Increasing week 1 total nest tally by 1 \n")
         raw_w1 += 1
         raw_data.update('H2', raw_w1)
     elif upper_data[0] == "WEEK2" and upper_data[5] == "Y":
         raw_w2 = int(raw_data.acell('H3').value)
-        print_blue("adding 1 to week 2 nest tally \n")
+        print_blue("Increasing week 2 total nest tally by 1 \n")
         raw_w2 += 1
         raw_data.update('H3', raw_w2)
     elif upper_data[0] == "WEEK3" and upper_data[5] == "Y":
         raw_w3 = int(raw_data.acell('H4').value)
-        print_blue("adding 1 to week 3 nest tally \n")
+        print_blue("Increasing week 3 total nest tally by 1 \n")
         raw_w3 += 1
         raw_data.update('H4', raw_w3)
     elif upper_data[0] == "FINALWEEK" and upper_data[5] == "Y":
         raw_wF = int(raw_data.acell('H5').value)
-        print_blue("adding 1 to final week nest tally \n")
+        print_blue("Increasing final week total nest tally by 1 \n")
         raw_wF += 1
         raw_data.update('H5', raw_wF)
 
@@ -410,27 +413,30 @@ def send_data_to_worksheets(data):
         print_blue("Sending data to Loggerhead worksheet \n")
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
-        print_blue("Loggerhead data sent to log_21 worksheet \n")
-        print_blue("Calculating new tally \n")
+        print_blue("Calculating weekly tally for nests laid by Loggerheads \n")
 
         if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
             log_w1 = int(new_logger.acell('G2').value)
-            print_blue("adding 1 to week 1 nest tally \n")
+            print_blue("Increasing tally of week 1 nests by Loggerheads by 1\
+\n")
             log_w1 += 1
             new_logger.update('G2', log_w1)
         elif upper_data[0] == "WEEK2" and upper_data[5] == "Y":
             log_w2 = int(new_logger.acell('G3').value)
-            print_blue("adding 1 to week 2 nest tally \n")
+            print_blue("Increasing tally of week 1 nests by Loggerheads by\
+1\n")
             log_w2 += 1
             new_logger.update('G3', log_w2)
         elif upper_data[0] == "WEEK3" and upper_data[5] == "Y":
             log_w3 = int(new_logger.acell('G4').value)
-            print_blue("adding 1 to week 3 nest tally \n")
+            print_blue("Increasing tally of week 3 nests by Loggerheads by \
+1\n")
             log_w3 += 1
             new_logger.update('G4', log_w3)
         elif upper_data[0] == "FINALWEEK" and upper_data[5] == "Y":
             log_wF = int(new_logger.acell('G5').value)
-            print_blue("adding 1 to final week nest tally \n")
+            print_blue("Increasing tally of final week nests by Loggerheads by\
+1 \n")
             log_wF += 1
             new_logger.update('G5', log_wF)
 
@@ -438,27 +444,27 @@ def send_data_to_worksheets(data):
         print_blue("Sending data to Green worksheet \n")
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
-        print_blue("Green data also sent to green_21 worksheet \n")
-        print_blue("Calculating new tally \n")
+    
+        print_blue("Calculating nest tally for weekly nests laid by Greens \n")
 
         if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
             green_w1 = int(new_green.acell('G2').value)
-            print_blue("adding 1 to week 1 nest tally \n")
+            print_blue("Increasing tally of week 1 nests by Greens by 1 \n")
             green_w1 += 1
             new_green.update('G2', green_w1)
         elif upper_data[0] == "WEEK2" and upper_data[5] == "Y":
             green_w2 = int(new_green.acell('G3').value)
-            print_blue("adding 1 to week 2 nest tally \n")
+            print_blue("Increasing tally of week 2 nests by Greens by 1\n")
             green_w2 += 1
             new_green.update('G3', green_w2)
         elif upper_data[0] == "WEEK3" and upper_data[5] == "Y":
             green_w3 = int(new_green.acell('G4').value)
-            print_blue("adding 1 to week 3 nest tally \n")
+            print_blue("Increasing tally of week 3 nests by Greens by 1 \n")
             green_w3 += 1
             new_green.update('G4', green_w3)
         elif upper_data[0] == "FINALWEEK" and upper_data[5] == "Y":
             green_wF = int(new_green.acell('G5').value)
-            print_blue("adding 1 to final week nest tally \n")
+            print_blue("Increasing tally of final week nests by Greens 1 \n")
             green_wF += 1
             new_green.update('G5', green_wF)
 
@@ -467,7 +473,7 @@ def calculate_total_nests():
     """
     Counts the number of nests laid in raw data sheet
     """
-    print_blue("Calculating total nests \n")
+    print_blue("Calculating total nests laid this season \n")
     nest_col = raw_data.col_values(6)
     total = 0
     for item in nest_col:
@@ -480,7 +486,7 @@ def calculate_nest_attempts():
     """
     Calculates the number of nests attempted, successful or not
     """
-    print_blue("Calculating nest attempts \n")
+    print_blue("Calculating nest attempts this season \n")
     nest_col = raw_data.col_values(6)
     attempts = 0
     for item in nest_col:
@@ -507,7 +513,7 @@ def calculate_green_and_logger_nests():
     # Calculate number of Green turtle nests
     green_nest = new_green.col_values(5)
     green_total = 0
-    print_blue("Calculating green nests \n")
+    print_blue("Calculating total green nests laid this season \n")
     for item in green_nest:
         if item == "Y":
             green_total += 1
@@ -519,7 +525,7 @@ def calculate_green_and_logger_nests():
     # Calculate number of Loggerhead turtle nests
     logger_nest = new_logger.col_values(5)
     logger_total = 0
-    print_blue("Calculating logger nests \n")
+    print_blue("Calculating number of logger nests laid this season \n")
     for items in logger_nest:
         if items == "Y":
             logger_total += 1
@@ -539,7 +545,7 @@ def calculate_data_logger_stock():
     if data_logs == "Y":
         total -= 1
 
-    print_blue("Updating data log stock value  \n")
+    print_blue("Updating data logger stock value  \n")
     info.update("A2", total)
     log_count = int(info.acell('A2').value)
     if log_count < 20:
@@ -605,7 +611,7 @@ def compare_weeks(week):
 
     if week == '1':
         print_green(
-            f"In the first week of the season {total_week_1} nests have been \
+            f"In the first week of this season {total_week_1} nests have been \
 laid, in comparison to {last_total_week_1} last year. \n {green_week_1} of \
 these were laid by Green turtles, while {last_green_week_1} were laid by \
 Greens this time last year. \n Loggerheads laid {loggerhead_week_1} nests in \
@@ -614,7 +620,7 @@ period last year. \n")
 
     elif week == '2':
         print_green(
-            f"In the second week of the season {total_week_2} nests have been \
+            f"In the second week of this season {total_week_2} nests have been \
 laid, in comparison to {last_total_week_2} last year. \n {green_week_2} of \
 these were laid by Greens, while {last_green_week_2} were laid by Greens this \
 time last year. \n Loggerheads laid {loggerhead_week_2} nests in the first \
@@ -623,7 +629,7 @@ period last year.\n")
 
     elif week == '3':
         print_green(
-            f"In the third week of the season {total_week_3} nests have been \
+            f"In the third week of this season {total_week_3} nests have been \
 laid, in comparison to {last_total_week_3} last year. \n{green_week_3} of \
 these were laid by Greens, while {last_green_week_3} were laid by Greens this \
 time last year. \nLoggerheads laid {loggerhead_week_3} nests in the first \
@@ -632,7 +638,7 @@ period last year.\n")
 
     elif week.lower() == 'last':
         print_green(
-             f"In the final week of the season {total_week_final} nests have \
+             f"In the final week of this season {total_week_final} nests have \
 been laid, in comparison to {last_total_week_final} last year. \n \
 {green_week_final} of these were laid by green, while {last_green_week_final} \
 were laid by Greens this time last year. \nLoggerheads laid \
@@ -731,10 +737,6 @@ def validate_week(week):
          week.upper() != 'LAST' and week.upper() != "QUIT":
             raise ValueError(
                 f"You must enter 1, 2, 3, or last. You entered {week}")
-        # elif week.upper() == "QUIT":
-        #     print_blue("You chose to quit.")
-            # print_red("Press the top button to run the program again.")
-            # exit()
     except ValueError as e:
         print_red(f"Invalid response: {e}, try again")
         return False
@@ -771,8 +773,8 @@ def collect_data():
 
     slicey = slice(1, len(user_data), 1)
     print_blue(f"The data you have entered is {user_data[slicey]}")
-    print(user_data)
-    check = input("Is this correct? (Y/N): \n")
+    check = input("Are you happy to input this data to the spreadsheet? \
+(Y/N): \n")
     user_verifiy_input(check)
     return user_data
 
