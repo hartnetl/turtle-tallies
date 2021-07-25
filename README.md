@@ -145,8 +145,10 @@ total difference: The stored value of the number of last years loggerhead turtle
     ![option to view data](static/readme/view-enter.png)
 - Optional weekly comparisons  
     ![weekly comparisons](static/readme/weekly-comparison.png)
-- Option to quit after entering data is viewed
+- Option to quit or input data after summary is viewed
+    ![quit program][static/readme/quit.png]
 - Easy to understand data input (ie, each bit is asked for and validated one at a time) 
+    ![user input](static/readme/input.png)
 - Chance to review it was entered correctly (passes validation but mistyped) before being sent to googlesheet
 - User is updated on what program is doing
 - User is returned values from the calculations
