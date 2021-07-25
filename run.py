@@ -76,7 +76,7 @@ window")
         if validate_user(user):
             print_blue(
                 f"Welcome {user}, if this is your first time entering data \
-please ensure you have \nyour data collection sheets with you for entry.")
+please ensure you have your data collection sheets with you for entry.")
             break
 
 
@@ -108,7 +108,7 @@ def welcome_msg():
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
 
     if start.upper() == "VIEW":
-        #summary function is called to present basic summary info. Then 
+        # summary function is called to present basic summary info. Then 
         # compare_q asks user id they would like to see the weekly data.
         summary()
         compare_q()
@@ -646,11 +646,11 @@ def compare_weeks(week):
     if week == '1':
         print_green(
             f"In the first week of this season {total_week_1} nests have been \
-laid, in comparison to {last_total_week_1} last year. \n{green_week_1} of \
+laid, in comparison to {last_total_week_1} \nlast year. \n{green_week_1} of \
 these were laid by Green turtles, while {last_green_week_1} were laid by \
-Greens this time last year. \nLoggerheads laid {loggerhead_week_1} nests in \
+Greens this time \nlast year. \nLoggerheads laid {loggerhead_week_1} nests in \
 the first week and {last_loggerhead_week_1} were laid by them during this same\
-period last year. \n")
+ period last year. \n")
 
     elif week == '2':
         print_green(
@@ -658,26 +658,26 @@ period last year. \n")
 laid, in comparison to {last_total_week_2} last year. \n{green_week_2} of \
 these were laid by Greens, while {last_green_week_2} were laid by Greens this \
 time last year. \nLoggerheads laid {loggerhead_week_2} nests in the first \
-week, and {last_loggerhead_week_2} were laid by them during this same \
+week, and {last_loggerhead_week_2} were laid by them during \nthis same \
 period last year.\n")
 
     elif week == '3':
         print_green(
             f"In the third week of this season {total_week_3} nests have been \
-laid, in comparison to {last_total_week_3} last year. \n{green_week_3} of \
+laid, in comparison to {last_total_week_3} last \nyear. \n{green_week_3} of \
 these were laid by Greens, while {last_green_week_3} were laid by Greens this \
-time last year. \nLoggerheads laid {loggerhead_week_3} nests in the first \
-week, and {last_loggerhead_week_3} were laid by them during this same \
+time last \nyear. \nLoggerheads laid {loggerhead_week_3} nests in the first \
+week, and {last_loggerhead_week_3} were laid by them during \nthis same \
 period last year.\n")
 
     elif week.lower() == 'last':
         print_green(
              f"In the final week of this season {total_week_final} nests have \
-been laid, in comparison to {last_total_week_final} last year. \n \
+been laid, in comparison to {last_total_week_final} last year.\n\
 {green_week_final} of these were laid by green, while {last_green_week_final} \
-were laid by Greens this time last year. \nLoggerheads laid \
+were laid by Greens this time last \nyear. \nLoggerheads laid \
 {loggerhead_week_final} nests in the first week, and \
-{last_loggerhead_week_final} were laid by them during this same \
+{last_loggerhead_week_final} were laid by them during \nthis same \
 period last year.\n")
 
 

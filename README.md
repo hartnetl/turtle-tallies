@@ -169,10 +169,16 @@ The info worksheet isn't accessed by this program, but gives some basic understa
 ***
 
 ### Self testing
-- slice week
+
+- The main tester was myself, and the program was run through in its entirety countless time to ensure it worked correctly and all information was correctly validated.
+- All features included currently work as expected.
+<br>
+- To do weekly comparisons I group the data by weeks and add the week to the information input by the user. When the user was asked to verify the information they entered was correct before sending it to the spreadsheet this data appeared alongside the info they entered. I thought this could lead to confusion, so used the slice method to still add that information but prevent it being displayed to the user.
+
 
 ### user testing
-- User input  too long and complicated
+- The initial input method had the user entering all fields in one statement separated by commas. User feedback was this was awkward, and it was hard to remember what info needed to be entered and how despite having a formatting example. 
+This was an unusual predicament because in the real world the user inputting the information would have a filled out worksheet like the one above to enter data from. I still decided to change the input 
 - Put full summary at top
 
 ### validation
