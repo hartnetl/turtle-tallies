@@ -127,10 +127,11 @@ The info worksheet isn't accessed by this program, but gives some basic understa
 ## Features
 
 - Program is linked to googlesheet which is updated accordingly as the program runs
-- Ascii image on startup of turtle swimming and title
-    ![ascii image](static/readme/ascii.png)
+- Ascii image on startup of turtle swimming and title  
+    ![ascii image](static/readme/ascii.png)  
 - Welcome message to user, returning the name they input
-- Optional summary of data
+- Option to view summary of data at start of program
+    ![option to view data](static/readme/view-enter.png)
 - Optional weekly comparisons
 - Option to quit after entering data is viewed
 - Easy to understand data input (ie, each bit is asked for and validated one at a time) 

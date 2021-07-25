@@ -27,9 +27,9 @@ info = SHEET.worksheet('admin')
 # define text colours
 # Help for this and justification for using lambda here
 # https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
-print_red = lambda x: cprint(x, 'red')
-print_green = lambda x: cprint(x, 'green')
-print_blue = lambda x: cprint(x, 'blue')
+print_red = lambda x: cprint(x, 'magenta')
+print_green = lambda x: cprint(x, 'yellow')
+print_blue = lambda x: cprint(x, 'cyan')
 
 
 def welcome_title():
