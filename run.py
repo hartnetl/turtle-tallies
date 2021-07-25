@@ -15,7 +15,7 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('turtle_tallies')
 
-# Naming each worksheet in the document
+# Naming each worksheet in the google spreadsheet document
 raw_data = SHEET.worksheet('raw_data_21')
 raw_20 = SHEET.worksheet('raw_data_20')
 new_green = SHEET.worksheet('green_21')
@@ -70,6 +70,7 @@ window")
     print("For Windows press CTRL and '+'")
     print("For Mac press Option, Command and '=' \n")
 
+    # Runs loop of asking for a user name until a valid entry is input. 
     while True:
         user = input("Enter name: \n")
         if validate_user(user):
@@ -81,6 +82,11 @@ info. \n")
 
 
 def validate_user(user):
+    """
+    Validation for the username input in welcome_title().
+    User must put in an alphanumeric value, or an error will be raised and they
+    must try again.
+    """
     try:
         if user.isalnum() is not True:
             raise ValueError
@@ -96,16 +102,20 @@ def welcome_msg():
     Ask user if they would like to view or enter data.
     If they would like to enter data the program is run.
     If they want to view data, a summary of data is shown, with the option for
-    more detailed information and they're asked again if they would like to 
+    more detailed information and they're asked again if they would like to
     enter data.
     If yes, the program continues to run. If no, the program terminates.
     """
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
 
     if start.upper() == "VIEW":
+        #summary function is called to present basic summary info. Then 
+        # compare_q asks user id they would like to see the weekly data.
         summary()
         compare_q()
 
+        # After the data is displayed the user is asked if they'd like to 
+        # enter data.
         while True:
             keep_going = input("Would you like to enter data? (Y/N)\n")
             if validate_keep_going(keep_going):
@@ -130,8 +140,8 @@ def welcome_msg():
 
 def validate_keep_going(keep_going):
     """
-    validates that user has entered Y or N when asked if they would like to
-    enter data.
+    Validates that user has entered Y or N when asked if they would like to
+    enter data in welcome_msg().
     If Y or no the program continues accordingly.
     If another value is entered an error is thrown and the user must enter a
     value again.
@@ -146,13 +156,20 @@ def validate_keep_going(keep_going):
     return True
 
 
-# Functions below to collect and validate information from user
+#################################################################
+# Functions below to collect and validate information from user #
+#################################################################
+
 user_data = []
 
 
 def get_date():
     """
-    Ask user for the date and append it to user_data
+    Asks user for the date and converts input to datetime format. It is 
+    appended to user_data if it's validated.
+    Calculates if the data is in week 1, week 2, week 3 or the final week of 
+    the project and appends this to user_data to be added to the googlesheet 
+    also.
     """
     while True:
         user_date = input("Enter the date (format: dd/mm/yy): \n ")
@@ -180,7 +197,7 @@ def get_date():
 
 def validate_date(user_date):
     """
-    Validates that the date input is day/month/year.
+    Validates that the date input is day/month/year in get_date().
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
@@ -216,10 +233,11 @@ def get_species():
 
 def validate_species(species):
     """
-    Validates that the species input is "LOG" or "GREEN".
+    Validates that the species input from get_species() is "LOG" or "GREEN".
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
+        # If the species input isn't log or green, an error is raised
         if species.upper() != "LOG" and species.upper() != "GREEN":
             raise ValueError(
                 F"Species should be 'GREEN' or 'LOG', you entered {species}")
@@ -245,7 +263,8 @@ def get_turtle_id():
 
 def validate_turtle(turtle):
     """
-    Validates that the ID input is 6 characters long.
+    Validates that the ID input from get_turtle_id() is CY followed by 4 
+    digits.
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
@@ -372,13 +391,17 @@ def user_verifiy_input(letter):
         user_verifiy_input(letter)
 
 
-# == End of collecting data ==
+############################
+#  End of collecting data  #
+############################
 
 
 def send_data_to_worksheets(data):
     """
-    After validation, the data input by the user is added to the raw data
-    worksheet.
+    After validation, the data input by the user is added to the raw data, 
+    loggerhead and green turtle worksheets.
+    The total nests laid is calculated for both species together and 
+    separately.
     """
     print_blue("Updating the worksheets\n")
     upper_data = [item.upper() for item in data]
@@ -386,6 +409,7 @@ def send_data_to_worksheets(data):
 
     print_blue("Updating weekly total nest tally for raw data sheet \n")
 
+    # Adds 1 to the value stored in the googlesheet if needed
     if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
         raw_w1 = int(raw_data.acell('H2').value)
         print_blue("Increasing week 1 total nest tally by 1 \n")
@@ -409,12 +433,14 @@ def send_data_to_worksheets(data):
 
     print_blue("Raw datasheet update complete\n")
 
+    # Send data to loggerhead datasheet if that was the species entered
     if upper_data[2] == "LOG":
         print_blue("Sending data to Loggerhead worksheet \n")
         upper_data.remove('LOG')
         new_logger.append_row(upper_data)
         print_blue("Calculating weekly tally for nests laid by Loggerheads \n")
 
+        # Increase value stored in worksheet if needed
         if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
             log_w1 = int(new_logger.acell('G2').value)
             print_blue("Increasing tally of week 1 nests by Loggerheads by 1\
@@ -440,13 +466,15 @@ def send_data_to_worksheets(data):
             log_wF += 1
             new_logger.update('G5', log_wF)
 
+    # Sends data to green turtle worksheet if that was the species entered
     elif upper_data[2] == "GREEN":
         print_blue("Sending data to Green worksheet \n")
         upper_data.remove('GREEN')
         new_green.append_row(upper_data)
-    
+
         print_blue("Calculating nest tally for weekly nests laid by Greens \n")
 
+        # Increases the input weeks nest tally for green turtles
         if upper_data[0] == "WEEK1" and upper_data[5] == "Y":
             green_w1 = int(new_green.acell('G2').value)
             print_blue("Increasing tally of week 1 nests by Greens by 1 \n")
@@ -502,7 +530,6 @@ def append_total_nests(total, attempts):
     """
     print_blue("Updating total nests laid in admin worksheet \n")
     info.update('B2', total)
-    # updated = info.acell('B2').value
 
 
 def calculate_green_and_logger_nests():
@@ -556,6 +583,8 @@ def calculate_nest_differences():
     """
     Calculate and return the number of nests laid compared to last year
     """
+    # Assign cell values to variables and provide feedback to user while they
+    # wait
     print_blue("Calculating difference in total nest numbers compared to \
 last year \n")
     last_total = int(info.acell('C2').value)
@@ -580,6 +609,11 @@ to last year \n")
 
 
 def compare_weeks(week):
+    """
+    Gives the user a comparison of the total nests laid this year, nests laid 
+    by Green turtles and nests laid by Loggerheads compared to last year
+    """
+    # Assign variables the integer value of the cells
     print_blue("Preparing weekly comparisons...")
     total_week_1 = int(raw_data.acell('H2').value)
     last_total_week_1 = int(raw_20.acell('H2').value)
@@ -609,6 +643,7 @@ def compare_weeks(week):
     loggerhead_week_final = int(new_logger.acell('G5').value)
     last_loggerhead_week_final = int(logger_20.acell('H4').value)
 
+    # Returning the values to use in easy to read format
     if week == '1':
         print_green(
             f"In the first week of this season {total_week_1} nests have been \
@@ -704,8 +739,12 @@ year \n")
 
 
 def compare_q():
+    """
+    Asks user if they would like to compare weekly data between this year and 
+    last year
+    """
     final_compare = input("Would you like to see a comparison of weekly nest \
-abundance? (Y/N) \n")
+abundance between this year and last year? (Y/N) \n")
     if final_compare.upper() == "N":
         print_blue("You selected no. \n")
         pass
@@ -717,6 +756,10 @@ abundance? (Y/N) \n")
 
 
 def compare():
+    """
+    A loop which asks the user which week they would like to compare after 
+    choosing to compare weeks. The loop ends when user types 'quit'
+    """
     while True:
         week = input("Choose your week to compare: 1 , 2, 3, or last. Type \
 'quit' to exit \n")
@@ -732,6 +775,9 @@ def compare():
 
 
 def validate_week(week):
+    """
+    Validates that the user has input 1,2,3, last or quit into compare().
+    """
     try:
         if week != '1' and week != '2' and week != '3' and  \
          week.upper() != 'LAST' and week.upper() != "QUIT":
@@ -744,6 +790,10 @@ def validate_week(week):
 
 
 def more_input():
+    """
+    Asks user if they would like to enter more data after entering a set.
+    Empties the list storing the input data if user chooses to enter another
+    """
     more = input("Do you have more data to enter? (Y/N) \n ")
     if more.upper() == "Y":
         clear_data()
@@ -764,6 +814,9 @@ def clear_data():
 
 
 def collect_data():
+    """
+    A main function to gather the functions related to data collection
+    """
     get_date()
     get_species()
     get_turtle_id()
@@ -780,6 +833,10 @@ def collect_data():
 
 
 def main(user_data):
+    """
+    This function holds the main functionality of the program, where the
+    calculations are made and information returned
+    """
     print()
     print_blue("Sending data to worksheets \n")
     send_data_to_worksheets(user_data)
@@ -790,11 +847,12 @@ def main(user_data):
     calculate_green_and_logger_nests()
     calculate_nest_differences()
     more_input()
+    summary()
+    compare_q()
 
 
 welcome_title()
 welcome_msg()
 main(user_data)
-summary()
-compare_q()
+
 print("The program has finished. Press the top button to restart.")
