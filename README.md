@@ -2,15 +2,14 @@
 
 [Live Site](https://turtle-tallies.herokuapp.com/)
 
-
-
-1. [Introduction](#1-introduction)
-2. [Technologies used](#2-technologies-used)
-3. [Testing](#3-testing)
-4. [Bugs](#4-bugs)
-5. [Credits](#5-credits)
-6. [Deployment](#6-deployment)
-7. [Acknowledgements](#7-acknowledgements)
+1. [Introduction](#introduction)
+2. [Technologies used](#technologies-used)
+3. [Features](#features)
+4. [Testing](#testing)
+5. [Bugs](#bugs)
+6. [Credits](#credits)
+7. [Deployment](#deployment)
+8. [Acknowledgements](#acknowledgements)
 
 ## Introduction
 
@@ -30,8 +29,6 @@ The ID tags are used to identify the turtles so in the future a record is kept f
 The location is recorded, but not currently used in this study. It will be implemented in the future to compare yearly abundances on the beaches.
 Temperature data loggers record the temperature of the nest over the period it is in it. This will be used to estimate the sex of the hatchlings (cold temperatures produce males, warm temperatures females and inbetween can result in a mixed gendered nest). The data returned from these are not relevant to this project, but it's important to know for other studies to know which nests have them, and so its important for this study to know how many are in stock.
 
-
-
 ### Data required
 
 Each worker / volunteer will be given a standardised form to record data. This data is then entered into the program to be stored in a google sheet document and analyses performed. 
@@ -49,6 +46,33 @@ Each worker / volunteer will be given a standardised form to record data. This d
 
 </details>
 
+## Data Model
+
+
+## Technologies Used
+
+***
+
+- This project was created completely with Python
+- Libraries used
+    - gspread
+    - google auth
+    - datetime
+    - term color
+
+## Features
+
+- Program is linked to googlesheet which is updated accordingly as the program runs
+- Ascii image
+- Welcome message to user
+- Optional summary of data
+- Optional weekly comparisons
+- Option to quit after entering data is viewed
+- Easy to understand data input (ie, each bit is asked for and validated one at a time) 
+- Chance to review it was entered correctly (passes validation but mistyped) before being sent to googlesheet
+- User is updated on what program is doing
+- User is returned values from the calculations
+- Validations at each step
 
 ### Calculations
 
@@ -71,17 +95,23 @@ Each worker / volunteer will be given a standardised form to record data. This d
 - Save the users name so there is a record of who input the data 
 - Add calculations to compare data between beaches
 - Make turtle IDs searchable to bring up information on each
-
-## Technologies Used
-
-***
-
-- This project was created completely with Python
-- The onscreen terminal is the Code Institute template
+- Add future maintainability by adding in a feature to create new datasheets for new years
+- Add date exception handling for when there is an issue with formatting eg, values entered aren't legitimate dates.
 
 ## Testing 
 
 ***
+
+### Self testing
+- slice week
+
+### user testing
+- User input  too long and complicated
+- Put full summary at top
+
+### validation
+
+
 
 ## Bugs
 
