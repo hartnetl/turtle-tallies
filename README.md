@@ -50,22 +50,69 @@ Each worker / volunteer will be given a standardised form to record data. This d
 
 The above disgram is a simplified version of the program which exists. The user enters the data which is validated at each step, and then when confirmed to be correct it is sent to the google sheet. The data is sent to a total sheet and the corresponding turtle species' sheet. The total number of nests laid by each and both turtles is tallied, as well as the weekly tallies for both. This information is returned to the user in a user friendly, easy to read way.
 
+The spreadsheet has 8 worksheets, 7 of which are accessible by this program. Each year has 3 worksheets, which follow a similar naming convention for ease of understanding as the project progresses. They are raw_year, green_year and log_year. 
+The raw worksheets contain all the information input by the user for that year's season. The green worksheets contain that years green turtle nest information. The log worksheets contain that years Loggerhead nest information. The admin data isn't stored from year to year, but are stored for the program to read and return to user.
+The info worksheet isn't accessed by this program, but gives some basic understanding of the project and what data is being collected. This is useful for understanding what data has been calculated and why, if for some reason the spreadsheet is read by an external source.
 <details>
-<summary>The spreadsheet has 8 worksheets, 7 of which are accessible by this program.
-</summary>
+<summary>Click to expand</summary>
 
 ![worksheets](static/readme/worksheets-all.png)
 
 </details>
 
-- raw_data_21 contains all the turtle data for the 2021 season, and is the year currently being added to when the program is used
+<br>
+
+- raw_data_21 contains all the turtle data for the 2021 season, and is the year currently being added to when the program is used. It also stores weekly data for how many turtle nests were laid in that week.
+    <details>
+    <summary>Click to expand</summary>
+
     ![raw 2021 data sheet](static/readme/raw-21.png)
+
+    </details>
+    
 - green_21 contains the Green Turtle nesting data from the raw data sheet
+    <details>
+    <summary>Click to expand</summary>
+
+    ![Green turtle 2021 data sheet](static/readme/green-21.png)
+
+    </details>
+
 - log_21 contains the Loggerhead Turtle nesting data from the raw data sheet
+    <details>
+    <summary>Click to expand</summary>
+
+    ![Loggerhead turtle 2021 data sheet](static/readme/log-21.png)
+
+    </details>
 - raw_20 contains the full data collected in 2020
+    <details>
+    <summary>Click to expand</summary>
+
+    ![raw 2020 data sheet](static/readme/raw-20.png)
+
+    </details>
 - green_20 contains the Green turtle nesting data only from 2020
+    <details>
+    <summary>Click to expand</summary>
+
+    ![Green turtle 2020 data sheet](static/readme/green-20.png)
+
+    </details>
 - log_20 contains the Loggerhead turtle nesting data only from 2020
+    <details>
+    <summary>Click to expand</summary>
+
+    ![Loggerhead 2020 data sheet](static/readme/log-20.png)
+
+    </details>
 - admin stores values to be returned to the user
+    <details>
+    <summary>Click to expand</summary>
+
+    ![Admin data sheet](static/readme/admin.png)
+
+    </details>
 ## Technologies Used
 
 ***
@@ -80,8 +127,9 @@ The above disgram is a simplified version of the program which exists. The user 
 ## Features
 
 - Program is linked to googlesheet which is updated accordingly as the program runs
-- Ascii image
-- Welcome message to user
+- Ascii image on startup of turtle swimming and title
+    ![ascii image](static/readme/ascii.png)
+- Welcome message to user, returning the name they input
 - Optional summary of data
 - Optional weekly comparisons
 - Option to quit after entering data is viewed
