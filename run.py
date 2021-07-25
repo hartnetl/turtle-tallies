@@ -661,7 +661,7 @@ def summary():
         f"Nests laid by loggerhead turtles: {loggerhead} \n"
         f"Data loggers left: {loggers} \n ")
 
-    print_green("Here is a comparison of yearly nest data.")
+    print_green("Here is a comparison of yearly nest data:")
 
     if total_diff > 0:
         print_green(f"There were {total_diff} more nests laid in total \
@@ -701,8 +701,6 @@ def compare_q():
 abundance? (Y/N) \n")
     if final_compare.upper() == "N":
         print_blue("You selected no. \n")
-        # print_red("Press the button on top to restart the program.")
-        # exit()
         pass
     elif final_compare.upper() == "Y":
         compare()
