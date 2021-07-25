@@ -29,26 +29,43 @@ The ID tags are used to identify the turtles so in the future a record is kept f
 The location is recorded, but not currently used in this study. It will be implemented in the future to compare yearly abundances on the beaches.
 Temperature data loggers record the temperature of the nest over the period it is in it. This will be used to estimate the sex of the hatchlings (cold temperatures produce males, warm temperatures females and inbetween can result in a mixed gendered nest). The data returned from these are not relevant to this project, but it's important to know for other studies to know which nests have them, and so its important for this study to know how many are in stock.
 
-### Data required
+## Data Model
 
-Each worker / volunteer will be given a standardised form to record data. This data is then entered into the program to be stored in a google sheet document and analyses performed. 
+Each worker / volunteer will be given a standardised form to record data. This data is then entered directly into the program which sends it to a google sheet to be stored and manipulated.
 
 <details>
-<summary>Front</summary>
+<summary>Front of data collecter's sheet</summary>
 
 ![worksheet](static/readme/volunteer_sheet_1.png)
 
 </details>
 <details>
-<summary>Back</summary>
+<summary>Back of data collecter's sheet</summary>
 
 ![information](static/readme/volunteer_sheet_2.png)
 
 </details>
 
-## Data Model
+![Structure flow chart](static/readme/turtle_tallies.png)
 
+The above disgram is a simplified version of the program which exists. The user enters the data which is validated at each step, and then when confirmed to be correct it is sent to the google sheet. The data is sent to a total sheet and the corresponding turtle species' sheet. The total number of nests laid by each and both turtles is tallied, as well as the weekly tallies for both. This information is returned to the user in a user friendly, easy to read way.
 
+<details>
+<summary>The spreadsheet has 8 worksheets, 7 of which are accessible by this program.
+</summary>
+
+![worksheets](static/readme/worksheets-all.png)
+
+</details>
+
+- raw_data_21 contains all the turtle data for the 2021 season, and is the year currently being added to when the program is used
+    ![raw 2021 data sheet](static/readme/raw-21.png)
+- green_21 contains the Green Turtle nesting data from the raw data sheet
+- log_21 contains the Loggerhead Turtle nesting data from the raw data sheet
+- raw_20 contains the full data collected in 2020
+- green_20 contains the Green turtle nesting data only from 2020
+- log_20 contains the Loggerhead turtle nesting data only from 2020
+- admin stores values to be returned to the user
 ## Technologies Used
 
 ***
