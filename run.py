@@ -76,8 +76,7 @@ window")
         if validate_user(user):
             print_blue(
                 f"Welcome {user}, if this is your first time entering data \
-please ensure you have \nread the readme in the spreadsheet for detailed \
-info. \n")
+please ensure you have \nyour data collection sheets with you for entry.")
             break
 
 
