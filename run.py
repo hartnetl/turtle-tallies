@@ -35,7 +35,7 @@ print_blue = lambda x: cprint(x, 'blue')
 def welcome_title():
     """
     Prints image and title for user.
-    Asks user for their name and returns welconme message with their name.
+    Asks user for their name and returns welcome message with their name.
     """
     # http://www.ascii-art.de/ascii/t/turtle.txt
     # Credit for image
@@ -610,7 +610,7 @@ to last year \n")
 
 def compare_weeks(week):
     """
-    Gives the user a comparison of the total nests laid this year, nests laid 
+    Gives the user a comparison of the total nests laid this year, nests laid
     by Green turtles and nests laid by Loggerheads compared to last year
     """
     # Assign variables the integer value of the cells
@@ -647,18 +647,18 @@ def compare_weeks(week):
     if week == '1':
         print_green(
             f"In the first week of this season {total_week_1} nests have been \
-laid, in comparison to {last_total_week_1} last year. \n {green_week_1} of \
+laid, in comparison to {last_total_week_1} last year. \n{green_week_1} of \
 these were laid by Green turtles, while {last_green_week_1} were laid by \
-Greens this time last year. \n Loggerheads laid {loggerhead_week_1} nests in \
+Greens this time last year. \nLoggerheads laid {loggerhead_week_1} nests in \
 the first week and {last_loggerhead_week_1} were laid by them during this same\
 period last year. \n")
 
     elif week == '2':
         print_green(
             f"In the second week of this season {total_week_2} nests have been \
-laid, in comparison to {last_total_week_2} last year. \n {green_week_2} of \
+laid, in comparison to {last_total_week_2} last year. \n{green_week_2} of \
 these were laid by Greens, while {last_green_week_2} were laid by Greens this \
-time last year. \n Loggerheads laid {loggerhead_week_2} nests in the first \
+time last year. \nLoggerheads laid {loggerhead_week_2} nests in the first \
 week, and {last_loggerhead_week_2} were laid by them during this same \
 period last year.\n")
 
@@ -703,7 +703,7 @@ def summary():
         f"Nests laid by loggerhead turtles: {loggerhead} \n"
         f"Data loggers left: {loggers} \n ")
 
-    print_green("Here is a comparison of yearly nest data:")
+    print_green("Here is a comparison of yearly nest data: \n")
 
     if total_diff > 0:
         print_green(f"There were {total_diff} more nests laid in total \
