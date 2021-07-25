@@ -1,7 +1,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from termcolor import cprint
-from datetime import datetime
+import datetime
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -77,6 +77,7 @@ window")
                 f"Welcome {user}, if this is your first time entering data \
 please ensure you have \nread the readme in the spreadsheet for detailed \
 info. \n")
+            break
 
 
 def validate_user(user):
@@ -157,7 +158,7 @@ def get_date():
         user_date = input("Enter the date (format: dd/mm/yy): \n ")
 
         if validate_date(user_date):
-            date_obj = datetime.strptime(user_date, "%d/%m/%y")
+            date_obj = datetime.datetime.strptime(user_date, "%d/%m/%y")
             if date_obj.day <= 7:
                 
                 user_data.append("WEEK1")
