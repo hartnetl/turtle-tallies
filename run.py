@@ -384,6 +384,7 @@ def user_verifiy_input(letter):
         pass
     elif letter.upper() == "N":
         print_red("Please enter the information again \n")
+        clear_data()
         collect_data()
     else:
         print_red("You must enter 'Y' or 'N' \n")
