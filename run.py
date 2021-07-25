@@ -65,18 +65,19 @@ def welcome_title():
                 ╩ ╚═╝╩╚═ ╩ ╩═╝╚═╝   ╩ ╩ ╩╩═╝╩═╝╩╚═╝╚═╝
     """)
 
-    print("For ease of viewing it's recommended to zoom in on your browser \
-window")
-    print("For Windows press CTRL and '+'")
-    print("For Mac press Option, Command and '=' \n")
+    print("""
+For ease of viewing it's recommended to zoom in on your browser window
+For Windows press CTRL and '+'"
+For Mac press Option, Command and '=' \n """)
 
     # Runs loop of asking for a user name until a valid entry is input. 
     while True:
         user = input("Enter name: \n")
         if validate_user(user):
             print_blue(
-                f"Welcome {user}, if this is your first time entering data \
-please ensure you have your data collection sheets with you for entry.")
+                f"""
+Welcome {user}, if this is your first time entering data please ensure you 
+have your data collection sheets with you for entry.""")
             break
 
 
