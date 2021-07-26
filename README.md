@@ -3,13 +3,14 @@
 [Live Site](https://turtle-tallies.herokuapp.com/)
 
 1. [Introduction](#introduction)
-2. [Technologies used](#technologies-used)
-3. [Features](#features)
-4. [Testing](#testing)
-5. [Bugs](#bugs)
-6. [Credits](#credits)
-7. [Deployment](#deployment)
-8. [Acknowledgements](#acknowledgements)
+2. [Data Model](#data-model)
+3. [Technologies used](#technologies-used)
+4. [Features](#features)
+5. [Testing](#testing)
+6. [Bugs](#bugs)
+7. [Credits](#credits)
+8. [Deployment](#deployment)
+9. [Acknowledgements](#acknowledgements)
 
 ## Introduction
 
@@ -18,6 +19,10 @@
 Turtle Tallies is a program designed to automate data analysis for a turtle nest abundance study.  
 It allows users to input collected data and calculations are carried out on the nest abundance of green and loggerhead turtles.
 It calculates the total abundance of nests, nests laid by Green Sea Turtles and nests laid by Loggerhead sea turtles. It compares this total data to the previous year, and can do so broken down into weekly totals.
+
+As a user of this software, the aim is to simply input the data and have the calculations returned with minimal effort. This allows a greater number of people to be available for data entry which is often a tedious task. Although this particular project is imaginary, it is based on real-world ongoing projects. These projects often have a considerable number of volunteers in charge of data collection, and having an easy to use and understand program makes it more accessible.
+
+As the developer of this software the aim is to make it as easy as possible to use while maximising people's understanding of each step. Data should be validated so no incorrect values can be entered, with the exception of human errors that pass the validators. Feedback should be given so user knows what each step is doing or looking for. The data returned should be easy to comprehend.
 
 ### Project Background
 
@@ -136,38 +141,50 @@ total difference: The stored value of the number of last years loggerhead turtle
 
 ## Features
 
-- Program is linked to googlesheet which is updated accordingly as the program runs
-- Ascii image on startup of turtle swimming and title  
-    ![ascii image](static/readme/ascii.png)  
+- Program is linked to googlesheet which is updated accordingly as the program runs  
+- Ascii image on startup of turtle swimming and title    
+    ![ascii image](static/readme/ascii.png)    
 - Welcome message to user, returning the name they input. Error is returned if input isn't alpha numeric.  
-    ![Username input](static/readme/username.png)
-- Option to view summary of data at start of program
-    ![option to view data](static/readme/view-enter.png)
-- Optional weekly comparisons  
-    ![weekly comparisons](static/readme/weekly-comparison.png)
-- Option to quit or input data after summary is viewed
-    ![quit program][static/readme/quit.png]
-- Easy to understand data input (ie, each bit is asked for and validated one at a time) 
-    ![user input](static/readme/input.png)
-- Chance to review it was entered correctly (passes validation but mistyped) before being sent to googlesheet
-- User is updated on what program is doing
-- User is returned values from the calculations
-- Validations at each step
+    ![Username input](static/readme/username.png)  
+- Option to view summary of data at start of program  
+    ![option to view data](static/readme/view-enter.png)  
+- Optional weekly comparisons    
+    ![weekly comparisons](static/readme/weekly-comparison.png)  
+- Option to quit or input data after summary is viewed  
+    ![quit program](static/readme/quit.png)  
+- Easy to understand data input (ie, each bit is asked for and validated one at a time)   
+    ![user input](static/readme/input.png)  
+- Chance to review it was entered correctly (passes validation but mistyped) before being sent to googlesheet    
+    ![review data](static/readme/export.png)  
+- User is updated on what program is doing    
+    ![update user](static/readme/update.png)  
+- User is warned when data loggers reach below 20  
+    ![data logger warning](static/readme/order-data.png)  
+- User is returned summary values from the calculations  
+    ![summary](static/readme/summary-again.png)
 
 ### Calculations
 
-- Total nests laid by both species
+Example of summary before entering data:  
+![first summary](static/readme/before-summary.png)  
+![second summary](static/readme/before-summary-2.png)  
+The data entered:    
+![data entered](static/readme/entered.png)  
+The summary after that data was run through the program:    
+![after summary](static/readme/after-summary.png)  
+![second after summary](static/readme/after-summary-2.png)  
+
 - Total nests attempted by both species
-- Weekly total of nests by both species
-- Total nests laid by Green turtles
-- Weekly nests laid by Green turtles
-- Total nests laid by Loggerhead turtles
-- Weekly nests laid by Loggerhead turtles
-- Difference in total nests laid between this year and last year
-- Difference in Green turtle nests laid between this year and last year
-- Difference in Loggerhead turtle nests laid this year and last year
+    - The raw sheet is targeted, and every entry into the nest column is tallied to gather how many nests were attempted. As this info isn't currently of use to the project it isn't returned to the user. But the value is stored in the viewable spreadsheet.
+- Weekly total of nests 
+    - The week1/2/3/final data appended to the user data when being sent to the spreadsheet is used to create a tally. In each sheet, the week value is validated and that week's tally increases by 1 if the user input Y for nest. This calculation is the same for the raw, green and log worksheets.
+- Total nests laid by Green/Loggerhead turtles
+    - For both worksheets, the number of Y values entered into the nest column is summed together to get this value.
+- Difference in nests laid between this year and last year
+    - The total nests for both years is stored in the admin sheet, as is the result for the difference. It is calculated by "last year total - this year total". This is the same for total nests, Green nests and Loggerhead nests.
 - Comparison of weekly total, Green and Loggerhead nests between this year and last year
-    - The project is broken into 4 'weeks'. Weeks 1 - 3 are standard weeks. The final 'week' is longer and covers the 22nd of June to the end of the month
+    - The project is broken into 4 'weeks'. Weeks 1 - 3 are standard weeks. The final 'week' is longer and covers the 22nd of June to the end of the month.
+    - The stored difference values are returned to the user in an easy to read format.
 
 ### Future features / calculations
 
@@ -178,30 +195,56 @@ total difference: The stored value of the number of last years loggerhead turtle
 - Add future maintainability by adding in a feature to create new datasheets for new years
 - Add date validation handling for when there is an issue with formatting eg, values entered aren't legitimate dates, to return a more user friendly error message
 - Get text to appear letter by letter instead of whole statements at once
+- Some functions are quite repetitive. If I had more time I'd have liked to refactor these to have cleaner, more succinct code. 
 
 ## Testing 
 
 ***
 
-- I tested this program thoroughly and it was run through in its entirety countless times to ensure it worked correctly and all information entered was correctly validated.
-- All features included currently work as expected.
+- As functions were being built, linked and changed I was constantly performing tests using print statements and pass commands to ensure the functions were working as expected.
+- Upon completion I tested this program thoroughly and it was run through in its entirety countless times to ensure it worked correctly and all information entered was validated.  
+- All features included currently work as expected.  
+- Validations at each step to return error to user if entered incorrectly.
+     <details>
+    <summary>Click to expand</summary>  
+
+    Note: This is a selection of the validation checks in place, but not all have been included here.
+
+    ![validation](static/readme/validate-01.png)  
+    ![validation](static/readme/validate-02.png)  
+    ![validation](static/readme/validate-03.png)  
+    ![validation](static/readme/validate-04.png)  
+    ![validation](static/readme/validate-05.png)  
+    ![validation](static/readme/validate-06.png)  
+    ![validation](static/readme/validate-07.png)  
+
+    </details>
 <br>
+
 - To do weekly comparisons I group the data by weeks and add the week to the information input by the user. When the user was asked to verify the information they entered was correct before sending it to the spreadsheet, this data appeared alongside the info they entered. I thought this could lead to confusion, so used the slice method to still add that extra information to the spreadsheet but prevent it being displayed to the user.
 
 - Initially this program wasn't planned to offer the user the chance to view or enter data at the start. This meant users had to wait til the end of the program to view this data. By offering this summary at the start users don't need to enter data to view it, and don't need to go through the spreadsheet document.
 
-### user testing
+### User Testing
+
 - The initial input method had the user entering all fields in one statement separated by commas. User feedback was this was awkward, and it was hard to remember what info needed to be entered and how despite having a formatting example. 
 This was an unusual predicament because in the real world, the user inputting the information would have a filled out worksheet like the one above to enter data from. I still decided to change the user input to be entered and validated one at a time, and this seemed to improve the user experience.
 
 - One user reported the inital colours other than white (blue, red and green) were hard to read over the black text. I changed the red to magenta, green to yellow, and blue to cyan and all subsequent testers reported it was easier to read.
 
 
-### validation
+### Validation
 
-- The program was validated with [pep8online](link here). The errors returned were XXX
+- The program was validated with [PEP8online](http://pep8online.com/) and returned three E731 error codes. 
+ 
+<details>
+<summary>Results</summary>
 
+![PEP8 results](static/readme/pep8.png)
 
+</details>  
+
+- When assigning coloured text variables an error is thrown over the use of lambda. These are ignored because assigning colours from the Termcolor library using lambda prevents longer repetitive code. See [here](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b) 
 
 ## Bugs
 
@@ -235,7 +278,7 @@ The following problems are displayed in the terminal:
 <br>
 
 - do not assign a lambda expression, use a def
-    - When assigning coloured text an error is thrown over the use of lambda. These are ignored because assigning colours using lambda prevents longer repetitive code. See [here](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b)
+   
 
 <br>
 
@@ -261,14 +304,50 @@ The following problems are displayed in the terminal:
 
 ***
 
-This program is deployed using [Heroku](https://dashboard.heroku.com/login).
+This program is deployed using [Heroku](https://dashboard.heroku.com/login).  
 
-### Create App
+Before deploying a project, ensure all dependencies (libraries etc that Heroku needs to build and run your project) are listed. The command "pip3 freeze > requirements.txt" in the python terminal will generate this list in a file called requirements.txt which will be read by Heroku.  
 
-### Setting up Heroku
+### Setting up your App
+
+- Login to Heroku and go to Create App
+- Give it a unique name, and create it
+- Navigate to the 'settings' tab
+- Find 'config vars' on the page, and add the protected 'creds.json' file to connect the app to the google sheet using the API. To do this, create a new key and enter "CREDS". Copy the contents of the json file to the value field and add.
+- Go to 'add buildpack' on the same page. Select Python and node.js, ensuring Python is listed first after you save the changes.
 
 ### Deployment
 
+- From settings, navigate to the "Deploy" tab.
+- Scroll down to select 'GitHub' as your 'Deployment Method'
+- Connect to GitHub and search for the repository name (the repository for this project is turtle-tallies). 
+- Enable automatic deployment if you want Heroku to build the app everytime you make a push from GitPod. Otherwise you will have to manually rebuild the program from Heroku each time you want it updated. Your choice!
+- Hit manual deploy to build the app
+- When complete, a message appears to say your app was successfully deployed and a live link is given. [here's mine](https://turtle-tallies.herokuapp.com/)!
+
 ### Forking Repository
 
+To get a copy of this code you can manipulate without effecting the main code, it can be forked.
+
+- Go to the repository page on GitHub. This project is hartnetl/turtle-tallies [here](https://github.com/hartnetl/turtle-tallies)
+- Find 'fork' along the top of the page
+- A copy of this code will be sent to your own repository, where you can use that pretty green button to open it in GitPod
+
 ### Cloning Repository
+
+If you need a local copy of the code to play with, cloning the code is a better option.
+
+- Go to the repository page on GitHub. This project is hartnetl/turtle-tallies [here](https://github.com/hartnetl/turtle-tallies).
+- Find the button that says 'Code' beside the green Gitpod button. 
+- Choose the cloning method you require (HTTPS/ SSH or CLI)
+- Open Git Bash
+- Enter the working directory as your desired location for the cloned directory
+- Type "git clone" and paste the URL you copied from github
+- Hit enter and the code should be cloned for local use
+
+## Acknowledgements
+
+I would like to give a massive thank you to my Code Institute cohort for being the most amazing support system through this course, and to our tutor Kasia for being an endless source of support, positivity and encouragement.  
+To my family and friends, for being subjected with test after test. I'm sorry. I'll stop pestering you with turtle related projects... Maybe.  
+And to my mentor Maria who has been so incredibly supportive throughout this entire process, and has been a great source of confidence and guidance.
+ 

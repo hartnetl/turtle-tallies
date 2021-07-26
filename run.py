@@ -27,8 +27,8 @@ info = SHEET.worksheet('admin')
 # define text colours
 # Help for this and justification for using lambda here
 # https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
-print_red = lambda x: cprint(x, 'magenta')
-print_green = lambda x: cprint(x, 'yellow')
+print_magenta = lambda x: cprint(x, 'magenta')
+print_yellow = lambda x: cprint(x, 'yellow')
 print_blue = lambda x: cprint(x, 'cyan')
 
 
@@ -39,7 +39,7 @@ def welcome_title():
     """
     # http://www.ascii-art.de/ascii/t/turtle.txt
     # Credit for image
-    print_green("""
+    print_yellow("""
                                                     ,'
                                                   ,;
                                                 .'/
@@ -70,13 +70,13 @@ For ease of viewing it's recommended to zoom in on your browser window
 For Windows press CTRL and '+'"
 For Mac press Option, Command and '=' \n """)
 
-    # Runs loop of asking for a user name until a valid entry is input. 
+    # Runs loop of asking for a user name until a valid entry is input.
     while True:
         user = input("Enter name: \n")
         if validate_user(user):
             print_blue(
                 f"""
-Welcome {user}, if this is your first time entering data please ensure you 
+Welcome {user}, if this is your first time entering data please ensure you
 have your data collection sheets with you for entry.""")
             break
 
@@ -91,7 +91,7 @@ def validate_user(user):
         if user.isalnum() is not True:
             raise ValueError
     except ValueError:
-        print_red("You must enter a username conaining only letters and \
+        print_magenta("You must enter a username containing only letters and \
 numbers to continue")
         return False
     return True
@@ -109,24 +109,24 @@ def welcome_msg():
     start = input("Would you like to view or enter data? (VIEW/ENTER) \n")
 
     if start.upper() == "VIEW":
-        # summary function is called to present basic summary info. Then 
+        # summary function is called to present basic summary info. Then
         # compare_q asks user id they would like to see the weekly data.
         summary()
         compare_q()
 
-        # After the data is displayed the user is asked if they'd like to 
+        # After the data is displayed the user is asked if they'd like to
         # enter data.
         while True:
             keep_going = input("Would you like to enter data? (Y/N)\n")
             if validate_keep_going(keep_going):
                 if keep_going.upper() == "Y":
-                    print_green("You'd like to enter some data!\n")
+                    print_yellow("You'd like to enter some data!\n")
                     collect_data()
                     break
                 elif keep_going.upper() == "N":
                     print_blue("You don't need to enter more data\n")
                     print_blue("Goodbye! \n")
-                    print_red("Press the button on top to start again")
+                    print_magenta("Press the button on top to start again")
                     exit()
 
     elif start.upper() == "ENTER":
@@ -134,7 +134,7 @@ def welcome_msg():
         collect_data()
 
     else:
-        print_red("You did not enter 'VIEW' or 'ENTER', try again \n")
+        print_magenta("You did not enter 'VIEW' or 'ENTER', try again \n")
         welcome_msg()
 
 
@@ -151,7 +151,7 @@ def validate_keep_going(keep_going):
             raise ValueError(
                 f"You must answer 'Y' or 'N', you answered {keep_going}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -165,10 +165,10 @@ user_data = []
 
 def get_date():
     """
-    Asks user for the date and converts input to datetime format. It is 
+    Asks user for the date and converts input to datetime format. It is
     appended to user_data if it's validated.
-    Calculates if the data is in week 1, week 2, week 3 or the final week of 
-    the project and appends this to user_data to be added to the googlesheet 
+    Calculates if the data is in week 1, week 2, week 3 or the final week of
+    the project and appends this to user_data to be added to the googlesheet
     also.
     """
     while True:
@@ -177,7 +177,6 @@ def get_date():
         if validate_date(user_date):
             date_obj = datetime.strptime(user_date, "%d/%m/%y")
             if date_obj.day <= 7:
-                
                 user_data.append("WEEK1")
                 user_data.append(user_date)
                 break
@@ -211,7 +210,7 @@ def validate_date(user_date):
                 f"The year should be entered as'21', you entered \
 '{date_obj.year}'")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}. Enter data as dd/mm/yy. \n")
+        print_magenta(f"Invalid entry: {e}. Enter data as dd/mm/yy. \n")
         return False
 
     return True
@@ -242,7 +241,7 @@ def validate_species(species):
             raise ValueError(
                 F"Species should be 'GREEN' or 'LOG', you entered {species}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -263,7 +262,7 @@ def get_turtle_id():
 
 def validate_turtle(turtle):
     """
-    Validates that the ID input from get_turtle_id() is CY followed by 4 
+    Validates that the ID input from get_turtle_id() is CY followed by 4
     digits.
     Throws an error if it is not and user will be asked to enter it again.
     """
@@ -280,7 +279,7 @@ def validate_turtle(turtle):
             raise ValueError(
                 f"ID should end in 4 digits, you entered {turtle[-4:]}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -309,7 +308,7 @@ def validate_beach(beach):
             raise ValueError(
                 F"Beach ID should be 'B1' or 'B2', you entered {beach}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -338,7 +337,7 @@ def validate_nest(nest):
             raise ValueError(
                 F"Enter 'Y' or 'N', you entered {nest}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -369,7 +368,7 @@ def validate_data(data):
             raise ValueError(
                 f"Enter 'Y', 'N' or 'NA', you entered {data}")
     except ValueError as e:
-        print_red(f"Invalid entry: {e}, try again \n")
+        print_magenta(f"Invalid entry: {e}, try again \n")
         return False
     return True
 
@@ -383,11 +382,11 @@ def user_verifiy_input(letter):
     if letter.upper() == "Y":
         pass
     elif letter.upper() == "N":
-        print_red("Please enter the information again \n")
+        print_magenta("Please enter the information again \n")
         clear_data()
         collect_data()
     else:
-        print_red("You must enter 'Y' or 'N' \n")
+        print_magenta("You must enter 'Y' or 'N' \n")
         letter = input("Is the information you input correct? Y/N \n")
         user_verifiy_input(letter)
 
@@ -399,9 +398,9 @@ def user_verifiy_input(letter):
 
 def send_data_to_worksheets(data):
     """
-    After validation, the data input by the user is added to the raw data, 
+    After validation, the data input by the user is added to the raw data,
     loggerhead and green turtle worksheets.
-    The total nests laid is calculated for both species together and 
+    The total nests laid is calculated for both species together and
     separately.
     """
     print_blue("Updating the worksheets\n")
@@ -577,7 +576,7 @@ def calculate_data_logger_stock():
     info.update("A2", total)
     log_count = int(info.acell('A2').value)
     if log_count < 20:
-        print_red(f"You have {log_count} data loggers left. Order more.")
+        print_magenta(f"You have {log_count} data loggers left. Order more.")
 
 
 def calculate_nest_differences():
@@ -646,29 +645,29 @@ def compare_weeks(week):
 
     # Returning the values to use in easy to read format
     if week == '1':
-        print_green(
+        print_yellow(
             f"""
-In the first week of this season {total_week_1} nests have been laid, in 
-comparison to {last_total_week_1} last year. 
-{green_week_1} of these were laid by Green turtles, while {last_green_week_1} 
-were laid by Greens this time last year. 
-Loggerheads laid {loggerhead_week_1} nests in the first week and 
-{last_loggerhead_week_1} were laid by them during this same period last year. 
+In the first week of this season {total_week_1} nests have been laid, in
+comparison to {last_total_week_1} last year.
+{green_week_1} of these were laid by Green turtles, while {last_green_week_1}
+were laid by Greens this time last year.
+Loggerheads laid {loggerhead_week_1} nests in the first week and
+{last_loggerhead_week_1} were laid by them during this same period last year.
 \n""")
 
     elif week == '2':
-        print_green(
+        print_yellow(
             f"""
 In the second week of this season {total_week_2} nests have been laid, in
 comparison to {last_total_week_2} last year.
 {green_week_2} of these were laid by Greens, while {last_green_week_2} were
-laid by Greens this time last year. 
+laid by Greens this time last year.
 Loggerheads laid {loggerhead_week_2} nests in the first week, and
 {last_loggerhead_week_2} were laid by them during this same period last year.
 \n""")
 
     elif week == '3':
-        print_green(
+        print_yellow(
             f"""
 In the third week of this season {total_week_3} nests have been laid, in
 comparison to {last_total_week_3} last year.
@@ -679,9 +678,9 @@ Loggerheads laid {loggerhead_week_3} nests in the first week, and
 \n""")
 
     elif week.lower() == 'last':
-        print_green(
+        print_yellow(
             f"""
-In the final week of this season {total_week_final} nests have been laid, 
+In the final week of this season {total_week_final} nests have been laid,
 in comparison to {last_total_week_final} last year.\n
 {green_week_final} of these were laid by Greens, while {last_green_week_final}
 were laid by them this time last year.
@@ -694,7 +693,7 @@ def summary():
     """
     A summary of the calculations made by the program
     """
-    print_green("Here is the summary of your data for this season: \n")
+    print_yellow("Here is the summary of your data for this season: \n")
     attempts = info.acell('H2').value
     total_laid = info.acell('B2').value
     green = info.acell('D2').value
@@ -704,51 +703,51 @@ def summary():
     green_diff = int(info.acell('F2').value)
     loggerhead_diff = int(info.acell('G2').value)
 
-    print_green(
+    print_yellow(
         f"Total nests attempted: {attempts} \n"
         f"Total nests laid: {total_laid} \n"
         f"Nests laid by green turtles: {green}\n"
         f"Nests laid by loggerhead turtles: {loggerhead} \n"
         f"Data loggers left: {loggers} \n ")
 
-    print_green("Here is a comparison of yearly nest data: \n")
+    print_yellow("Here is a comparison of yearly nest data: \n")
 
     if total_diff > 0:
-        print_green(f"There were {total_diff} more nests laid in total \
+        print_yellow(f"There were {total_diff} more nests laid in total \
 last year \n")
     elif total_diff < 0:
         total_diff_ = - (total_diff)
-        print_green(f"There were {total_diff_} less nests laid in total \
+        print_yellow(f"There were {total_diff_} less nests laid in total \
 last year \n")
     elif total_diff == 0:
-        print_green("The same amount of nests were laid last year \n")
+        print_yellow("The same amount of nests were laid last year \n")
 
     if green_diff > 0:
-        print_green(f"There was {green_diff} more Green nests laid last \
+        print_yellow(f"There was {green_diff} more Green nests laid last \
 year \n")
     elif green_diff < 0:
         green_diff_ = - (green_diff)
-        print_green(f"There was {green_diff_} less Green nests laid last \
+        print_yellow(f"There was {green_diff_} less Green nests laid last \
 year \n")
     elif green_diff == 0:
-        print_green("The same amount of nests were laid by Green turtles last \
+        print_yellow("The same amount of nests were laid by Green turtles last \
 year \n")
 
     if loggerhead_diff > 0:
-        print_green(f"There was {loggerhead_diff} more Loggerhead nests laid \
+        print_yellow(f"There was {loggerhead_diff} more Loggerhead nests laid \
 last year \n")
     elif loggerhead_diff < 0:
         loggerhead_diff_ = - (loggerhead_diff)
-        print_green(f"There was {loggerhead_diff_} less Loggerhead nests laid \
+        print_yellow(f"There was {loggerhead_diff_} less Loggerhead nests laid \
 last year \n")
     elif loggerhead_diff == 0:
-        print_green("The same amount of nests were laid by Loggerheads last \
+        print_yellow("The same amount of nests were laid by Loggerheads last \
 year \n")
 
 
 def compare_q():
     """
-    Asks user if they would like to compare weekly data between this year and 
+    Asks user if they would like to compare weekly data between this year and
     last year
     """
     final_compare = input("Would you like to see a comparison of weekly nest \
@@ -759,13 +758,13 @@ abundance between this year and last year? (Y/N) \n")
     elif final_compare.upper() == "Y":
         compare()
     else:
-        print_red(f"You entered {final_compare}, please enter Y or N \n")
+        print_magenta(f"You entered {final_compare}, please enter Y or N \n")
         compare_q()
 
 
 def compare():
     """
-    A loop which asks the user which week they would like to compare after 
+    A loop which asks the user which week they would like to compare after
     choosing to compare weeks. The loop ends when user types 'quit'
     """
     while True:
@@ -792,7 +791,7 @@ def validate_week(week):
             raise ValueError(
                 f"You must enter 1, 2, 3, or last. You entered {week}")
     except ValueError as e:
-        print_red(f"Invalid response: {e}, try again")
+        print_magenta(f"Invalid response: {e}, try again")
         return False
     return True
 
@@ -809,7 +808,7 @@ def more_input():
     elif more.upper() == "N":
         pass
     else:
-        print_red("You have entered an invalid response. Please enter 'Y' or \
+        print_magenta("You have entered an invalid response. Please enter 'Y' or \
 'N' \n")
         more_input()
 
