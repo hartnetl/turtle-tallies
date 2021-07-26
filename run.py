@@ -1,7 +1,11 @@
+# USed to get access to, and manipulate, the google spreadsheet data
 import gspread
 from google.oauth2.service_account import Credentials
+# Used to change colour of print text in terminal
 from termcolor import cprint
+# Used to convert string to date and allows for validation
 from datetime import datetime
+# Used to create table for data summary
 from tabulate import tabulate
 
 # These are the APIs needed to access the google sheet data
@@ -646,7 +650,8 @@ def compare_weeks(week):
     loggerhead_week_final = int(new_logger.acell('G5').value)
     last_loggerhead_week_final = int(logger_20.acell('H4').value)
 
-    # Returning the values to use in easy to read format
+    # Returning the values to use in easy to read table format
+    # https://towardsdatascience.com/how-to-easily-create-tables-in-python-2eaea447d8fd
     if week == '1':
         table_1 = [[' ', '  WEEK 1', ' '],
                    [' ', 'THIS YEAR', 'LAST YEAR'],
@@ -704,7 +709,7 @@ Loggerheads laid {loggerhead_week_3} nests in the first week, and
                    ['TOTAL', total_week_final, last_total_week_final],
                    ['GREEN', green_week_final, last_green_week_final],
                    ['LOG', loggerhead_week_final, last_loggerhead_week_final]]
-        print(tabulate(table_final))
+        print(tabulate(table_f))
         print_yellow(
             f"""
 In the final week of this season {total_week_final} nests have been laid,

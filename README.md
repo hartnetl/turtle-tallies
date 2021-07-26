@@ -138,6 +138,7 @@ total difference: The stored value of the number of last years loggerhead turtle
     - [google auth](https://google-auth.readthedocs.io/en/master/) is the API which gives the program access to the google sheet using generated credentials.
     - [datetime](https://docs.python.org/3/library/datetime.html) allows user input (which is a string) for the date to be converted to readable date format for complete validation. If data entered does not match the format, is not a valid date, or is not within the month of June 2020, errors are easily returned to the user using this library.
     - [termcolor](https://pypi.org/project/termcolor/) allows users to change font colours from the standard white. This program provides a lot of feedback and information to the user which felt overwhelming and hard to digest. By including colour, it helps bring some clarity and makes the content much easier to recognise and process.
+    - [tabulate](https://pypi.org/project/tabulate/) allows user to compile data such as lists of lists into an easy to view table.
 
 ## Features
 
@@ -298,6 +299,8 @@ The following problems are displayed in the terminal:
         - https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
     - Date help
         - https://www.educative.io/edpresso/how-to-convert-a-string-to-a-date-in-python
+    - Building table
+        - https://towardsdatascience.com/how-to-easily-create-tables-in-python-2eaea447d8fd
 
 ## Deployment
 
