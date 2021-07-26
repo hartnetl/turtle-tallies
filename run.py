@@ -175,6 +175,8 @@ def get_date():
         user_date = input("Enter the date (format: dd/mm/yy): \n ")
 
         if validate_date(user_date):
+            # convert string to date using datetime library
+            # https://www.educative.io/edpresso/how-to-convert-a-string-to-a-date-in-python
             date_obj = datetime.strptime(user_date, "%d/%m/%y")
             if date_obj.day <= 7:
                 user_data.append("WEEK1")

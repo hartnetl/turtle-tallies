@@ -259,10 +259,12 @@ Fixed:
     - Fix: Add the upper() method before appending
 - When data was added to species specific worksheets, the species data was also being transferred when there wasn't a column for it 
     - Add remove method to function to take species info away before appending to that sheet
+- When asked if the data can be sent to the spreadsheet, if the user says no and re-enters data, the list where it is being stored is not emptied so the rejected code appears to.
+    - Fix: Clear the list when the user decides the data shouldn't be send to the spreadsheet, for whatever reason.
 
 Unsolved and removed:  
 
-- Functions to mimic typing work perfectly in the terminal but not the deployed version on Heroku. I will look into this in the future but imagine it's a compatibility issue with the template used.
+- Functions to mimic typing work perfectly in the terminal but not the deployed version on Heroku. 
     
 - Colour doesn't work properly for inputs - the coloured sentence is followed by 'None' where it is trying to colour the users input before it's entered. This ended up working out for the better as the white is a good contrast and makes it very noticeable where users are supposed to enter text.
     
@@ -273,18 +275,13 @@ The following problems are displayed in the terminal:
 
 - mkaufman.htmlhint extension is not found in Open VSX
 - kevinglasson.cornflakes-linter extension is not found in Open VSX
-    - These are both issues with the .gitpod.yml file provided with the CI template and can be ignored  
-
-<br>
-
-- do not assign a lambda expression, use a def
-   
+    - These are both issues with the .gitpod.yml file provided with the CI template and can be ignored    
 
 <br>
 
 - invalid escape sequence '\ '
 - Anomalous backslash in string: '\_'. String constant might be missing an r prefix.
-    - These are both referring to the starting turtle image. The characters have no intended function other than to create and image and so these issues can be ignored. 
+    - These are both referring to the starting turtle image. The characters have no intended function other than to create an image and so these issues can be ignored. 
 
 ## Credits
 
@@ -299,6 +296,8 @@ The following problems are displayed in the terminal:
 - Code
     - Colour text
         - https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b
+    - Date help
+        - https://www.educative.io/edpresso/how-to-convert-a-string-to-a-date-in-python
 
 ## Deployment
 
