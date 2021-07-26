@@ -2,6 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from termcolor import cprint
 from datetime import datetime
+from tabulate import tabulate
 
 # These are the APIs needed to access the google sheet data
 SCOPE = [
@@ -647,6 +648,12 @@ def compare_weeks(week):
 
     # Returning the values to use in easy to read format
     if week == '1':
+        table_1 = [[' ', '  WEEK 1', ' '],
+                   [' ', 'THIS YEAR', 'LAST YEAR'],
+                   ['TOTAL', total_week_1, last_total_week_1],
+                   ['GREEN', green_week_1, last_green_week_1],
+                   ['LOG', loggerhead_week_1, last_loggerhead_week_1]]
+        print(tabulate(table_1))
         print_yellow(
             f"""
 In the first week of this season {total_week_1} nests have been laid, in
@@ -658,6 +665,12 @@ Loggerheads laid {loggerhead_week_1} nests in the first week and
 \n""")
 
     elif week == '2':
+        table_2 = [[' ', '  WEEK 2', ' '],
+                   [' ', 'THIS YEAR', 'LAST YEAR'],
+                   ['TOTAL', total_week_2, last_total_week_2],
+                   ['GREEN', green_week_2, last_green_week_2],
+                   ['LOG', loggerhead_week_2, last_loggerhead_week_2]]
+        print(tabulate(table_2))
         print_yellow(
             f"""
 In the second week of this season {total_week_2} nests have been laid, in
@@ -669,6 +682,12 @@ Loggerheads laid {loggerhead_week_2} nests in the first week, and
 \n""")
 
     elif week == '3':
+        table_3 = [[' ', '  WEEK 3', ' '],
+                   [' ', 'THIS YEAR', 'LAST YEAR'],
+                   ['TOTAL', total_week_3, last_total_week_3],
+                   ['GREEN', green_week_3, last_green_week_3],
+                   ['LOG', loggerhead_week_3, last_loggerhead_week_3]]
+        print(tabulate(table_3))
         print_yellow(
             f"""
 In the third week of this season {total_week_3} nests have been laid, in
@@ -680,6 +699,12 @@ Loggerheads laid {loggerhead_week_3} nests in the first week, and
 \n""")
 
     elif week.lower() == 'last':
+        table_f = [[' ', 'FINAL WEEK', ' '],
+                   [' ', 'THIS YEAR', 'LAST YEAR'],
+                   ['TOTAL', total_week_final, last_total_week_final],
+                   ['GREEN', green_week_final, last_green_week_final],
+                   ['LOG', loggerhead_week_final, last_loggerhead_week_final]]
+        print(tabulate(table_final))
         print_yellow(
             f"""
 In the final week of this season {total_week_final} nests have been laid,
