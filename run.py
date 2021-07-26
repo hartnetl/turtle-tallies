@@ -734,14 +734,24 @@ def summary():
     A summary of the calculations made by the program
     """
     print_yellow("Here is the summary of your data for this season: \n")
-    attempts = info.acell('H2').value
-    total_laid = info.acell('B2').value
-    green = info.acell('D2').value
-    loggerhead = info.acell('E2').value
-    loggers = info.acell('A2').value
-    total_diff = int(info.acell('I2').value)
-    green_diff = int(info.acell('F2').value)
-    loggerhead_diff = int(info.acell('G2').value)
+    info_batch = info.batch_get(['A2:B2', 'D2:I2'])
+    attempts = int(info_batch[1][0][4])
+    total_laid = int(info_batch[0][0][1])
+    green = int(info_batch[1][0][0])
+    loggerhead = int(info_batch[1][0][1])
+    loggers = int(info_batch[0][0][0])
+    total_diff = int(info_batch[1][0][5])
+    green_diff = int(info_batch[1][0][2])
+    loggerhead_diff = int(info_batch[1][0][3])
+
+    # attempts = info.acell('H2').value
+    # total_laid = info.acell('B2').value
+    # green = info.acell('D2').value
+    # loggerhead = info.acell('E2').value
+    # loggers = info.acell('A2').value
+    # total_diff = int(info.acell('I2').value)
+    # green_diff = int(info.acell('F2').value)
+    # loggerhead_diff = int(info.acell('G2').value)
 
     print_yellow(
         f"Total nests attempted: {attempts} \n"
@@ -754,32 +764,32 @@ def summary():
 
     if total_diff > 0:
         print_yellow(f"There were {total_diff} more nests laid in total \
-last year \n")
+last year")
     elif total_diff < 0:
         total_diff_ = - (total_diff)
         print_yellow(f"There were {total_diff_} less nests laid in total \
-last year \n")
+last year")
     elif total_diff == 0:
-        print_yellow("The same amount of nests were laid last year \n")
+        print_yellow("The same amount of nests were laid last year")
 
     if green_diff > 0:
-        print_yellow(f"There was {green_diff} more Green nests laid last \
+        print_yellow(f"There were {green_diff} more Green nests laid last \
 year \n")
     elif green_diff < 0:
         green_diff_ = - (green_diff)
-        print_yellow(f"There was {green_diff_} less Green nests laid last \
-year \n")
+        print_yellow(f"There were {green_diff_} less Green nests laid last \
+year")
     elif green_diff == 0:
         print_yellow("The same amount of nests were laid by Green turtles last \
-year \n")
+year")
 
     if loggerhead_diff > 0:
-        print_yellow(f"There was {loggerhead_diff} more Loggerhead nests laid \
-last year \n")
+        print_yellow(f"There were {loggerhead_diff} more Loggerhead nests laid \
+last year")
     elif loggerhead_diff < 0:
         loggerhead_diff_ = - (loggerhead_diff)
-        print_yellow(f"There was {loggerhead_diff_} less Loggerhead nests laid \
-last year \n")
+        print_yellow(f"There were {loggerhead_diff_} less Loggerhead nests laid \
+last year")
     elif loggerhead_diff == 0:
         print_yellow("The same amount of nests were laid by Loggerheads last \
 year \n")
