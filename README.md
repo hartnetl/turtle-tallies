@@ -2,6 +2,8 @@
 
 [Live Site](https://turtle-tallies.herokuapp.com/)
 
+![Turtle Tallies](static/readme/ascii.png)
+
 1. [Introduction](#introduction)
 2. [Data Model](#data-model)
 3. [Technologies used](#technologies-used)
@@ -20,7 +22,7 @@ Turtle Tallies is a program designed to automate data analysis for a turtle nest
 It allows users to input collected data and calculations are carried out on the nest abundance of green and loggerhead turtles.
 It calculates the total abundance of nests, nests laid by Green Sea Turtles and nests laid by Loggerhead sea turtles. It compares this total data to the previous year, and can do so broken down into weekly totals.
 
-As a user of this software, the aim is to simply input the data and have the calculations returned with minimal effort. This allows a greater number of people to be available for data entry which is often a tedious task. Although this particular project is imaginary, it is based on real-world ongoing projects. These projects often have a considerable number of volunteers in charge of data collection, and having an easy to use and understand program makes it more accessible.
+As a user of this software, the aim is to simply input the data and have the calculation results returned with minimal effort. This allows a greater number of people to be available for data entry which is often a tedious task. Although this particular project is imaginary, it is based on real-world ongoing projects. These projects often have a considerable number of volunteers in charge of data collection, and having an easy to use and understand program makes it more accessible.
 
 As the developer of this software the aim is to make it as easy as possible to use while maximising people's understanding of each step. Data should be validated so no incorrect values can be entered, with the exception of human errors that pass the validators. Feedback should be given so user knows what each step is doing or looking for. The data returned should be easy to comprehend.
 
@@ -54,7 +56,7 @@ Each worker / volunteer will be given a standardised form to record data. This d
 ![Structure flow chart](static/readme/turtle_tallies.png)
 
 The above diagram is a simplified version of the program which exists. The user enters the data which is validated at each step, and then when confirmed to be correct it is sent to the google sheet. The data is sent to a total sheet and the corresponding turtle species' sheet. The total number of nests laid by each and both turtles is tallied, as well as the weekly tallies for both. This information is returned to the user in a user friendly, easy to read way.  
-The project was initally going to compare nest abundance on each beach, but due to time constraints this wasn't possible to include. This a future feature to be implemented.
+The project was initially going to compare nest abundance on each beach, but due to time constraints this wasn't possible to include. This a future feature to be implemented.
 
 The spreadsheet has 8 worksheets, 7 of which are accessible by this program. Each year has 3 worksheets, which follow a similar naming convention for ease of understanding as the project progresses. They are raw_year, green_year and log_year. 
 The raw worksheets contain all the information input by the user for that year's season. The green worksheets contain that years green turtle nest information. The log worksheets contain that years Loggerhead nest information. The admin data isn't stored from year to year, but are stored for the program to read and return to user.
@@ -132,13 +134,13 @@ total difference: The stored value of the number of last years loggerhead turtle
 
 ***
 
-- This project was created completely with Python
+- This project was created using Python3
 - Libraries used
-    - [gspread](https://docs.gspread.org/en/v3.7.0/) is the Google Sheets API which allows users to access and manipulate cells using Python functions.
+    - [gspread](https://docs.gspread.org/en/v3.7.0/) is the Google Sheets API which allows users to manipulate cells using Python functions.
     - [google auth](https://google-auth.readthedocs.io/en/master/) is the API which gives the program access to the google sheet using generated credentials.
     - [datetime](https://docs.python.org/3/library/datetime.html) allows user input (which is a string) for the date to be converted to readable date format for complete validation. If data entered does not match the format, is not a valid date, or is not within the month of June 2020, errors are easily returned to the user using this library.
     - [termcolor](https://pypi.org/project/termcolor/) allows users to change font colours from the standard white. This program provides a lot of feedback and information to the user which felt overwhelming and hard to digest. By including colour, it helps bring some clarity and makes the content much easier to recognise and process.
-    - [tabulate](https://pypi.org/project/tabulate/) allows user to compile data such as lists of lists into an easy to view table.
+    - [tabulate](https://pypi.org/project/tabulate/) allows user to compile data such as lists of lists into an easy to view table. Some users may prefer seeing summaries in a table, others might prefer text so it's better to supply both.
 
 ## Features
 
@@ -196,7 +198,7 @@ The summary after that data was run through the program:
 - Add future maintainability by adding in a feature to create new datasheets for new years
 - Add date validation handling for when there is an issue with formatting eg, values entered aren't legitimate dates, to return a more user friendly error message
 - Get text to appear letter by letter instead of whole statements at once
-- Some functions are quite repetitive. If I had more time I'd have liked to refactor these to have cleaner, more succinct code. 
+- Some functions are quite repetitive and lengthy. If I had more time I'd have liked to refactor these to have cleaner, more succinct code. 
 
 ## Testing 
 
@@ -331,7 +333,7 @@ Before deploying a project, ensure all dependencies (libraries etc that Heroku n
 
 ### Forking Repository
 
-To get a copy of this code you can manipulate without effecting the main code, it can be forked.
+To get a copy of this code you can manipulate without affecting the main code, it can be forked.
 
 - Go to the repository page on GitHub. This project is hartnetl/turtle-tallies [here](https://github.com/hartnetl/turtle-tallies)
 - Find 'fork' along the top of the page

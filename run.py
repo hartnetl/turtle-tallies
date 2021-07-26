@@ -1,9 +1,9 @@
-# USed to get access to, and manipulate, the google spreadsheet data
+# Used to get access to, and manipulate, the google spreadsheet data
 import gspread
 from google.oauth2.service_account import Credentials
 # Used to change colour of print text in terminal
 from termcolor import cprint
-# Used to convert string to date and allows for validation
+# Used to convert string input to date and allows for validation
 from datetime import datetime
 # Used to create table for data summary
 from tabulate import tabulate
@@ -203,7 +203,8 @@ def get_date():
 
 def validate_date(user_date):
     """
-    Validates that the date input is day/month/year in get_date().
+    Validates that the date input is dd/mm/yy in get_date(), and in the month
+    of June '21.
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
@@ -274,7 +275,6 @@ def validate_turtle(turtle):
     Throws an error if it is not and user will be asked to enter it again.
     """
     try:
-        # Come back and make this better, or remove letters
         if turtle[:2].upper() != "CY":
             raise ValueError(
                 F"Turtle ID should be CY followed by 4 digits, you entered \
@@ -407,6 +407,8 @@ def send_data_to_worksheets(data):
     """
     After validation, the data input by the user is added to the raw data,
     loggerhead and green turtle worksheets.
+    A week value ('week1', 'week2', 'week3' or 'finalweek') is appended to
+    the user data.
     The total nests laid is calculated for both species together and
     separately.
     """
@@ -620,9 +622,9 @@ def compare_weeks(week):
     Gives the user a comparison of the total nests laid this year, nests laid
     by Green turtles and nests laid by Loggerheads compared to last year
     """
-    # Assign variables the integer value of the cells
     print_blue("Preparing weekly comparisons...")
-    
+
+    # Gather values from worksheets
     raw_batch = raw_data.batch_get(['H2:H5'])
     raw_20_batch = raw_20.batch_get(['H2:h5'])
     new_green_batch = new_green.batch_get(['G2:G5'])
@@ -630,6 +632,7 @@ def compare_weeks(week):
     new_logger_batch = new_logger.batch_get(['G2:G5'])
     last_logger_batch = logger_20.batch_get(['H2:H5'])
 
+    # Assign each value to a variable
     total_week_1 = int(raw_batch[0][0][0])
     last_total_week_1 = int(raw_20_batch[0][0][0])
     green_week_1 = int(new_green_batch[0][0][0])
@@ -734,6 +737,7 @@ def summary():
     A summary of the calculations made by the program
     """
     print_yellow("Here is the summary of your data for this season: \n")
+    # Assign worksheet values to variables
     info_batch = info.batch_get(['A2:B2', 'D2:I2'])
     attempts = int(info_batch[1][0][4])
     total_laid = int(info_batch[0][0][1])
@@ -743,15 +747,6 @@ def summary():
     total_diff = int(info_batch[1][0][5])
     green_diff = int(info_batch[1][0][2])
     loggerhead_diff = int(info_batch[1][0][3])
-
-    # attempts = info.acell('H2').value
-    # total_laid = info.acell('B2').value
-    # green = info.acell('D2').value
-    # loggerhead = info.acell('E2').value
-    # loggers = info.acell('A2').value
-    # total_diff = int(info.acell('I2').value)
-    # green_diff = int(info.acell('F2').value)
-    # loggerhead_diff = int(info.acell('G2').value)
 
     print_yellow(
         f"Total nests attempted: {attempts} \n"
