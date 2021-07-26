@@ -149,8 +149,8 @@ total difference: The stored value of the number of last years loggerhead turtle
     ![Username input](static/readme/username.png)  
 - Option to view summary of data at start of program  
     ![option to view data](static/readme/view-enter.png)  
-- Optional weekly comparisons    
-    ![weekly comparisons](static/readme/weekly-comparison.png)  
+- Optional weekly comparisons. Data is shown in tabular and text form to improve accessibility and ease of understanding.   
+    ![weekly comparisons](static/readme/compare.png)  
 - Option to quit or input data after summary is viewed  
     ![quit program](static/readme/quit.png)  
 - Easy to understand data input (ie, each bit is asked for and validated one at a time)   
