@@ -253,6 +253,8 @@ This was an unusual predicament because in the real world, the user inputting th
 
 Fixed:  
 
+- When running the weekly comparisons, if more than 2 were viewed consecutively the gspread API threw a 429 error, indicating too many requests were being made. This broke the program and the only way to get it going again was to restart the entire program using the run button.
+    - To handle this I was initially going to find a way to find a more user friendly error message. After some careful consideration I realised this is a pretty considerable bug and should be properly addressed. The compare_weeks function was modified to retrieve values from worksheets using the batch_get method instead of sending individual requests. This not only allows for a greater number of comparisons to be made, but also the data is returned to the user much more quickly!
 - For user_verify_input, 'y' isn't registered as 'Y' and it restarts the function. 
   This problem occurred throughout many validation functions and the same fix was applied throughout.
     - Fix: Add upper method.
